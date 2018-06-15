@@ -2,36 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abb000ad-9d19-42bc-b177-3ce6265c4db9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples_and_tests/document.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples_and_tests/preprocessing_for_ocr.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/color_distinguisher.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/color_filter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/filter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/markup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/multi_color_processor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/ocr_applier.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/string_builder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/syndicate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syndicate/tree_builder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples_and_tests/stringparser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/syndicate/kernel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/colordistinguisher.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples_and_tests/colordistinguisher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/colordistinguisher_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples_and_tests/colordistinguisher_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop84.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop85.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/contours/crop90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/document.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/properties.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples_and_tests/properties.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,14 +21,27 @@
     <SUITE FILE_PATH="coverage/opensyndicationframework$colordistinguisher.coverage" NAME="colordistinguisher Coverage Results" MODIFIED="1528826630589" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/opensyndicationframework$colordistinguisher_helper.coverage" NAME="colordistinguisher_helper Coverage Results" MODIFIED="1528824701905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/syndicationframework$colordistinguisher.coverage" NAME="colordistinguisher Coverage Results" MODIFIED="1528909756086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/syndicationframework$stringparser.coverage" NAME="stringparser Coverage Results" MODIFIED="1529049217161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples_and_tests" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="syndicate.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/syndicate/syndicate.py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="stringparser.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples_and_tests/stringparser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="72" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
+            <state relative-caret-position="475">
+              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kernel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/syndicate/kernel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -67,6 +54,14 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>cv</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>cv2</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -82,16 +77,19 @@
         <option value="$PROJECT_DIR$/syndicate/Filter.py" />
         <option value="$PROJECT_DIR$/preprocessing_for_ocr.py" />
         <option value="$PROJECT_DIR$/syndicate/distinguisher.py" />
-        <option value="$PROJECT_DIR$/syndicate/string_builder.py" />
-        <option value="$PROJECT_DIR$/syndicate/color_filter.py" />
         <option value="$PROJECT_DIR$/syndicate/ocr_applyer.py" />
-        <option value="$PROJECT_DIR$/syndicate/ocr_applier.py" />
-        <option value="$PROJECT_DIR$/syndicate/tree_builder.py" />
         <option value="$PROJECT_DIR$/syndicate/markup.py" />
         <option value="$PROJECT_DIR$/syndicate/filter.py" />
-        <option value="$PROJECT_DIR$/syndicate/color_distinguisher.py" />
-        <option value="$PROJECT_DIR$/syndicate/multi_color_processor.py" />
         <option value="$PROJECT_DIR$/syndicate/syndicate.py" />
+        <option value="$PROJECT_DIR$/syndicate/ocr_applier.py" />
+        <option value="$PROJECT_DIR$/syndicate/string_builder.py" />
+        <option value="$PROJECT_DIR$/syndicate/level_info.py" />
+        <option value="$PROJECT_DIR$/syndicate/color_distinguisher.py" />
+        <option value="$PROJECT_DIR$/syndicate/color_filter.py" />
+        <option value="$PROJECT_DIR$/syndicate/multi_color_processor.py" />
+        <option value="$PROJECT_DIR$/syndicate/tree_builder.py" />
+        <option value="$PROJECT_DIR$/examples_and_tests/stringparser.py" />
+        <option value="$PROJECT_DIR$/syndicate/kernel.py" />
       </list>
     </option>
   </component>
@@ -122,6 +120,11 @@
             <path>
               <item name="syndicationframework" type="b2602c69:ProjectViewProjectNode" />
               <item name="syndication-framework" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="syndicationframework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="syndication-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="examples_and_tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="syndicationframework" type="b2602c69:ProjectViewProjectNode" />
@@ -158,7 +161,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.stringparser">
     <configuration name="colordistinguisher" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="syndication-framework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -178,8 +181,32 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="stringparser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="syndication-framework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples_and_tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples_and_tests/stringparser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.colordistinguisher" />
+      <item itemvalue="Python.stringparser" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.stringparser" />
         <item itemvalue="Python.colordistinguisher" />
       </list>
     </recent_temporary>
@@ -202,35 +229,48 @@
       <option name="project" value="LOCAL" />
       <updated>1528873815016</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Refactor, create mockup classes">
+      <created>1528910747474</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1528910747474</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Typify functions for better algo understanding">
+      <created>1528911691510</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1528911691510</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1613" height="1025" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" weight="0.32847533" />
       <window_info anchor="bottom" id="Database Changes" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info anchor="bottom" id="Version Control" order="1" weight="0.3295964" />
       <window_info anchor="bottom" id="Python Console" order="5" weight="0.3295964" />
-      <window_info anchor="bottom" id="Run" order="8" weight="0.3295964" />
+      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.3295964" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.3295964" />
-      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="5" sideWeight="0.49665552" visible="true" weight="0.29036376" />
+      <window_info anchor="right" content_ui="combo" id="Project" order="5" sideWeight="0.49665552" visible="true" weight="0.22080408" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="0" />
-      <window_info anchor="right" id="SciView" order="1" show_stripe_button="false" weight="0.724314" />
+      <window_info anchor="right" id="SciView" order="1" weight="0.724314" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.32997763" />
-      <window_info anchor="right" x="0" y="0" width="353" height="825" id="Documentation" order="6" sideWeight="0.5033445" side_tool="true" weight="0.29036376" />
-      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="6" />
+      <window_info anchor="right" x="0" y="0" width="353" height="825" id="Documentation" order="6" sideWeight="0.5033445" side_tool="true" weight="0.29036376" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.3295964" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32997763" />
     </layout>
   </component>
@@ -242,7 +282,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update Requirements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Requirements" />
+    <MESSAGE value="Refactor, create mockup classes" />
+    <MESSAGE value="Typify functions for better algo understanding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Typify functions for better algo understanding" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -250,14 +292,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/contours/crop85.png" />
-    <entry file="file://$PROJECT_DIR$/contours/crop27.png" />
-    <entry file="file://$PROJECT_DIR$/contours/crop13.png" />
-    <entry file="file://$PROJECT_DIR$/contours/crop10.png" />
-    <entry file="file://$PROJECT_DIR$/contours/crop9.png" />
-    <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop6.png" />
-    <entry file="file://$PROJECT_DIR$/contours/crop5.png" />
-    <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop4.png" />
     <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop3.png" />
     <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop2.png" />
     <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop80.png" />
@@ -266,54 +300,25 @@
     <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop21.png" />
     <entry file="file://$PROJECT_DIR$/../syndicationframework/contours/crop22.png" />
     <entry file="file://$PROJECT_DIR$/../syndicationframework/colordistinguisher.py" />
-    <entry file="file://$PROJECT_DIR$/examples_and_tests/document.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/contours/crop41.png" />
     <entry file="file://$PROJECT_DIR$/contours/crop35.png" />
     <entry file="file://$PROJECT_DIR$/contours/crop28.png" />
     <entry file="file://$PROJECT_DIR$/contours/crop26.png" />
     <entry file="file://$PROJECT_DIR$/contours/crop25.png" />
     <entry file="file://$PROJECT_DIR$/contours/crop20.png" />
-    <entry file="file://$PROJECT_DIR$/contours/crop6231.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop9697.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop11057.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop13165.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop13166.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop14560.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop16639.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop17188.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop17821.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop17822.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop19254.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop20443.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contours/crop20442.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/contours/crop6231.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop9697.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop11057.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop13165.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop13166.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop14560.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop16639.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop17188.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop17821.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop17822.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop19254.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop20443.png" />
+    <entry file="file://$PROJECT_DIR$/contours/crop20442.png" />
     <entry file="file://$PROJECT_DIR$/examples_and_tests/properties.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -321,23 +326,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples_and_tests/preprocessing_for_ocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/distinguisher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/distinguisher.py" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-627" />
@@ -346,20 +335,90 @@
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples_and_tests/colordistinguisher.py">
+    <entry file="file://$PROJECT_DIR$/syndicate/string_builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="57">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/ocr_applier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/crop_info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/syndicate/color_distinguisher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="37" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
+        <state relative-caret-position="57">
+          <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/syndicate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="72" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/color_filter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/multi_color_processor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="40" lean-forward="true" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/tree_builder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="29" lean-forward="true" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/document.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/part-01.jpg" />
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/part-02.jpg" />
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/part-03.jpg" />
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/result.jpg" />
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/preprocessing_for_ocr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/colordistinguisher_helper.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syndicate/markup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/colordistinguisher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -370,52 +429,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/color_filter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/markup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/multi_color_processor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="44" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/ocr_applier.py">
+    <entry file="file://$PROJECT_DIR$/syndicate/kernel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+          <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/string_builder.py">
+    <entry file="file://$PROJECT_DIR$/examples_and_tests/stringparser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/tree_builder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/syndicate/syndicate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="72" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
+        <state relative-caret-position="475">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
