@@ -18,9 +18,13 @@ opening = cv2.dilate(opening, cv2.getStructuringElement(cv2.MORPH_CROSS, (5, 5))
 
 _, contours, _ = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+n = 1
 for cnt in contours:
-    (x, y, w, h) = cv2.boundingRect(cnt)
+    x, y, w, h = cv2.boundingRect(cnt)
     if cv2.contourArea(cnt) > 2000:
+        crop_img = img[y:y + h, x:x + w]
+        cv2.imwrite(f'strings/crop{n}.png', crop_img)
+        n += 1
         cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
 cv2.imshow("Text detection result", cv2.resize(img, (0, 0), fx=0.25, fy=0.25))
