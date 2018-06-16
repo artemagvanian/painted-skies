@@ -7,7 +7,7 @@ universal_hsv_max = np.array((255, 255, 255), np.uint8)
 
 crops = []
 
-for i in range(1, 31):
+for i in range(1, 32):
     img = cv2.imread(f'strings/crop{i}.png')
     # преобразуем RGB картинку в HSV модель
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -22,9 +22,7 @@ for i in range(1, 31):
         if cv2.contourArea(j) > 2000:
             x, y, w, h = cv2.boundingRect(j)
             crop_img = img[y:y + h, x:x + w]
-            grayscaled = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
-            _, th = cv2.threshold(grayscaled, 125, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
             crops.append(crop_img)
 
-for n, i in enumerate(crops):
+for n, i in enumerate(reversed(crops)):
     cv2.imwrite(f'crops/crop{n + 1}.png', i)

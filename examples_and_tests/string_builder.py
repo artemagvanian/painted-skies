@@ -13,8 +13,11 @@ opening = cv2.morphologyEx(processing_img, cv2.MORPH_OPEN, cv2.getStructuringEle
 
 kernel = Kernel.get_horizontal_kernel(5)
 
-opening = cv2.dilate(opening, kernel, iterations=15)
-opening = cv2.dilate(opening, cv2.getStructuringElement(cv2.MORPH_CROSS, (5, 5)), iterations=1)
+# Значение этого параметра зависит от расстояния между словами в тексте
+N_ITERATIONS = 30
+
+opening = cv2.dilate(opening, kernel, iterations=N_ITERATIONS)
+opening = cv2.dilate(opening, cv2.getStructuringElement(cv2.MORPH_CROSS, (5, 5)), iterations=5)
 
 _, contours, _ = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 

@@ -23,9 +23,9 @@ def scan_for_selections(hsv_min, hsv_max, lang):
         if cv2.contourArea(i) > 2000:
             x, y, w, h = cv2.boundingRect(i)
             crop_img = img[y:y + h, x:x + w]
-            grayscaled = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
-            _, th = cv2.threshold(grayscaled, 125, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-            string = pytesseract.image_to_string(Image.fromarray(th), lang=lang)
+            #grayscaled = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+            #_, th = cv2.threshold(grayscaled, 125, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            string = pytesseract.image_to_string(Image.fromarray(crop_img), lang=lang)
             cleanString = re.sub('\W+', ' ', string)
             print(f"{cleanString} - {n}")
             cv2.imwrite(f'contours/crop{n}.png', crop_img)
