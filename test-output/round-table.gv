@@ -1,0 +1,16 @@
+// Conspect
+digraph {
+	0 [label="Open University"]
+	1 [label="distance teaching"]
+	1 -> 0
+	2 [label="Great Britain"]
+	2 -> 0
+	3 [label="1960s,"]
+	3 -> 0
+	4 [label="communications technology"]
+	4 -> 0
+	5 [label="high quality degree-level"]
+	5 -> 4
+	6 [label="not had the opportunity"]
+	6 -> 4
+}
