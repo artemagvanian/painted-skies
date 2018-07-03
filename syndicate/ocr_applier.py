@@ -17,6 +17,5 @@ class OCRApplier():
 
         for item in crop_infos:
             item.data = pytesseract.image_to_string(Image.fromarray(item.img), lang='eng')
-            print(item.data)
             nodes.append(item)
         return nodes
