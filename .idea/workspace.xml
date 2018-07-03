@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abb000ad-9d19-42bc-b177-3ce6265c4db9" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/syndicate/ocr_applier.py" beforeDir="false" afterPath="$PROJECT_DIR$/syndicate/ocr_applier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/syndicate/tree_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/syndicate/tree_builder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/round-table.gv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/round-table.gv.pdf" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,7 +27,17 @@
     <SUITE FILE_PATH="coverage/syndicationframework$color_distinguisher.coverage" NAME="color_distinguisher Coverage Results" MODIFIED="1529138226340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples_and_tests" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="827">
+              <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -83,6 +90,7 @@
         <option value="$PROJECT_DIR$/syndicate/multi_color_processor.py" />
         <option value="$PROJECT_DIR$/syndicate/ocr_applier.py" />
         <option value="$PROJECT_DIR$/syndicate/tree_builder.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -92,8 +100,13 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/frontend/syndicationframework/node_modules" />
+  </component>
   <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/frontend/syndicationframework/package.json" />
+    </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="67" />
@@ -117,7 +130,13 @@
             <path>
               <item name="syndicationframework" type="b2602c69:ProjectViewProjectNode" />
               <item name="syndication-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="syndicate" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="syndicationframework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="syndication-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="syndicationframework" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -272,11 +291,19 @@
       <option name="project" value="LOCAL" />
       <updated>1529217332406</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add colors to classes. Create server">
+      <created>1530602748716</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1530602748716</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1613" height="1025" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" weight="0.32847533" />
@@ -319,7 +346,8 @@
     <MESSAGE value="Create ColorDistinguisher and ColorOCR. Change template of text" />
     <MESSAGE value="Add graphviz processor, implement ocr" />
     <MESSAGE value="Implement classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement classes" />
+    <MESSAGE value="Add colors to classes. Create server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add colors to classes. Create server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -327,17 +355,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-627" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples_and_tests/document.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples_and_tests/part-01.jpg" />
     <entry file="file://$PROJECT_DIR$/examples_and_tests/part-02.jpg" />
     <entry file="file://$PROJECT_DIR$/examples_and_tests/part-03.jpg" />
@@ -533,6 +550,25 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-161" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/syndicationframework/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" lean-forward="true" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="827">
+          <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
         </state>
       </provider>
     </entry>
