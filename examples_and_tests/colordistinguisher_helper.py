@@ -9,7 +9,7 @@ def nothing(*arg):
 cv2.namedWindow("result")  # создаем главное окно
 cv2.namedWindow("settings")  # создаем окно настроек
 
-img = cv2.imread('document.jpg')
+img = cv2.imread('document.png')
 # создаем 6 бегунков для настройки начального и конечного цвета фильтра
 cv2.createTrackbar('h1', 'settings', 0, 255, nothing)
 cv2.createTrackbar('s1', 'settings', 0, 255, nothing)
