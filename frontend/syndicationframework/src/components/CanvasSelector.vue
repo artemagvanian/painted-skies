@@ -46,6 +46,7 @@
 
 <script>
     import {fabric} from 'fabric-with-gestures';
+    import $ from 'jquery';
 
     export default {
         name: "CanvasSelector",
@@ -60,10 +61,11 @@
         mounted() {
 
             //Дабы использовать текущий контекст внутри функции
-            let self = this;
-
-            let scrollbarWidth = 15;
-            let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - scrollbarWidth;
+            let self = this,
+                scrollbarWidth = this.getScrollBarWidth(),
+                topBarHeight = 50,
+                w = $(document).width() - scrollbarWidth,
+                h = $(document).height() - topBarHeight;
 
             //Тестовое изображение. Потом будет загружаться пользователем
 
@@ -74,20 +76,19 @@
                     // Создание самого канваса
                     self.canvas = new fabric.Canvas('image-selector', {
                         width: w,
-                        height: img.height * (w / img.width),
+                        height: h,
                         backgroundColor: null,
                     });
 
                     //Установить фон
                     self.canvas.setBackgroundImage(img, self.canvas.renderAll.bind(self.canvas), {
                         scaleX: self.canvas.width / img.width,
-                        scaleY: self.canvas.height / img.height,
+                        scaleY: self.canvas.width / img.width,
                     });
 
-                    let canvas = self.canvas;
+                    let canvas = self.canvas, rect, isDown, origX, origY;
 
-                    let rect, isDown, origX, origY;
-
+                    //Добавить обработчики всяких событий (рисование, перемещение)
                     canvas.on('mouse:down', function (o) {
                         if (self.mode === 'drw') {
                             isDown = true;
@@ -157,36 +158,69 @@
                 }
             );
         },
-        methods:
-            {
-                deleteActive() {
-                    let activeObjects = this.canvas.getActiveObjects();
-                    this.canvas.discardActiveObject();
-                    let canvas = this.canvas;
-                    activeObjects.forEach(function (object) {
-                        canvas.remove(object);
-                    });
-                },
-                setMode(mode) {
-                    this.mode = mode;
-                    this.canvas.selection = mode !== 'pan';
-                },
-                setBrushColor(color) {
-                    this.color = color;
-                    this.setMode('drw');
-                },
-                zoomIn() {
-                    this.zoom = this.zoom * 1.5 > 15 ? this.zoom : this.zoom * 1.5;
-                    this.canvas.setZoom(this.zoom);
-                },
-                zoomOut() {
-                    this.zoom = this.zoom / 1.5 < 1 ? this.zoom : this.zoom / 1.5;
-                    this.canvas.setZoom(this.zoom);
-                },
-                saveImage() {
-                    console.log(JSON.stringify(this.canvas));
+        methods: {
+            getScrollBarWidth() {
+                let inner = document.createElement('p');
+                inner.style.width = "100%";
+                inner.style.height = "200px";
+
+                let outer = document.createElement('div');
+                outer.style.position = "absolute";
+                outer.style.top = "0px";
+                outer.style.left = "0px";
+                outer.style.visibility = "hidden";
+                outer.style.width = "200px";
+                outer.style.height = "150px";
+                outer.style.overflow = "hidden";
+                outer.appendChild(inner);
+
+                document.body.appendChild(outer);
+                let w1 = inner.offsetWidth;
+                outer.style.overflow = 'scroll';
+                let w2 = inner.offsetWidth;
+
+                if (w1 === w2) {
+                    w2 = outer.clientWidth;
                 }
+
+                document.body.removeChild(outer);
+
+                return (w1 - w2);
             }
+            ,
+            deleteActive() {
+                let activeObjects = this.canvas.getActiveObjects();
+                this.canvas.discardActiveObject();
+                let canvas = this.canvas;
+                activeObjects.forEach(function (object) {
+                    canvas.remove(object);
+                });
+            }
+            ,
+            setMode(mode) {
+                this.mode = mode;
+                this.canvas.selection = mode !== 'pan';
+            }
+            ,
+            setBrushColor(color) {
+                this.color = color;
+                this.setMode('drw');
+            }
+            ,
+            zoomIn() {
+                this.zoom = this.zoom * 1.5 > 15 ? this.zoom : this.zoom * 1.5;
+                this.canvas.setZoom(this.zoom);
+            }
+            ,
+            zoomOut() {
+                this.zoom = this.zoom / 1.5 < 1 ? this.zoom : this.zoom / 1.5;
+                this.canvas.setZoom(this.zoom);
+            }
+            ,
+            saveImage() {
+                console.log(JSON.stringify(this.canvas));
+            }
+        }
         ,
     }
 </script>
