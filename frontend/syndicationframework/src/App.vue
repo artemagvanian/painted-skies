@@ -1,28 +1,47 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app">
+        <CanvasSelector/>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import Vue from 'vue'
+    import BootstrapVue from 'bootstrap-vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    Vue.use(BootstrapVue);
+
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+    import {library} from '@fortawesome/fontawesome-svg-core'
+    import {faArrowsAlt, faPen, faHandPointer, faTimes, faSearchPlus, faSearchMinus, faArrowRight} from '@fortawesome/free-solid-svg-icons'
+    import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+
+    library.add(faArrowsAlt, faPen, faHandPointer, faTimes, faSearchPlus, faSearchMinus, faArrowRight);
+
+    Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+    import CanvasSelector from './components/CanvasSelector.vue'
+
+    export default {
+        name: 'app',
+        components: {
+            CanvasSelector
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    /*To make canvas margin work*/
+    .canvas-container {
+        margin-top: 50px !important;
+    }
 </style>

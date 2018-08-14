@@ -1,5 +1,5 @@
 {
-  "name": "syndicationframework",
+  "name": "playground",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,12 +7,19 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "register-service-worker": "^1.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-brands-svg-icons": "^5.2.0",
+    "@fortawesome/free-regular-svg-icons": "^5.2.0",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "fabric-with-gestures": "^2.3.4",
     "vue": "^2.5.16"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.15",
-    "@vue/cli-plugin-pwa": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
     "vue-template-compiler": "^2.5.16"
   },
