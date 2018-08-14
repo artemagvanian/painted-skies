@@ -3,23 +3,29 @@
         <div class="top-menu">
             <nav>
                 <b-button-group>
-                    <b-button @click="setMode('pan')">
+                    <b-button @click="setMode('pan')" :variant="mode === 'pan' ? 'primary' : 'secondary'">
                         <font-awesome-icon icon="arrows-alt"/>
                     </b-button>
-                    <b-button @click="setMode('drw')">
+                    <b-button @click="setMode('drw')" :variant="mode === 'drw' ? 'primary' : 'secondary'">
                         <font-awesome-icon icon="pen"/>
                     </b-button>
-                    <b-button @click="setMode('sel')">
+                    <b-button @click="setMode('sel')" :variant="mode === 'sel' ? 'primary' : 'secondary'">
                         <font-awesome-icon icon="hand-pointer"/>
                     </b-button>
                 </b-button-group>
-                <b-button @click="deleteActive()">
+                <b-button @click="deleteActive()" :disabled="mode !== 'sel'">
                     <font-awesome-icon icon="times"/>
                 </b-button>
                 <b-button-group>
-                    <b-button @click="setBrushColor('rgba(255,0,0,.5)')">1</b-button>
-                    <b-button @click="setBrushColor('rgba(0,255,0,.5)')">2</b-button>
-                    <b-button @click="setBrushColor('rgba(0,0,255,.5)')">3</b-button>
+                    <b-button :variant="color === 'rgba(255,0,0,.5)' && mode === 'drw' ? 'danger' : 'secondary'"
+                              @click="setBrushColor('rgba(255,0,0,.5)')">1
+                    </b-button>
+                    <b-button :variant="color === 'rgba(0,255,0,.5)' && mode === 'drw' ? 'success' : 'secondary'"
+                              @click="setBrushColor('rgba(0,255,0,.5)')">2
+                    </b-button>
+                    <b-button :variant="color === 'rgba(0,0,255,.5)' && mode === 'drw' ? 'primary' : 'secondary'"
+                              @click="setBrushColor('rgba(0,0,255,.5)')">3
+                    </b-button>
                 </b-button-group>
                 <b-button-group>
                     <b-button @click="zoomIn()">
@@ -46,9 +52,8 @@
         data() {
             return {
                 canvas: null,
-                selectionMode: true,
                 mode: 'sel', // can be 'sel' = selection, 'pan' = panning, 'drw' = 'drawing'
-                color: "rgba(255,0,0,0.5)",
+                color: 'rgba(255,0,0,.5)',
                 zoom: 1,
             }
         },
@@ -165,13 +170,10 @@
                 setMode(mode) {
                     this.mode = mode;
                     this.canvas.selection = mode !== 'pan';
-                    let self = this;
-                    this.canvas.forEachObject(function (o) {
-                        o.selectable = self.selectionMode;
-                    });
                 },
                 setBrushColor(color) {
                     this.color = color;
+                    this.setMode('drw');
                 },
                 zoomIn() {
                     this.zoom = this.zoom * 1.5 > 15 ? this.zoom : this.zoom * 1.5;
