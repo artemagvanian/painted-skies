@@ -126,6 +126,8 @@
                 }
             });
 
+            let article = this.$parent.$data.image;
+
             this.canvas.on('touch:drag', function (e) {
                 if (self.mode === 'pan') {
                     this.currentX = e.self.x;
@@ -141,16 +143,33 @@
 
                     this.lastX = e.self.x;
                     this.lastY = e.self.y;
+                    console.log(this.viewportTransform[4] + " " + this.viewportTransform[5]);
+
+                    if (this.viewportTransform[4] >= 0) {
+                        this.viewportTransform[4] = 0;
+                    }
+
+                    if (this.viewportTransform[5] >= 0) {
+                        this.viewportTransform[5] = 0;
+                    }
+
+                    if (this.viewportTransform[4] <= -canvas.backgroundImage.getScaledWidth() * canvas.getZoom() + canvas.getWidth()) {
+                        this.viewportTransform[4] = -canvas.backgroundImage.getScaledWidth() * canvas.getZoom() + canvas.getWidth();
+                    }
+
+                    if (this.viewportTransform[5] <= -canvas.backgroundImage.getScaledHeight() * canvas.getZoom() + canvas.getHeight()) {
+                        this.viewportTransform[5] = -canvas.backgroundImage.getScaledHeight() * canvas.getZoom() + canvas.getHeight();
+                    }
                 }
             });
 
-            let article = this.$parent.$data.image;
-
             fabric.Image.fromURL(article,
                 function (img) {
+                    let scale = Math.max(self.canvas.width / img.width, self.canvas.height / img.height);
+
                     self.canvas.setBackgroundImage(img, self.canvas.renderAll.bind(self.canvas), {
-                        scaleX: self.canvas.width / img.width,
-                        scaleY: self.canvas.width / img.width,
+                        scaleX: scale,
+                        scaleY: scale,
                     });
                 }
             );

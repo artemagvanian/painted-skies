@@ -32,6 +32,7 @@
             },
             getMindmap(canvas) {
                 // TODO: request to server
+                console.log(canvas);
             }
         },
         computed: {
