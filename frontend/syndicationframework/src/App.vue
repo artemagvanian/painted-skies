@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <CanvasSelector/>
+        <MenuProvider/>
     </div>
 </template>
 
@@ -25,16 +25,24 @@
     } from '@fortawesome/free-solid-svg-icons'
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
-    library.add(faArrowsAlt, faPen, faHandPointer, faTimes, faSearchPlus, faSearchMinus, faArrowRight);
+    library.add(
+        faArrowsAlt,
+        faPen,
+        faHandPointer,
+        faTimes,
+        faSearchPlus,
+        faSearchMinus,
+        faArrowRight
+    );
 
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-    import CanvasSelector from './components/CanvasSelector.vue'
+    import MenuProvider from './components/MenuProvider.vue'
 
     export default {
         name: 'app',
         components: {
-            CanvasSelector
+            MenuProvider
         }
     }
 </script>

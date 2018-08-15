@@ -59,135 +59,103 @@
             }
         },
         mounted() {
-
-            //Дабы использовать текущий контекст внутри функции
-            let self = this,
-                scrollbarWidth = this.getScrollBarWidth(),
-                topBarHeight = 50,
-                w = $(document).width() - scrollbarWidth,
+            let topBarHeight = 50,
+                w = $(document).width(),
                 h = $(document).height() - topBarHeight;
 
-            //Тестовое изображение. Потом будет загружаться пользователем
+            this.canvas = new fabric.Canvas('image-selector', {
+                width: w,
+                height: h,
+                backgroundColor: null,
+            });
 
-            let article = "https://www.latextemplates.com/wp-content/uploads/2012/08/article_1.jpg";
+            let canvas = this.canvas,
+                self = this,
+                rect,
+                isDown,
+                origX,
+                origY;
 
-            //Формирование канваса для рисования пользователем по нему
-            fabric.Image.fromURL(article, function (img) {
-                    // Создание самого канваса
-                    self.canvas = new fabric.Canvas('image-selector', {
-                        width: w,
-                        height: h,
-                        backgroundColor: null,
+            //Добавить обработчики всяких событий (рисование, перемещение)
+            this.canvas.on('mouse:down', function (o) {
+                if (self.mode === 'drw') {
+                    isDown = true;
+                    var pointer = canvas.getPointer(o.e);
+                    origX = pointer.x;
+                    origY = pointer.y;
+                    pointer = canvas.getPointer(o.e);
+                    rect = new fabric.Rect({
+                        left: origX,
+                        top: origY,
+                        originX: 'left',
+                        originY: 'top',
+                        width: pointer.x - origX,
+                        height: pointer.y - origY,
+                        angle: 0,
+                        fill: self.color,
+                        transparentCorners: false
                     });
+                    canvas.add(rect);
+                }
+            });
 
-                    //Установить фон
+            this.canvas.on('mouse:move', function (e) {
+                if (self.mode === 'drw') {
+                    if (!isDown) return;
+                    var pointer = canvas.getPointer(e.e);
+
+                    if (origX > pointer.x) {
+                        rect.set({left: Math.abs(pointer.x)});
+                    }
+                    if (origY > pointer.y) {
+                        // noinspection JSSuspiciousNameCombination
+                        rect.set({top: Math.abs(pointer.y)});
+                    }
+
+                    rect.set({width: Math.abs(origX - pointer.x)});
+                    rect.set({height: Math.abs(origY - pointer.y)});
+
+                    canvas.renderAll();
+                }
+            });
+
+            this.canvas.on('mouse:up', function () {
+                if (self.mode === 'drw') {
+                    isDown = false;
+                    self.canvas.discardActiveObject().renderAll();
+                }
+            });
+
+            this.canvas.on('touch:drag', function (e) {
+                if (self.mode === 'pan') {
+                    this.currentX = e.self.x;
+                    this.currentY = e.self.y;
+                    let xChange = this.currentX - this.lastX;
+                    let yChange = this.currentY - this.lastY;
+
+                    // noinspection JSSuspiciousNameCombination
+                    if ((Math.abs(xChange) <= 50) && (Math.abs(yChange) <= 50)) {
+                        var delta = new fabric.Point(xChange, yChange);
+                        canvas.relativePan(delta);
+                    }
+
+                    this.lastX = e.self.x;
+                    this.lastY = e.self.y;
+                }
+            });
+
+            let article = this.$parent.$data.image;
+
+            fabric.Image.fromURL(article,
+                function (img) {
                     self.canvas.setBackgroundImage(img, self.canvas.renderAll.bind(self.canvas), {
                         scaleX: self.canvas.width / img.width,
                         scaleY: self.canvas.width / img.width,
-                    });
-
-                    let canvas = self.canvas, rect, isDown, origX, origY;
-
-                    //Добавить обработчики всяких событий (рисование, перемещение)
-                    canvas.on('mouse:down', function (o) {
-                        if (self.mode === 'drw') {
-                            isDown = true;
-                            var pointer = canvas.getPointer(o.e);
-                            origX = pointer.x;
-                            origY = pointer.y;
-                            pointer = canvas.getPointer(o.e);
-                            rect = new fabric.Rect({
-                                left: origX,
-                                top: origY,
-                                originX: 'left',
-                                originY: 'top',
-                                width: pointer.x - origX,
-                                height: pointer.y - origY,
-                                angle: 0,
-                                fill: self.color,
-                                transparentCorners: false
-                            });
-                            canvas.add(rect);
-                        }
-                    });
-
-                    canvas.on('mouse:move', function (e) {
-                        if (self.mode === 'drw') {
-                            if (!isDown) return;
-                            var pointer = canvas.getPointer(e.e);
-
-                            if (origX > pointer.x) {
-                                rect.set({left: Math.abs(pointer.x)});
-                            }
-                            if (origY > pointer.y) {
-                                // noinspection JSSuspiciousNameCombination
-                                rect.set({top: Math.abs(pointer.y)});
-                            }
-
-                            rect.set({width: Math.abs(origX - pointer.x)});
-                            rect.set({height: Math.abs(origY - pointer.y)});
-
-                            canvas.renderAll();
-                        }
-                    });
-
-                    canvas.on('mouse:up', function () {
-                        if (self.mode === 'drw') {
-                            isDown = false;
-                            self.canvas.discardActiveObject().renderAll();
-                        }
-                    });
-
-                    canvas.on('touch:drag', function (e) {
-                        if (self.mode === 'pan') {
-                            this.currentX = e.self.x;
-                            this.currentY = e.self.y;
-                            let xChange = this.currentX - this.lastX;
-                            let yChange = this.currentY - this.lastY;
-
-                            // noinspection JSSuspiciousNameCombination
-                            if ((Math.abs(xChange) <= 50) && (Math.abs(yChange) <= 50)) {
-                                var delta = new fabric.Point(xChange, yChange);
-                                canvas.relativePan(delta);
-                            }
-
-                            this.lastX = e.self.x;
-                            this.lastY = e.self.y;
-                        }
                     });
                 }
             );
         },
         methods: {
-            getScrollBarWidth() {
-                let inner = document.createElement('p');
-                inner.style.width = "100%";
-                inner.style.height = "200px";
-
-                let outer = document.createElement('div');
-                outer.style.position = "absolute";
-                outer.style.top = "0px";
-                outer.style.left = "0px";
-                outer.style.visibility = "hidden";
-                outer.style.width = "200px";
-                outer.style.height = "150px";
-                outer.style.overflow = "hidden";
-                outer.appendChild(inner);
-
-                document.body.appendChild(outer);
-                let w1 = inner.offsetWidth;
-                outer.style.overflow = 'scroll';
-                let w2 = inner.offsetWidth;
-
-                if (w1 === w2) {
-                    w2 = outer.clientWidth;
-                }
-
-                document.body.removeChild(outer);
-
-                return (w1 - w2);
-            }
-            ,
             deleteActive() {
                 let activeObjects = this.canvas.getActiveObjects();
                 this.canvas.discardActiveObject();
@@ -218,7 +186,7 @@
             }
             ,
             saveImage() {
-                console.log(JSON.stringify(this.canvas));
+                this.$root.$emit('imageColored', JSON.stringify(this.canvas));
             }
         }
         ,

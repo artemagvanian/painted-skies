@@ -1,0 +1,58 @@
+<template>
+    <div id="menu-provider">
+        <keep-alive>
+            <component :is="currentTabComponent"></component>
+        </keep-alive>
+    </div>
+</template>
+
+<script>
+    import CanvasSelector from './CanvasSelector.vue'
+    import MindmapViewer from './MindmapViewer.vue'
+    import ImageUploader from './ImageUploader.vue'
+
+    export default {
+        name: "MenuProvider",
+        components: {
+            CanvasSelector,
+            MindmapViewer,
+            ImageUploader
+        },
+        data() {
+            return {
+                tabs: ['ImageUploader', 'CanvasSelector', 'MindmapViewer'],
+                currentTabNumber: 0,
+                image: null,
+                mindmap: null
+            }
+        },
+        methods: {
+            switchCurrentTab() {
+                this.currentTabNumber++;
+            },
+            getMindmap(canvas) {
+                // TODO: request to server
+            }
+        },
+        computed: {
+            currentTabComponent() {
+                return this.tabs[this.currentTabNumber];
+            }
+        },
+        mounted() {
+            let vm = this;
+            this.$root.$on('imageUploaded', function (image) {
+                vm.image = image;
+                vm.switchCurrentTab();
+            });
+            this.$root.$on('imageColored', function (canvas) {
+                vm.mindmap = vm.getMindmap(canvas);
+                vm.switchCurrentTab();
+            });
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
