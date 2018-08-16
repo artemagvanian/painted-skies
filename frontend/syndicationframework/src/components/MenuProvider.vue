@@ -27,8 +27,8 @@
             }
         },
         methods: {
-            switchCurrentTab() {
-                this.currentTabNumber++;
+            switchCurrentTab(tabNumber) {
+                this.currentTabNumber = tabNumber;
             },
             getMindmap(canvas) {
                 // TODO: request to server
@@ -44,11 +44,11 @@
             let vm = this;
             this.$root.$on('imageUploaded', function (image) {
                 vm.image = image;
-                vm.switchCurrentTab();
+                vm.switchCurrentTab(1);
             });
             this.$root.$on('imageColored', function (canvas) {
                 vm.mindmap = vm.getMindmap(canvas);
-                vm.switchCurrentTab();
+                vm.switchCurrentTab(2);
             });
         }
     }
