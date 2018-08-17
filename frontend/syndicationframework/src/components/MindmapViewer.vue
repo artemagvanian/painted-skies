@@ -56,6 +56,10 @@
         network: null,
         mounted() {
             this.container = document.getElementById('mynetwork');
+
+            this.nodes = this.$parent.$data.mindmap.nodes;
+            this.edges = this.$parent.$data.mindmap.edges;
+
             let data = {
                 nodes: this.nodes,
                 edges: this.edges

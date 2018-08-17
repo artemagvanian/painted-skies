@@ -10,6 +10,7 @@
     import CanvasSelector from './CanvasSelector.vue'
     import MindmapViewer from './MindmapViewer.vue'
     import ImageUploader from './ImageUploader.vue'
+    import $ from 'jquery';
 
     export default {
         name: "MenuProvider",
@@ -31,8 +32,13 @@
                 this.currentTabNumber = tabNumber;
             },
             getMindmap(canvas) {
-                // TODO: request to server
-                console.log(canvas);
+                // let data = JSON.stringify({
+                //     'canvas': canvas
+                // });
+                return $.post(
+                    'http://localhost:8000/api/note',
+                    {'canvas': canvas}
+                )
             }
         },
         computed: {
@@ -47,8 +53,10 @@
                 vm.switchCurrentTab(1);
             });
             this.$root.$on('imageColored', function (canvas) {
-                vm.mindmap = vm.getMindmap(canvas);
-                vm.switchCurrentTab(2);
+                vm.getMindmap(canvas).then((response) => {
+                    vm.mindmap = response;
+                    vm.switchCurrentTab(2);
+                });
             });
         }
     }
