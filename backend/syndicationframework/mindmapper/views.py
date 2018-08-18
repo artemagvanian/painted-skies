@@ -71,7 +71,8 @@ class ProcessView(View):
             nodes.append({
                 'id': n,
                 'label': pytesseract.image_to_string(i['image'], lang='eng'),
-                'color': i['color']
+                'color': i['color'],
+                'shape': 'box'
             })
 
             if n == 0:
