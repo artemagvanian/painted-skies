@@ -1,1 +1,0 @@
-web: cd backend/syndicationframework && pip install -r requirements.txt && cd ../../frontend/syndicationframework && npm i && npm run build
