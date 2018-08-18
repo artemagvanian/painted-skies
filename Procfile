@@ -1,2 +1,1 @@
-web: cd backend/syndicationframework && gunicorn syndicationframework.wsgi:application
-web: cd frontend/syndicationframework && npm install --only=dev --no-shrinkwrap && npm run build && node server.js
+web: cd frontend/syndicationframework && npm i && npm run build && cd ../../backend/syndicationframework && gunicorn syndicationframework.wsgi:application
