@@ -1,1 +1,1 @@
-web: cd frontend/syndicationframework && npm i && npm run build && cd ../../backend/syndicationframework && gunicorn syndicationframework.wsgi:application
+web: cd backend/syndicationframework && pip install -r requirements.txt && cd ../../frontend/syndicationframework && npm i && npm run build
