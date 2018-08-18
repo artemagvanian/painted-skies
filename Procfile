@@ -1,1 +1,1 @@
-web: gunicorn backend/syndicationframework/syndicationframework.wsgi
+web: cd backend/syndicationframework && gunicorn syndicationframework.wsgi:application
