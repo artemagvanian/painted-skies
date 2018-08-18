@@ -126,6 +126,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '../../frontend/syndicationframework/dist/static'),
 ]
 
+STATIC_ROOT= os.path.join(BASE_DIR,'static_media/')
+
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
     '46.160.68.56:8080'
