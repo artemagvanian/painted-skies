@@ -42,7 +42,7 @@
                 //     'canvas': canvas
                 // });
                 return $.post(
-                    'https://syndication-framework.herokuapp.com/api/note',
+                    '/api/note',
                     {'canvas': canvas}
                 )
             }
