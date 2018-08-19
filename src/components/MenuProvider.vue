@@ -42,7 +42,7 @@
                 //     'canvas': canvas
                 // });
                 return $.post(
-                    'http://localhost:8000/api/note',
+                    'http://46.160.68.56:8000/api/note',
                     {'canvas': canvas}
                 )
             }

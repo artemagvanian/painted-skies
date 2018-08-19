@@ -124,3 +124,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# Project-related ignores
+/staticfiles
