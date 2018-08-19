@@ -68,7 +68,7 @@
             }
         },
         mounted() {
-            let topBarHeight = 50,
+            let topBarHeight = 100,
                 w = $(document).width(),
                 h = $(document).height() - topBarHeight;
 
@@ -231,10 +231,13 @@
     }
 
     nav {
-        max-width: calc(100vw - 150px);
+        max-width: 100vw;
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap;
         margin: 0 auto;
+        height: 100px;
+        align-items: center;
     }
 
     .top-menu {
@@ -243,7 +246,7 @@
         background-color: rgba(195, 225, 244, .5);
         top: 0;
         width: 100vw;
-        height: 50px;
+        height: 100px;
     }
 
 </style>

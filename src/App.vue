@@ -58,6 +58,6 @@
 
     /*To make canvas margin work*/
     .canvas-container {
-        margin-top: 50px !important;
+        margin-top: 100px !important;
     }
 </style>
