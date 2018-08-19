@@ -1,8 +1,6 @@
 <template>
     <div id="menu-provider">
-        <keep-alive>
-            <component :is="currentTabComponent"></component>
-        </keep-alive>
+        <component :is="currentTabComponent"></component>
         <div class="spin" v-if="loading">
             <div class="cp-spinner cp-heart"></div>
         </div>

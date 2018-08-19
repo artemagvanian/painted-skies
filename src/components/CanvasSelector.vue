@@ -182,8 +182,6 @@
                     });
                 }
             );
-
-            introJs().start();
             introJs().addHints();
         },
         methods: {
@@ -219,8 +217,10 @@
             saveImage() {
                 this.$root.$emit('imageColored', JSON.stringify(this.canvas));
             }
+        },
+        destroyed() {
+            introJs().hideHints();
         }
-        ,
     }
 </script>
 
