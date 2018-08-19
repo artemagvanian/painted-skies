@@ -19,6 +19,7 @@
     "csspin": "^1.1.4",
     "express": "^4.16.3",
     "fabric-with-gestures": "^2.3.4",
+    "intro.js": "^2.9.3",
     "jquery": "^3.3.1",
     "shepherd.js": "^2.0.0-beta.2",
     "v-file-upload": "^3.1.3",

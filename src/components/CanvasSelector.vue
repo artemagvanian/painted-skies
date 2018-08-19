@@ -2,7 +2,8 @@
     <div id="canvas-selector">
         <div class="top-menu">
             <nav>
-                <b-button-group>
+                <b-button-group data-hint='Use these buttons to change mode. There are pan, draw and select options'
+                                data-hintPosition="bottom-right">
                     <b-button @click="setMode('pan')" :variant="mode === 'pan' ? 'primary' : 'secondary'">
                         <font-awesome-icon icon="arrows-alt"/>
                     </b-button>
@@ -13,10 +14,13 @@
                         <font-awesome-icon icon="hand-pointer"/>
                     </b-button>
                 </b-button-group>
-                <b-button @click="deleteActive()" :disabled="mode !== 'sel'">
+                <b-button @click="deleteActive()" :disabled="mode !== 'sel'"
+                          data-hint='Remove bad selections using this button. Only available in select mode'
+                          data-hintPosition="bottom-right">
                     <font-awesome-icon icon="times"/>
                 </b-button>
-                <b-button-group>
+                <b-button-group data-hint='Change levels of mindmap using these buttons'
+                                data-hintPosition="bottom-right">
                     <b-button :variant="color === 'rgba(255,0,0,.5)' && mode === 'drw' ? 'danger' : 'secondary'"
                               @click="setBrushColor('rgba(255,0,0,.5)')">1
                     </b-button>
@@ -27,7 +31,8 @@
                               @click="setBrushColor('rgba(0,0,255,.5)')">3
                     </b-button>
                 </b-button-group>
-                <b-button-group>
+                <b-button-group data-hint='Use these buttons to zoom'
+                                data-hintPosition="bottom-right">
                     <b-button @click="zoomIn()">
                         <font-awesome-icon icon="search-plus"/>
                     </b-button>
@@ -35,7 +40,8 @@
                         <font-awesome-icon icon="search-minus"/>
                     </b-button>
                 </b-button-group>
-                <b-button @click="saveImage()">
+                <b-button @click="saveImage()" data-hint='When you are ready, press this button to get mindmap'
+                          data-hintPosition="bottom-right">
                     <font-awesome-icon icon="arrow-right"/>
                 </b-button>
             </nav>
@@ -47,6 +53,9 @@
 <script>
     import {fabric} from 'fabric-with-gestures';
     import $ from 'jquery';
+    import introJs from 'intro.js';
+    import 'intro.js/introjs.css';
+
 
     export default {
         name: "CanvasSelector",
@@ -173,6 +182,9 @@
                     });
                 }
             );
+
+            introJs().start();
+            introJs().addHints();
         },
         methods: {
             deleteActive() {
@@ -227,7 +239,7 @@
 
     .top-menu {
         position: fixed;
-        z-index: 1000;
+        /*z-index: 100;*/
         background-color: rgba(195, 225, 244, .5);
         top: 0;
         width: 100vw;
