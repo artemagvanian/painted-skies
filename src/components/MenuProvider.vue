@@ -42,7 +42,7 @@
                 //     'canvas': canvas
                 // });
                 return $.post(
-                    'http://46.160.68.56:8000/api/note',
+                    'https://syndication-framework.herokuapp.com/api/note',
                     {'canvas': canvas}
                 )
             }
