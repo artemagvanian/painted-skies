@@ -2,4 +2,15 @@ tesseract-ocr
 tesseract-ocr-eng
 tesseract-ocr-osd
 libc6
+libcairo2
+libfontconfig1
+libgcc1
+libglib2.0-0
+libicu60
+liblept5
+libpango-1.0-0
+libpangocairo-1.0-0
+libpangoft2-1.0-0
+libstdc++6
+libtesseract4
 :repo:deb http://ua.archive.ubuntu.com/ubuntu bionic main universe
