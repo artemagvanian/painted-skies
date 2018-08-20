@@ -22,13 +22,19 @@
                 <b-button-group data-hint='Change levels of mindmap using these buttons'
                                 data-hintPosition="bottom-right">
                     <b-button :variant="color === 'rgba(255,0,0,.5)' && mode === 'drw' ? 'danger' : 'secondary'"
-                              @click="setBrushColor('rgba(255,0,0,.5)')">1
+                              @click="setBrushColor('rgba(255,0,0,.5)')"
+                              :disabled="!redCanBeActive">
+                        1
                     </b-button>
                     <b-button :variant="color === 'rgba(0,255,0,.5)' && mode === 'drw' ? 'success' : 'secondary'"
-                              @click="setBrushColor('rgba(0,255,0,.5)')">2
+                              @click="setBrushColor('rgba(0,255,0,.5)')"
+                              :disabled="!greenCanBeActive">
+                        2
                     </b-button>
                     <b-button :variant="color === 'rgba(0,0,255,.5)' && mode === 'drw' ? 'primary' : 'secondary'"
-                              @click="setBrushColor('rgba(0,0,255,.5)')">3
+                              @click="setBrushColor('rgba(0,0,255,.5)')"
+                              :disabled="!blueCanBeActive">
+                        3
                     </b-button>
                 </b-button-group>
                 <b-button-group data-hint='Use these buttons to zoom'
@@ -182,7 +188,7 @@
                     });
                 }
             );
-            introJs().addHints();
+            //introJs().addHints();
         },
         methods: {
             deleteActive() {
@@ -190,36 +196,60 @@
                 this.canvas.discardActiveObject();
                 let canvas = this.canvas;
                 activeObjects.forEach(function (object) {
+                    if (object.fill === 'rgba(255,0,0,.5)') {
+                        canvas.remove(...canvas.getObjects());
+                    }
                     canvas.remove(object);
                 });
-            }
-            ,
+            },
             setMode(mode) {
                 this.mode = mode;
                 this.canvas.selection = mode !== 'pan';
-            }
-            ,
+            },
             setBrushColor(color) {
                 this.color = color;
                 this.setMode('drw');
-            }
-            ,
+            },
             zoomIn() {
                 this.zoom = this.zoom * 1.5 > 15 ? this.zoom : this.zoom * 1.5;
                 this.canvas.setZoom(this.zoom);
-            }
-            ,
+            },
             zoomOut() {
                 this.zoom = this.zoom / 1.5 < 1 ? this.zoom : this.zoom / 1.5;
                 this.canvas.setZoom(this.zoom);
-            }
-            ,
+            },
             saveImage() {
                 this.$root.$emit('imageColored', JSON.stringify(this.canvas));
             }
         },
         destroyed() {
             introJs().hideHints();
+        },
+        computed: {
+            lastRectangleColor() {
+                try {
+                    let objects = this.canvas.getObjects();
+                    if (objects.length === 0) {
+                        this.setBrushColor('rgba(255,0,0,.5)');
+                    }
+                    else if (objects[objects.length - 1].fill === 'rgba(255,0,0,.5)') {
+                        this.setBrushColor('rgba(0,255,0,.5)');
+                    }
+                    return objects[objects.length - 1].fill;
+                }
+                catch (e) {
+                    return null;
+                }
+            },
+            redCanBeActive() {
+                return this.lastRectangleColor == null;
+            },
+            greenCanBeActive() {
+                return this.lastRectangleColor != null;
+            },
+            blueCanBeActive() {
+                return this.lastRectangleColor === 'rgba(0,255,0,.5)' || this.lastRectangleColor === 'rgba(0,0,255,.5)';
+            }
         }
     }
 </script>

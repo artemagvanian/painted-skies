@@ -61,13 +61,6 @@ class ProcessView(View):
         stack = []
 
         for n, i in enumerate(regions):
-            # if i['level'] == 1:
-            #     color = 'red'
-            # elif i['level'] == 2:
-            #     color = 'green'
-            # else:
-            #     color = 'blue'
-            # dot.node(str(n), i.data, color=color, style='filled')
             nodes.append({
                 'id': n,
                 'label': pytesseract.image_to_string(i['image'], lang='eng'),
@@ -78,32 +71,33 @@ class ProcessView(View):
             if n == 0:
                 stack.append(n)
             else:
-                if i['level'] > regions[n - 1]['level']:
+                if i['level'] - regions[stack[-1]]['level'] == 1:
                     # dot.edge(n, stack[len(stack) - 1])
                     edges.append({
                         'from': n,
-                        'to': stack[len(stack) - 1]
+                        'to': stack[-1]
                     })
                     stack.append(n)
-                elif i['level'] == regions[n - 1]['level']:
+                elif i['level'] == regions[stack[-1]]['level']:
                     stack.pop()
                     # dot.edge(n, stack[len(stack) - 1])
                     edges.append({
                         'from': n,
-                        'to': stack[len(stack) - 1]
+                        'to': stack[-1]
                     })
                     stack.append(n)
-                elif i['level'] < regions[n - 1]['level']:
+                elif i['level'] - regions[stack[-1]]['level'] == -1:
                     stack.pop()
                     stack.pop()
                     # dot.edge(n, stack[len(stack) - 1])
                     edges.append({
                         'from': n,
-                        'to': stack[len(stack) - 1]
+                        'to': stack[-1]
                     })
                     stack.append(n)
 
         return JsonResponse({
             'edges': edges,
-            'nodes': nodes
+            'nodes': nodes,
+            'status': 'ok'
         })
