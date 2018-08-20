@@ -45,6 +45,18 @@ class ProcessView(View):
             'rgba(0,0,255,.5)': 3
         }
 
+        color_to_shape = {
+            'rgba(255,0,0,.5)': 'ellipse',
+            'rgba(0,255,0,.5)': 'box',
+            'rgba(0,0,255,.5)': 'box'
+        }
+
+        color_to_text = {
+            'rgba(255,0,0,.5)': 'white',
+            'rgba(0,255,0,.5)': 'black',
+            'rgba(0,0,255,.5)': 'white'
+        }
+
         regions = list(
             map(lambda x: {
                 'image': image.crop((
@@ -64,8 +76,9 @@ class ProcessView(View):
             nodes.append({
                 'id': n,
                 'label': pytesseract.image_to_string(i['image'], lang='eng'),
-                'color': i['color'],
-                'shape': 'box'
+                'color': i['color'][:13] + '1)',
+                'shape': color_to_shape[i['color']],
+                'font': {'color': color_to_text[i['color']]}
             })
 
             if n == 0:
@@ -75,7 +88,8 @@ class ProcessView(View):
                     # dot.edge(n, stack[len(stack) - 1])
                     edges.append({
                         'from': n,
-                        'to': stack[-1]
+                        'to': stack[-1],
+                        'arrows': 'from'
                     })
                     stack.append(n)
                 elif i['level'] == regions[stack[-1]]['level']:
@@ -83,7 +97,8 @@ class ProcessView(View):
                     # dot.edge(n, stack[len(stack) - 1])
                     edges.append({
                         'from': n,
-                        'to': stack[-1]
+                        'to': stack[-1],
+                        'arrows': 'from'
                     })
                     stack.append(n)
                 elif i['level'] - regions[stack[-1]]['level'] == -1:
@@ -92,7 +107,8 @@ class ProcessView(View):
                     # dot.edge(n, stack[len(stack) - 1])
                     edges.append({
                         'from': n,
-                        'to': stack[-1]
+                        'to': stack[-1],
+                        'arrows': 'from'
                     })
                     stack.append(n)
 
