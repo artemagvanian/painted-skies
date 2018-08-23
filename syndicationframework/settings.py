@@ -55,7 +55,10 @@ ROOT_URLCONF = 'syndicationframework.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'dist')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'dist'),
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,13 +127,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'dist/static'),
+    os.path.join(BASE_DIR, 'media'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
-    '46.160.68.56:8080'
 )
 
 import django_heroku
