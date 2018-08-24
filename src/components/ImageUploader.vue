@@ -1,7 +1,7 @@
 <template>
     <div id="image-uploader">
-        <b-jumbotron class="m-5" header="SF" lead="Select a file to conspect:">
-            <b-form-file type="file" @change="onFileChange" placeholder="Choose a file..."></b-form-file>
+        <b-jumbotron class="m-5" header="Painted Skies" lead="Завантажте файл:">
+            <b-form-file type="file" @change="onFileChange" placeholder="Виберіть файл..."></b-form-file>
         </b-jumbotron>
     </div>
 </template>
