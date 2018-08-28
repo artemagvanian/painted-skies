@@ -37,6 +37,14 @@
 
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+    import Raven from 'raven-js';
+    import RavenVue from 'raven-js/plugins/vue';
+
+    Raven
+        .config('https://01b7ac134bec4864955f639cfc40bfab@sentry.io/1270071')
+        .addPlugin(RavenVue, Vue)
+        .install();
+
     import MenuProvider from './components/MenuProvider.vue'
 
     export default {

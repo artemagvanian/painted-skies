@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat',
     'corsheaders',
 ]
 
@@ -132,9 +133,13 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CORS_ORIGIN_WHITELIST = (
+CORS_ORIGIN_WHITELIST = [
     'localhost:8080',
-)
+]
+
+RAVEN_CONFIG = {
+    'dsn': 'https://e7743eee215e414b98f60f735108de54:547704f7467f438791629fc72c5d389d@sentry.io/1270070',
+}
 
 import django_heroku
 
