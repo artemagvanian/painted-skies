@@ -35,7 +35,6 @@ class ProcessView(View):
         return image, rectangles
 
     def post(self, request):
-        print(request.POST)
         canvas = json.loads(request.POST['canvas'])
         lang = request.POST['lang']
         image, rectangles = self.process_canvas(canvas)

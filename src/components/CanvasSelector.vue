@@ -158,7 +158,6 @@
 
                     this.lastX = e.self.x;
                     this.lastY = e.self.y;
-                    console.log(this.viewportTransform[4] + " " + this.viewportTransform[5]);
 
                     if (this.viewportTransform[4] >= 0) {
                         this.viewportTransform[4] = 0;
