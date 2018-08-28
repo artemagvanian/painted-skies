@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 import json
@@ -37,6 +37,7 @@ class ProcessView(View):
     def post(self, request):
         print(request.POST)
         canvas = json.loads(request.POST['canvas'])
+        lang = request.POST['lang']
         image, rectangles = self.process_canvas(canvas)
 
         color_to_level = {
@@ -75,7 +76,7 @@ class ProcessView(View):
         for n, i in enumerate(regions):
             nodes.append({
                 'id': n,
-                'label': pytesseract.image_to_string(i['image'], lang='eng'),
+                'label': pytesseract.image_to_string(i['image'], lang=lang),
                 'color': i['color'][:13] + '1)',
                 'shape': color_to_shape[i['color']],
                 'font': {'color': color_to_text[i['color']]}

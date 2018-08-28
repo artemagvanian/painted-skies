@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ea3xl&w=82g%idu@f)4@q4$860#@1gsj7xf$=(mww@jrv%9ox-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'raven.contrib.django.raven_compat',
     'corsheaders',
+    'mindmapper'
 ]
 
 MIDDLEWARE = [
@@ -133,14 +134,14 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CORS_ORIGIN_WHITELIST = [
-    'localhost:8080',
-]
-
 RAVEN_CONFIG = {
     'dsn': 'https://e7743eee215e414b98f60f735108de54:547704f7467f438791629fc72c5d389d@sentry.io/1270070',
 }
 
+SECURE_SSL_REDIRECT = True
+
 import django_heroku
 
 django_heroku.settings(locals())
+
+from .local_settings import *

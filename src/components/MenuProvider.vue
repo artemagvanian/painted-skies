@@ -28,6 +28,7 @@
                 currentTabNumber: 0,
                 image: null,
                 mindmap: null,
+                lang: null,
                 loading: false
             }
         },
@@ -35,13 +36,13 @@
             switchCurrentTab(tabNumber) {
                 this.currentTabNumber = tabNumber;
             },
-            getMindmap(canvas) {
+            getMindmap(canvas, lang) {
                 // let data = JSON.stringify({
                 //     'canvas': canvas
                 // });
                 return $.post(
                     '/api/note',
-                    {'canvas': canvas}
+                    {'canvas': canvas, 'lang': lang}
                 )
             }
         },
@@ -52,13 +53,14 @@
         },
         mounted() {
             let vm = this;
-            this.$root.$on('imageUploaded', function (image) {
-                vm.image = image;
+            this.$root.$on('imageUploaded', function (obj) {
+                vm.image = obj.image;
+                vm.lang = obj.lang;
                 vm.switchCurrentTab(1);
             });
             this.$root.$on('imageColored', function (canvas) {
                 vm.loading = true;
-                vm.getMindmap(canvas).then((response) => {
+                vm.getMindmap(canvas, vm.lang).then((response) => {
                     vm.mindmap = response;
                     vm.switchCurrentTab(2);
                     vm.loading = false;
