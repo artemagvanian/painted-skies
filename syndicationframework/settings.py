@@ -143,5 +143,7 @@ SECURE_SSL_REDIRECT = True
 import django_heroku
 
 django_heroku.settings(locals())
-
-from .local_settings import *
+try:
+    from .local_settings import *
+except ImportError:
+    pass
