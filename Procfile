@@ -1,1 +1,1 @@
-web: gunicorn syndicationframework.wsgi --log-file -
+web: gunicorn syndicationframework.wsgi --log-file - --timeout 300 --workers 7

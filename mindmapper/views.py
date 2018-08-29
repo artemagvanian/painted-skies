@@ -37,8 +37,9 @@ class ProcessView(View):
     def post(self, request):
         canvas = json.loads(request.POST['canvas'])
         lang = request.POST['lang']
+        print('[TESSERACT]: obtained data')
         image, rectangles = self.process_canvas(canvas)
-
+        print('[TESSERACT]: obtained image')
         color_to_level = {
             'rgba(255,0,0,.5)': 1,
             'rgba(0,255,0,.5)': 2,
@@ -68,9 +69,13 @@ class ProcessView(View):
                 'color': x['fill']
             }, rectangles))
 
+        print('[TESSERACT]: obtained crops')
+
         nodes = []
         edges = []
         stack = []
+
+        print(f'[TESSERACT]: going to recognize {len(regions)} crops')
 
         for n, i in enumerate(regions):
             nodes.append({
@@ -111,6 +116,8 @@ class ProcessView(View):
                         'arrows': 'from'
                     })
                     stack.append(n)
+
+        print('[TESSERACT]: obtained mindmap')
 
         return JsonResponse({
             'edges': edges,

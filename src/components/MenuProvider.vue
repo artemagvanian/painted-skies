@@ -64,6 +64,9 @@
                     vm.mindmap = response;
                     vm.switchCurrentTab(2);
                     vm.loading = false;
+                }).catch((error) => {
+                    vm.loading = false;
+                    // TODO: show error message
                 });
             });
         }
