@@ -117,6 +117,8 @@ class ProcessView(View):
                     })
                     stack.append(n)
 
+            print(f'[TESSERACT]: recognized crop {n}')
+
         print('[TESSERACT]: obtained mindmap')
 
         return JsonResponse({
