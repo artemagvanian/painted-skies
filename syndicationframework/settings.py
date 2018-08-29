@@ -138,8 +138,6 @@ RAVEN_CONFIG = {
     'dsn': 'https://e7743eee215e414b98f60f735108de54:547704f7467f438791629fc72c5d389d@sentry.io/1270070',
 }
 
-SECURE_SSL_REDIRECT = True
-
 import django_heroku
 
 django_heroku.settings(locals())
