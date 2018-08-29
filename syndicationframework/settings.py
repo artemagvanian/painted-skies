@@ -24,7 +24,7 @@ SECRET_KEY = 'ea3xl&w=82g%idu@f)4@q4$860#@1gsj7xf$=(mww@jrv%9ox-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['painted-skies.cf']
 
 # Application definition
 
@@ -132,15 +132,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'media'),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 RAVEN_CONFIG = {
     'dsn': 'https://e7743eee215e414b98f60f735108de54:547704f7467f438791629fc72c5d389d@sentry.io/1270070',
 }
 
-import django_heroku
-
-django_heroku.settings(locals())
 try:
     from .local_settings import *
 except ImportError:

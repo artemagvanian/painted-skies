@@ -78,13 +78,23 @@ class ProcessView(View):
         print(f'[TESSERACT]: going to recognize {len(regions)} crops')
 
         for n, i in enumerate(regions):
-            nodes.append({
-                'id': n,
-                'label': pytesseract.image_to_string(i['image'], lang=lang),
-                'color': i['color'][:13] + '1)',
-                'shape': color_to_shape[i['color']],
-                'font': {'color': color_to_text[i['color']]}
-            })
+
+            if i['image'].width == 0 or i['image'].height == 0:
+                nodes.append({
+                    'id': n,
+                    'label': '',
+                    'color': i['color'][:13] + '1)',
+                    'shape': color_to_shape[i['color']],
+                    'font': {'color': color_to_text[i['color']]}
+                })
+            else:
+                nodes.append({
+                    'id': n,
+                    'label': pytesseract.image_to_string(i['image'], lang=lang),
+                    'color': i['color'][:13] + '1)',
+                    'shape': color_to_shape[i['color']],
+                    'font': {'color': color_to_text[i['color']]}
+                })
 
             if n == 0:
                 stack.append(n)
