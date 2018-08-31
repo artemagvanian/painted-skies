@@ -68,12 +68,14 @@
                         document.getElementById('cancelButton').onclick = vm.cancelEdit.bind(this, callback);
                         document.getElementById('network-popUp').style.display = 'block';
                     },
-                }
-                ,
+                },
                 interaction: {
                     dragView: false,
                     multiselect: true,
                     hover: true,
+                },
+                physics: {
+                    enabled: false,
                 }
             };
 
