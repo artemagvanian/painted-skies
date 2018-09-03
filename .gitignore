@@ -128,3 +128,4 @@ yarn-error.log*
 # Project-related ignores
 /staticfiles
 /static
+db

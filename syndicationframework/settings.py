@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'raven.contrib.django.raven_compat',
     'corsheaders',
+    'rest_framework',
     'mindmapper'
 ]
 
@@ -80,12 +81,8 @@ WSGI_APPLICATION = 'syndicationframework.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'syndicationframework',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db',
     }
 }
 
@@ -136,6 +133,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 RAVEN_CONFIG = {
     'dsn': 'https://e7743eee215e414b98f60f735108de54:547704f7467f438791629fc72c5d389d@sentry.io/1270070',
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }
 
 try:
