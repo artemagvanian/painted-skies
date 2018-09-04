@@ -1,7 +1,7 @@
 <template>
     <div id="image-uploader">
         <b-jumbotron class="m-5" header="Painted Skies" lead="Завантажте файл:">
-            <b-form-file type="file" @change="onFileChange" placeholder="Виберіть файл..."></b-form-file>
+            <b-form-file type="file" @change="onFileChange" placeholder="Виберіть файл..." accept="image/*"></b-form-file>
             <b-form-group label="Виберіть мову:" class="mt-3">
                 <b-form-select :options="options"
                                required
