@@ -4,6 +4,11 @@
         <div class="spin" v-if="loading">
             <div class="cp-spinner cp-heart"></div>
         </div>
+        <b-modal id="modal" v-model="modalShow" title="Сталася помилка!" ok-only="true">
+            Вся команда розробників вже знає про це та намагається все виправити. Зверніть увагу, що наш сервер не
+            оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений, можуть
+            статися помилки. Спробуйте оновити сторінку!
+        </b-modal>
     </div>
 </template>
 
@@ -11,6 +16,7 @@
     import CanvasSelector from './CanvasSelector.vue'
     import MindmapViewer from './MindmapViewer.vue'
     import ImageUploader from './ImageUploader.vue'
+    import Raven from 'raven-js';
     import $ from 'jquery';
     import 'csspin/css/csspin-heart.css'
 
@@ -29,7 +35,8 @@
                 image: null,
                 mindmap: null,
                 lang: null,
-                loading: false
+                loading: false,
+                modalShow: false,
             }
         },
         methods: {
@@ -64,9 +71,10 @@
                     vm.mindmap = response;
                     vm.switchCurrentTab(2);
                     vm.loading = false;
-                }).catch((error) => {
+                }).catch((e) => {
                     vm.loading = false;
-                    // TODO: show error message
+                    Raven.captureException(e);
+                    vm.modalShow = true;
                 });
             });
         }
