@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
 
@@ -8,7 +10,13 @@ from mindmapper.serializers import MindmapSerializer, UserSerializer
 class MindmapViewSet(viewsets.ModelViewSet):
     queryset = Mindmap.objects.all()
     serializer_class = MindmapSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return Mindmap.objects.filter(owner=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user, created_at=datetime.now())
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

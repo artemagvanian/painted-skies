@@ -19,3 +19,4 @@ class MindmapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mindmap
         fields = ('id', 'title', 'mindmap', 'owner', 'created_at')
+        read_only_fields = ('owner', 'created_at')
