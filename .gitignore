@@ -126,6 +126,6 @@ yarn-error.log*
 *.sw*
 
 # Project-related ignores
-/staticfiles
-/static
+/backend/staticfiles/
+/backend/static/
 db
