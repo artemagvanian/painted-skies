@@ -1,3 +1,5 @@
+import os
+
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -11,6 +13,9 @@ from PIL import Image
 from django.views.decorators.csrf import csrf_exempt
 import pytesseract
 
+import subprocess
+import uuid
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ProcessView(View):
@@ -23,6 +28,14 @@ class ProcessView(View):
 
         image = image.resize((int(image.width * canvas['backgroundImage']['scaleX']),
                               int(image.height * canvas['backgroundImage']['scaleY'])))
+
+        image_name = str(uuid.uuid4())
+
+        image.save(image_name + '.jpg', format="JPEG")
+        subprocess.call(['textcleaner', image_name + '.jpg', image_name + 'cleaned.jpg'])
+        image = Image.open(image_name + 'cleaned.jpg')
+        os.remove(image_name + '.jpg')
+        os.remove(image_name + 'cleaned.jpg')
 
         rectangles = list(map(lambda x: {
             'left': x['left'],
