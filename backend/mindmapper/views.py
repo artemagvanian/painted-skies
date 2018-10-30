@@ -31,11 +31,11 @@ class ProcessView(View):
 
         image_name = str(uuid.uuid4())
 
-        image.save(image_name + '.jpg', format="JPEG")
-        subprocess.call(['textcleaner', image_name + '.jpg', image_name + 'cleaned.jpg'])
-        image = Image.open(image_name + 'cleaned.jpg')
-        os.remove(image_name + '.jpg')
-        os.remove(image_name + 'cleaned.jpg')
+        image.save(image_name + '.png', format="PNG")
+        subprocess.call(['textcleaner', image_name + '.png', image_name + 'cleaned.png'])
+        image = Image.open(image_name + 'cleaned.png')
+        os.remove(image_name + '.png')
+        os.remove(image_name + 'cleaned.png')
 
         rectangles = list(map(lambda x: {
             'left': x['left'],
