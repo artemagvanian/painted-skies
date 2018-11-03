@@ -59,22 +59,21 @@
             }
         },
         mounted() {
-            let vm = this;
-            this.$root.$on('imageUploaded', function (obj) {
-                vm.image = obj.image;
-                vm.lang = obj.lang;
-                vm.switchCurrentTab(1);
+            this.$root.$on('imageUploaded', (obj) => {
+                this.image = obj.image;
+                this.lang = obj.lang;
+                this.switchCurrentTab(1);
             });
-            this.$root.$on('imageColored', function (canvas) {
-                vm.loading = true;
-                vm.getMindmap(canvas, vm.lang).then((response) => {
-                    vm.mindmap = response;
-                    vm.switchCurrentTab(2);
-                    vm.loading = false;
+            this.$root.$on('imageColored', (canvas) => {
+                this.loading = true;
+                this.getMindmap(canvas, vm.lang).then((response) => {
+                    this.mindmap = response;
+                    this.switchCurrentTab(2);
+                    this.loading = false;
                 }).catch((e) => {
-                    vm.loading = false;
+                    this.loading = false;
                     Raven.captureException(e);
-                    vm.modalShow = true;
+                    this.modalShow = true;
                 });
             });
         }
