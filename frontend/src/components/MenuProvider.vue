@@ -66,7 +66,7 @@
             });
             this.$root.$on('imageColored', (canvas) => {
                 this.loading = true;
-                this.getMindmap(canvas, vm.lang).then((response) => {
+                this.getMindmap(canvas, this.lang).then((response) => {
                     this.mindmap = response;
                     this.switchCurrentTab(2);
                     this.loading = false;
