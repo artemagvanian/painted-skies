@@ -153,13 +153,13 @@ REST_FRAMEWORK = {
     ]
 }
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

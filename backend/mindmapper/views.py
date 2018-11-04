@@ -1,7 +1,6 @@
 import os
 
 from django.http import JsonResponse
-from django.utils.decorators import method_decorator
 from django.views import View
 import json
 
@@ -10,14 +9,12 @@ import base64
 import io
 from PIL import Image
 
-from django.views.decorators.csrf import csrf_exempt
 import pytesseract
 
 import subprocess
 import uuid
 
 
-@method_decorator(csrf_exempt, name='dispatch')
 class ProcessView(View):
     def process_canvas(self, canvas):
         image = \

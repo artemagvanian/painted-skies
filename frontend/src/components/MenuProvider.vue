@@ -17,7 +17,7 @@
     import MindmapViewer from './MindmapViewer.vue'
     import ImageUploader from './ImageUploader.vue'
     import Raven from 'raven-js';
-    import $ from 'jquery';
+    import $ from 'jquery'
     import 'csspin/css/csspin-heart.css'
 
 
@@ -47,9 +47,19 @@
                 // let data = JSON.stringify({
                 //     'canvas': canvas
                 // });
-                return $.post(
-                    '/api/note',
-                    {'canvas': canvas, 'lang': lang}
+                return $.ajax({
+                        method: 'POST',
+                        url: '/api/note',
+                        data: {
+                            'canvas': canvas,
+                            'lang': lang
+                        },
+
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
+                        }
+                    }
                 )
             }
         },
