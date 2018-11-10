@@ -3,8 +3,8 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
 
-from mindmapper.models import Mindmap
-from mindmapper.serializers import MindmapSerializer, UserSerializer
+from .models import Mindmap
+from .serializers import MindmapSerializer, UserSerializer
 
 
 class MindmapViewSet(viewsets.ModelViewSet):

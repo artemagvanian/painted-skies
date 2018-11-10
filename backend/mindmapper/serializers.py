@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from mindmapper.models import Mindmap
+from .models import Mindmap
 
 from django.contrib.auth.models import User
 

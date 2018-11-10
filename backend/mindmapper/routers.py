@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from mindmapper import viewsets
+from . import viewsets
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
