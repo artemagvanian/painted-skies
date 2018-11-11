@@ -29,7 +29,7 @@ class ProcessView(View):
         image_name = str(uuid.uuid4())
 
         image.save(image_name + '.png', format="PNG")
-        subprocess.call(['textcleaner', image_name + '.png', image_name + 'cleaned.png'])
+        subprocess.call(['./textcleaner.sh', image_name + '.png', image_name + 'cleaned.png'])
         image = Image.open(image_name + 'cleaned.png')
         os.remove(image_name + '.png')
         os.remove(image_name + 'cleaned.png')
