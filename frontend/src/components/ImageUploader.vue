@@ -9,11 +9,15 @@
                                v-model="language">
                 </b-form-select>
             </b-form-group>
-            <b-button size="lg"
-                      variant="success"
-                      @click="buttonClick()">
-                Поїхали!
-            </b-button>
+            <router-link :to="{
+                    name: 'canvas',
+                    params: { lang: this.language, image: this.image },
+                }" tag="div">
+                <b-button size="lg"
+                          variant="success">
+                    Поїхали!
+                </b-button>
+            </router-link>
         </b-jumbotron>
     </div>
 </template>
@@ -33,9 +37,9 @@
             }
         },
         methods: {
-            buttonClick() {
-                this.$root.$emit('imageUploaded', {'image': this.image, 'lang': this.language});
-            },
+            // buttonClick() {
+            //     this.$root.$emit('imageUploaded', {'image': this.image, 'lang': this.language});
+            // },
             onFileChange(e) {
                 let files = e.target.files || e.dataTransfer.files;
                 if (!files.length)

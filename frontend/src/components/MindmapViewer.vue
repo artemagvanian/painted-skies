@@ -7,15 +7,27 @@
             <b-button type="button" id="saveButton" class="mx-2">Save</b-button>
             <b-button type="button" id="cancelButton" class="mx-2">Cancel</b-button>
         </div>
+        <div class="spin" v-if="loading">
+            <div class="cp-spinner cp-heart"></div>
+        </div>
+        <b-modal id="modal" v-model="modalShow" title="Сталася помилка!" ok-only="true">
+            Вся команда розробників вже знає про це та намагається все виправити. Зверніть увагу, що наш сервер не
+            оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений, можуть
+            статися помилки. Спробуйте оновити сторінку!
+        </b-modal>
     </div>
 </template>
 
 <script>
+    import $ from 'jquery'
+    import 'csspin/css/csspin-heart.css'
+
     let vis = require('vis/dist/vis.min.js');
     require('vis/dist/vis.min.css');
 
     export default {
         name: "MindmapViewer",
+        props: ['canvas', 'lang'],
         methods: {
             clearPopUp() {
                 document.getElementById('saveButton').onclick = null;
@@ -38,48 +50,70 @@
             return {
                 nodes: [],
                 edges: [],
-                container: ''
+                container: '',
+                loading: false,
+                modalShow: false,
             }
         }
         ,
         network: null,
         mounted() {
-            this.container = document.getElementById('mynetwork');
-
-            this.nodes = this.$parent.$data.mindmap.nodes;
-            this.edges = this.$parent.$data.mindmap.edges;
-
-            let data = {
-                nodes: this.nodes,
-                edges: this.edges
-            };
-
-            let vm = this;
-
-            let options = {
-                manipulation: {
-                    enabled: true,
-                    initiallyActive: true,
-                    editNode: function (data, callback) {
-                        // filling in the popup DOM elements
-                        document.getElementById('operation').innerHTML = "Edit Node";
-                        document.getElementById('node-label').value = data.label;
-                        document.getElementById('saveButton').onclick = vm.saveData.bind(this, data, callback);
-                        document.getElementById('cancelButton').onclick = vm.cancelEdit.bind(this, callback);
-                        document.getElementById('network-popUp').style.display = 'block';
+            this.loading = true;
+            $.ajax({
+                    method: 'POST',
+                    url: '/api/note',
+                    data: {
+                        'canvas': this.canvas,
+                        'lang': this.lang
                     },
-                },
-                interaction: {
-                    dragView: false,
-                    multiselect: true,
-                    hover: true,
-                },
-                physics: {
-                    enabled: false,
-                }
-            };
 
-            this.network = new vis.Network(this.container, data, options);
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
+                    }
+                }
+            ).then((result) => {
+                this.loading = false;
+                this.container = document.getElementById('mynetwork');
+
+                this.nodes = result.nodes;
+                this.edges = result.edges;
+
+                let data = {
+                    nodes: this.nodes,
+                    edges: this.edges
+                };
+
+                let vm = this;
+
+                let options = {
+                    manipulation: {
+                        enabled: true,
+                        initiallyActive: true,
+                        editNode: function (data, callback) {
+                            // filling in the popup DOM elements
+                            document.getElementById('operation').innerHTML = "Edit Node";
+                            document.getElementById('node-label').value = data.label;
+                            document.getElementById('saveButton').onclick = vm.saveData.bind(this, data, callback);
+                            document.getElementById('cancelButton').onclick = vm.cancelEdit.bind(this, callback);
+                            document.getElementById('network-popUp').style.display = 'block';
+                        },
+                    },
+                    interaction: {
+                        dragView: false,
+                        multiselect: true,
+                        hover: true,
+                    },
+                    physics: {
+                        enabled: false,
+                    }
+                };
+
+                this.network = new vis.Network(this.container, data, options);
+            }).catch((e) => {
+                this.loading = false;
+                this.modalShow = true;
+            });
         }
     }
 </script>
@@ -108,5 +142,18 @@
         border-radius: 5px;
         padding: 10px;
         text-align: center;
+    }
+
+    .spin {
+        position: fixed;
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(128, 128, 128, .5);
     }
 </style>

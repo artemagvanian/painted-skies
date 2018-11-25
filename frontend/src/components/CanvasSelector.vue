@@ -46,10 +46,15 @@
                         <font-awesome-icon icon="search-minus"/>
                     </b-button>
                 </b-button-group>
-                <b-button @click="saveImage()" data-hint='When you are ready, press this button to get mindmap'
-                          data-hintPosition="bottom-right">
-                    <font-awesome-icon icon="arrow-right"/>
-                </b-button>
+                <router-link :to="{
+                    name: 'mindmap',
+                    params: { canvas: JSON.stringify(this.canvas), lang: this.lang }
+                }" tag="div">
+                    <b-button data-hint='When you are ready, press this button to get mindmap'
+                              data-hintPosition="bottom-right">
+                        <font-awesome-icon icon="arrow-right"/>
+                    </b-button>
+                </router-link>
             </nav>
         </div>
         <canvas id="image-selector"></canvas>
@@ -65,6 +70,7 @@
 
     export default {
         name: "CanvasSelector",
+        props: ['image', 'lang'],
         data() {
             return {
                 canvas: null,
@@ -141,7 +147,7 @@
                 }
             });
 
-            let article = this.$parent.$data.image;
+            let article = this.image;
 
             this.canvas.on('touch:drag', function (e) {
                 if (self.mode === 'pan') {
@@ -217,9 +223,9 @@
                 this.zoom = this.zoom / 1.5 < 1 ? this.zoom : this.zoom / 1.5;
                 this.canvas.setZoom(this.zoom);
             },
-            saveImage() {
-                this.$root.$emit('imageColored', JSON.stringify(this.canvas));
-            }
+            // saveImage() {
+            //     this.$root.$emit('imageColored', JSON.stringify(this.canvas));
+            // }
         },
         destroyed() {
             introJs().hideHints();
@@ -230,13 +236,11 @@
                     let objects = this.canvas.getObjects();
                     if (objects.length === 0) {
                         this.setBrushColor('rgba(255,0,0,.5)');
-                    }
-                    else if (objects[objects.length - 1].fill === 'rgba(255,0,0,.5)') {
+                    } else if (objects[objects.length - 1].fill === 'rgba(255,0,0,.5)') {
                         this.setBrushColor('rgba(0,255,0,.5)');
                     }
                     return objects[objects.length - 1].fill;
-                }
-                catch (e) {
+                } catch (e) {
                     return null;
                 }
             },

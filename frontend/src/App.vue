@@ -1,14 +1,32 @@
 <template>
     <div id="app">
-        <MenuProvider/>
+        <transition name="fade">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
 <script>
     import Vue from 'vue'
     import BootstrapVue from 'bootstrap-vue'
+    import VueRouter from 'vue-router'
+
+    import MindmapViewer from './components/MindmapViewer'
+    import ImageUploader from './components/ImageUploader'
+    import CanvasSelector from './components/CanvasSelector'
 
     Vue.use(BootstrapVue);
+    Vue.use(VueRouter);
+
+    const routes = [
+        {path: '/mindmap-viewer', component: MindmapViewer, props: true, name: "mindmap"},
+        {path: '/canvas-selector', component: CanvasSelector, props: true, name: "canvas"},
+        {path: '/', component: ImageUploader}
+    ];
+
+    const router = new VueRouter({
+        routes
+    });
 
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -45,13 +63,9 @@
         .addPlugin(RavenVue, Vue)
         .install();
 
-    import MenuProvider from './components/MenuProvider.vue'
-
     export default {
+        router,
         name: 'app',
-        components: {
-            MenuProvider
-        }
     }
 </script>
 
@@ -67,5 +81,14 @@
     /*To make canvas margin work*/
     .canvas-container {
         margin-top: 100px !important;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */
+    {
+        opacity: 0;
     }
 </style>
