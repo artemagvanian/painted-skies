@@ -12,7 +12,7 @@
     import VueRouter from 'vue-router'
 
     import MindmapViewer from './components/MindmapViewer'
-    import ImageUploader from './components/ImageUploader'
+    import PdfUploader from './components/PdfUploader'
     import CanvasSelector from './components/CanvasSelector'
 
     Vue.use(BootstrapVue);
@@ -21,7 +21,7 @@
     const routes = [
         {path: '/mindmap-viewer', component: MindmapViewer, props: true, name: "mindmap"},
         {path: '/canvas-selector', component: CanvasSelector, props: true, name: "canvas"},
-        {path: '/', component: ImageUploader}
+        {path: '/', component: PdfUploader}
     ];
 
     const router = new VueRouter({
