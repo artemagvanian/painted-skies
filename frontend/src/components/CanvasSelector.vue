@@ -4,14 +4,9 @@
             <nav>
                 <b-button-group data-hint='Use these buttons to change mode. There are pan, draw and select options'
                                 data-hintPosition="bottom-right">
-                    <b-button @click="setMode('pan')" :variant="mode === 'pan' ? 'primary' : 'secondary'">
-                        <font-awesome-icon icon="arrows-alt"/>
-                    </b-button>
-                    <b-button @click="setMode('drw')" :variant="mode === 'drw' ? 'primary' : 'secondary'">
-                        <font-awesome-icon icon="pen"/>
-                    </b-button>
-                    <b-button @click="setMode('sel')" :variant="mode === 'sel' ? 'primary' : 'secondary'">
-                        <font-awesome-icon icon="hand-pointer"/>
+                    <b-button v-for="button in modeButtons" @click="setMode(button.mode)"
+                              :variant="mode === button.mode ? 'primary' : 'secondary'">
+                        <font-awesome-icon :icon="button.icon"/>
                     </b-button>
                 </b-button-group>
                 <b-button @click="deleteActive()" :disabled="mode !== 'sel'"
@@ -77,6 +72,11 @@
                 mode: 'sel', // can be 'sel' = selection, 'pan' = panning, 'drw' = 'drawing'
                 color: 'rgba(255,0,0,.5)',
                 zoom: 1,
+                modeButtons: [
+                    {mode: "pan", icon: "arrows-alt"},
+                    {mode: "drw", icon: "pen"},
+                    {mode: "sel", icon: "hand-pointer"}
+                ]
             }
         },
         mounted() {
