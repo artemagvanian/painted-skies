@@ -1,0 +1,34 @@
+<template>
+    <div id="menu">
+        <b-container class="d-flex justify-content-center flex-column h-100">
+            <h1 class="text-center mb-5">Виберіть формат матеріалів конспекту</h1>
+            <b-row class="text-center w-100">
+                <router-link :to="{name:'pdf'}" tag="div" class="col btn btn-primary p-5 m-2">
+                    <font-awesome-icon icon="file-pdf"/>
+                    <p>PDF</p>
+                </router-link>
+                <router-link :to="{name:'image'}" tag="div" class="col btn btn-primary p-5 m-2">
+                    <font-awesome-icon icon="file-image"/>
+                    <p>Картинка</p>
+                </router-link>
+            </b-row>
+        </b-container>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Menu"
+    }
+</script>
+
+<style scoped>
+    #menu {
+        height: 100%;
+    }
+
+    .btn {
+        font-size: 30px;
+        display: block;
+    }
+</style>

@@ -15,7 +15,9 @@
 
     import MindmapViewer from './components/MindmapViewer'
     import PdfUploader from './components/PdfUploader'
+    import ImageUploader from './components/ImageUploader'
     import CanvasSelector from './components/CanvasSelector'
+    import Menu from './components/Menu'
 
     Vue.use(BootstrapVue);
     Vue.use(VueRouter);
@@ -23,7 +25,9 @@
     const routes = [
         {path: '/mindmap-viewer', component: MindmapViewer, props: true, name: "mindmap"},
         {path: '/canvas-selector', component: CanvasSelector, props: true, name: "canvas"},
-        {path: '/', component: PdfUploader}
+        {path: '/', component: Menu},
+        {path: '/pdf-uploader', component: PdfUploader, name: "pdf"},
+        {path: '/image-uploader', component: ImageUploader, name: 'image'}
     ];
 
     const router = new VueRouter({
@@ -41,7 +45,9 @@
         faTimes,
         faSearchPlus,
         faSearchMinus,
-        faArrowRight
+        faArrowRight,
+        faFilePdf,
+        faFileImage
     } from '@fortawesome/free-solid-svg-icons'
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
@@ -52,7 +58,9 @@
         faTimes,
         faSearchPlus,
         faSearchMinus,
-        faArrowRight
+        faArrowRight,
+        faFilePdf,
+        faFileImage
     );
 
     Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -72,6 +80,10 @@
 </script>
 
 <style>
+    html, body, #app {
+        height: 100%;
+    }
+
     * {
         box-sizing: border-box;
     }

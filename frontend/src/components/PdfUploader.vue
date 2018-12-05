@@ -16,7 +16,7 @@
             <router-link :to="{
                     name: 'canvas',
                     params: { lang: this.language, image: this.image },
-                }" tag="div">
+                }" tag="div" class="mt-3">
                 <b-button size="lg"
                           variant="success"
                           :disabled="!imageProcessed">
@@ -48,7 +48,7 @@
         },
         methods: {
             onFileChange(e) {
-                let files = e.target.files || e.dataTransfer.files, vm = this;
+                let files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
                     return;
 
@@ -75,7 +75,6 @@
                 ).then((file) => {
                     this.imageProcessed = true;
                     this.image = file;
-
                 })
             },
         }
