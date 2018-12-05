@@ -1,6 +1,9 @@
+import PIL
 import os
 
-from django.http import JsonResponse
+import numpy as np
+from django.http import JsonResponse, HttpResponse
+
 from django.views import View
 import json
 
@@ -13,6 +16,9 @@ import pytesseract
 
 import subprocess
 import uuid
+
+
+from pdf2image import convert_from_bytes
 
 
 class ProcessView(View):
@@ -146,3 +152,28 @@ class ProcessView(View):
             'nodes': nodes,
             'status': 'ok'
         })
+
+
+class PdfMergeView(View):
+    def post(self, request):
+        try:
+            first_page, last_page = int(request.POST['first']), int(request.POST['last'])
+            pdf = request.FILES['pdf']
+        except KeyError:
+            return HttpResponse(status=400)
+
+        if last_page - first_page > 10 or last_page - first_page < 0 or first_page <= 0 or last_page <= 0:
+            return HttpResponse(status=400)
+
+        pages = convert_from_bytes(pdf.file.read(), first_page=first_page, last_page=last_page)
+        min_shape = sorted([(np.sum(i.size), i.size) for i in pages])[0][1]
+        page_vstack = np.vstack((np.asarray(i.resize(min_shape)) for i in pages))
+        page_vstack = PIL.Image.fromarray(page_vstack)
+
+        buffered = io.BytesIO()
+        page_vstack.save(buffered, format="png")
+        img_str = b"data:image/png;base64," + base64.b64encode(buffered.getvalue())
+
+        response = HttpResponse(img_str)
+
+        return response
