@@ -81,12 +81,19 @@
         },
         mounted() {
             let topBarHeight = 100,
-                w = $(document).width(),
-                h = $(document).height() - topBarHeight;
+                w = window.innerWidth
+                    || document.documentElement.clientWidth
+                    || document.body.clientWidth,
+
+                h = window.innerHeight
+                    || document.documentElement.clientHeight
+                    || document.body.clientHeight;
+
+            console.log(w, h);
 
             this.canvas = new fabric.Canvas('image-selector', {
                 width: w,
-                height: h,
+                height: h - topBarHeight,
                 backgroundColor: null,
             });
 
