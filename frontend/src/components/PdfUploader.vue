@@ -8,23 +8,27 @@
                                v-model="language">
                 </b-form-select>
             </b-form-group>
+            <label for="first-page">Введіть сторінку, з якої почнете конспектувати: </label>
+            <b-form-input type="number" id="first-page" min="1" v-model="firstPage"></b-form-input>
+            <label for="last-page">Введіть сторінку, на якій закінчите: </label>
+            <b-form-input type="number" id="last-page" min="1" v-model="lastPage"></b-form-input>
+
             <router-link :to="{
                     name: 'canvas',
                     params: { lang: this.language, image: this.image },
                 }" tag="div">
                 <b-button size="lg"
-                          variant="success">
+                          variant="success"
+                          :disabled="!imageProcessed">
                     Поїхали!
                 </b-button>
             </router-link>
-            <b-button @click="showData()">Show</b-button>
         </b-jumbotron>
     </div>
 </template>
 
 <script>
-    let pdfjs = require("pdfjs-dist/webpack");
-    import range from 'lodash/range'
+    import $ from 'jquery'
 
     export default {
         name: "PdfUploader",
@@ -36,50 +40,44 @@
                     {text: 'Російська', value: 'rus'},
                 ],
                 language: 'eng',
-                canvases: [],
+                imageProcessed: false,
+                image: null,
+                firstPage: 1,
+                lastPage: 1,
             }
         },
         methods: {
-            showData() {
-                console.log(this.canvases);
-            },
             onFileChange(e) {
-                let files = e.target.files || e.dataTransfer.files;
+                let files = e.target.files || e.dataTransfer.files, vm = this;
                 if (!files.length)
                     return;
-                this.createFile(files[0]);
+
+                let fd = new FormData;
+
+                fd.append('pdf', files[0]);
+                fd.append('first', this.firstPage.toString());
+                fd.append('last', this.lastPage.toString());
+
+
+                $.ajax(
+                    {
+                        method: 'POST',
+                        url: '/api/pdf',
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
+                        }
+                    }
+                ).then((file) => {
+                    this.imageProcessed = true;
+                    this.image = file;
+
+                })
             },
-            createFile(file) {
-                let reader = new FileReader();
-                let vm = this;
-                reader.onload = (e) => {
-                    pdfjs
-                        .getDocument(e.target.result)
-                        .then((pdf) => {
-                            const pagePromises = range(1, pdf.numPages).map(number => pdf.getPage(number));
-                            return Promise.all(pagePromises)
-                        }).then((pages) => {
-                            const scale = 2;
-                            pages.forEach(page => {
-                                const viewport = page.getViewport(scale);
-
-                                // Prepare canvas using PDF page dimensions
-                                const canvas = document.createElement('canvas');
-                                canvas.height = viewport.height;
-                                canvas.width = viewport.width;
-
-                                // Render PDF page into canvas context
-                                const canvasContext = canvas.getContext('2d');
-                                const renderContext = {canvasContext, viewport};
-                                page.render(renderContext).then(() => console.log('Page rendered'));
-                                vm.canvases.push(canvas);
-                            });
-                        },
-                        error => console.log('Error', error),
-                    )
-                };
-                reader.readAsDataURL(file);
-            }
         }
     }
 </script>
