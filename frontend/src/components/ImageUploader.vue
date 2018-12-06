@@ -37,9 +37,6 @@
             }
         },
         methods: {
-            // buttonClick() {
-            //     this.$root.$emit('imageUploaded', {'image': this.image, 'lang': this.language});
-            // },
             onFileChange(e) {
                 let files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
@@ -47,11 +44,10 @@
                 this.createImage(files[0]);
             },
             createImage(file) {
-                let reader = new FileReader(),
-                    vm = this;
+                let reader = new FileReader();
 
                 reader.onload = (e) => {
-                    vm.image = e.target.result;
+                    this.image = e.target.result;
                 };
 
                 reader.readAsDataURL(file);

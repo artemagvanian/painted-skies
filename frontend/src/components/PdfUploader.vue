@@ -13,16 +13,12 @@
             <label for="last-page">Введіть сторінку, на якій закінчите: </label>
             <b-form-input type="number" id="last-page" min="1" v-model="lastPage"></b-form-input>
 
-            <router-link :to="{
-                    name: 'canvas',
-                    params: { lang: this.language, image: this.image },
-                }" tag="div" class="mt-3">
-                <b-button size="lg"
-                          variant="success"
-                          :disabled="!imageProcessed">
-                    Поїхали!
-                </b-button>
-            </router-link>
+            <b-button size="lg"
+                      variant="success"
+                      class="mt-3"
+                      @click="uploadPdf()">
+                Поїхали!
+            </b-button>
         </b-jumbotron>
     </div>
 </template>
@@ -40,8 +36,7 @@
                     {text: 'Російська', value: 'rus'},
                 ],
                 language: 'eng',
-                imageProcessed: false,
-                image: null,
+                file: null,
                 firstPage: 1,
                 lastPage: 1,
             }
@@ -52,12 +47,14 @@
                 if (!files.length)
                     return;
 
+                this.file = files[0];
+            },
+            uploadPdf() {
                 let fd = new FormData;
 
-                fd.append('pdf', files[0]);
+                fd.append('pdf', this.file);
                 fd.append('first', this.firstPage.toString());
                 fd.append('last', this.lastPage.toString());
-
 
                 $.ajax(
                     {
@@ -72,11 +69,15 @@
                             'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
                         }
                     }
-                ).then((file) => {
-                    this.imageProcessed = true;
-                    this.image = file;
+                ).then((image) => {
+                    this.$router.push({
+                        name: 'canvas',
+                        params: {lang: this.language, image},
+                    });
+                }).catch(() => {
+                    window.alert("Сталася помилка! Спробуйте оновити сторінку!");
                 })
-            },
+            }
         }
     }
 </script>

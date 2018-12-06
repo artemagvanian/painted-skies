@@ -1,9 +1,7 @@
 <template>
     <div id="app">
         <transition name="fade">
-            <keep-alive>
-                <router-view></router-view>
-            </keep-alive>
+            <router-view></router-view>
         </transition>
     </div>
 </template>
@@ -94,7 +92,9 @@
 
     /*To make canvas margin work*/
     .canvas-container {
-        margin-top: 100px !important;
+        position: fixed !important;
+        bottom: 0;
+        left: 0;
     }
 
     .fade-enter-active, .fade-leave-active {
