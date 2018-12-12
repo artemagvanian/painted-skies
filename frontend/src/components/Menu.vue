@@ -11,6 +11,14 @@
                     <font-awesome-icon icon="file-image"/>
                     <p>Картинка</p>
                 </router-link>
+                <router-link :to="{name:'list'}" tag="div" class="col btn btn-primary p-5 m-2">
+                    <font-awesome-icon icon="book"/>
+                    <p>Бібліотека</p>
+                </router-link>
+                <router-link :to="{name:'login'}" tag="div" class="col btn btn-primary p-5 m-2">
+                    <font-awesome-icon icon="book"/>
+                    <p>Логін</p>
+                </router-link>
             </b-row>
         </b-container>
     </div>
