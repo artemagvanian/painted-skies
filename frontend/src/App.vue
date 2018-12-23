@@ -19,6 +19,7 @@
     import Menu from './components/Menu'
     import MindmapList from './components/MindmapList'
     import Login from './components/Login'
+    import Logout from './components/Logout'
 
     Vue.use(VueSession);
     Vue.use(BootstrapVue);
@@ -31,7 +32,8 @@
         {path: '/pdf-uploader', component: PdfUploader, name: 'pdf'},
         {path: '/image-uploader', component: ImageUploader, name: 'image'},
         {path: '/list', component: MindmapList, name: 'list'},
-        {path: '/login', component: Login, name: 'login'}
+        {path: '/login', component: Login, name: 'login'},
+        {path: '/logout', component: Logout, name: 'logout'},
     ];
 
     const router = new VueRouter({

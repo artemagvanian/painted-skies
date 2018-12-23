@@ -22,8 +22,8 @@
     import $ from 'jquery'
     import 'csspin/css/csspin-heart.css'
 
-    let vis = require('vis/dist/vis.min.js');
-    require('vis/dist/vis.min.css');
+    import vis from 'vis/dist/vis.min.js';
+    import 'vis/dist/vis.min.css'
 
     export default {
         name: "MindmapViewer",
