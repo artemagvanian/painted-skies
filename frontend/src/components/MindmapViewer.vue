@@ -4,12 +4,19 @@
             <div id="network"></div>
             <div id="menu" class="p-3">
                 <div id="properties" class="border border-success rounded p-2">
-                    <button class="btn btn-success btn-block" @click="addNode()">Add Node</button>
-                    <button class="btn btn-success btn-block mt-2" @click="addEdge()">Add Edge</button>
+                    <button class="btn btn-success btn-block" :disabled="inAddMode" @click="addNodeMode()">
+                        Add Node
+                    </button>
+                    <button class="btn btn-success btn-block mt-2" :disabled="inAddMode" @click="addEdgeMode()">
+                        Add Edge
+                    </button>
                     <template v-if="selectedNode">
                         <div class="form-group mt-2">
                             <input type="text" class="form-control" v-model="selectedNode.label"
                                    placeholder="Enter node title">
+                            <button class="btn btn-danger btn-block mt-2" @click="deleteNode()">
+                                Delete Node
+                            </button>
                         </div>
                     </template>
                     <div v-else class="mt-2">
@@ -41,11 +48,25 @@
         name: "MindmapViewer",
         props: ['canvas', 'lang'],
         methods: {
-            addNode() {
-                this.network.addNodeMode();
+            addNode(nodeData, callback) {
+                callback(nodeData);
+                this.inAddMode = false;
             },
-            addEdge() {
+            addEdge(nodeData, callback) {
+                callback(nodeData);
+                this.inAddMode = false;
+            },
+            addNodeMode() {
+                this.network.addNodeMode();
+                this.inAddMode = true;
+            },
+            addEdgeMode() {
                 this.network.addEdgeMode();
+                this.inAddMode = true;
+            },
+            deleteNode() {
+                this.network.deleteSelected();
+                this.selectedNode = null;
             },
             onSelectNode(e) {
                 this.selectedNode = this.nodes.get(e.nodes[0]);
@@ -68,6 +89,7 @@
         },
         data() {
             return {
+                inAddMode: false,
                 nodes: [],
                 edges: [],
                 selectedNode: null,
@@ -78,9 +100,11 @@
         ,
         network: null,
         async mounted() {
+            this.loading = true;
+
+            let response;
             try {
-                this.loading = true;
-                let response = await $.ajax({
+                response = await $.ajax({
                     method: 'POST',
                     url: '/api/note',
                     data: {
@@ -93,47 +117,44 @@
                         'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
                     }
                 });
-
-                // let response = {
-                //     nodes: [
-                //         {id: 1, label: 'comco'},
-                //         {id: 2, label: 'camca'},
-                //     ],
-                //     edges: [
-                //         {id: 1, from: 1, to: 2},
-                //     ]
-                // };
-
-                this.loading = false;
-                let container = document.getElementById('network');
-
-                this.nodes = new vis.DataSet(response.nodes);
-                this.edges = new vis.DataSet(response.edges);
-
-                let data = {
-                    nodes: this.nodes,
-                    edges: this.edges
-                };
-
-                let options = {
-                    interaction: {
-                        dragView: false,
-                        hover: true,
-                    },
-                    physics: {
-                        enabled: false,
-                    }
-                };
-
-                this.network = new vis.Network(container, data, options);
-
-                this.network.on('selectNode', this.onSelectNode);
-                this.network.on('deselectNode', this.onDeselectNode);
-
             } catch (e) {
-                this.loading = false;
-                this.modalShow = true;
+                response = {
+                    nodes: [],
+                    edges: []
+                };
             }
+
+            this.loading = false;
+
+            let container = document.getElementById('network');
+
+            this.nodes = new vis.DataSet(response.nodes);
+            this.edges = new vis.DataSet(response.edges);
+
+            let data = {
+                nodes: this.nodes,
+                edges: this.edges
+            };
+
+            let options = {
+                manipulation: {
+                    enabled: false,
+                    addNode: this.addNode,
+                    addEdge: this.addEdge,
+                },
+                interaction: {
+                    hover: true,
+                    selectConnectedEdges: false,
+                },
+                physics: {
+                    enabled: false,
+                }
+            };
+
+            this.network = new vis.Network(container, data, options);
+
+            this.network.on('selectNode', this.onSelectNode);
+            this.network.on('deselectNode', this.onDeselectNode);
         }
     }
 </script>
