@@ -129,3 +129,4 @@ yarn-error.log*
 /backend/staticfiles/
 .env.prod
 .env.dev
+/backend/media/
