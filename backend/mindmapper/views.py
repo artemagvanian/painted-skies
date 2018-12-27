@@ -17,6 +17,7 @@ import pytesseract
 import subprocess
 import uuid
 
+from django.middleware.csrf import get_token
 
 from pdf2image import convert_from_bytes
 
@@ -177,3 +178,8 @@ class PdfMergeView(View):
         response = HttpResponse(img_str)
 
         return response
+
+
+def get_csrf_token(request):
+    token = get_token(request)
+    return JsonResponse({'token': token})

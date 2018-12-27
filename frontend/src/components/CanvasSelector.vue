@@ -59,8 +59,6 @@
 <script>
     import {fabric} from 'fabric-with-gestures';
     import $ from 'jquery';
-    import introJs from 'intro.js';
-    import 'intro.js/introjs.css';
 
 
     export default {
@@ -233,9 +231,6 @@
             // saveImage() {
             //     this.$root.$emit('imageColored', JSON.stringify(this.canvas));
             // }
-        },
-        destroyed() {
-            introJs().hideHints();
         },
         computed: {
             lastRectangleColor() {

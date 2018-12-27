@@ -8,6 +8,7 @@
 
 <script>
     import $ from 'jquery'
+    import 'jquery.cookie/jquery.cookie'
 
     export default {
         name: "MindmapList",
@@ -24,7 +25,7 @@
                     headers: {
                         'Authorization': 'JWT ' + this.$session.get('jwt'),
                         'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
+                        'X-CSRFToken': $.cookie('csrftoken'),
                     }
                 })
             } catch (e) {

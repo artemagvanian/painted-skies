@@ -7,6 +7,9 @@
 </template>
 
 <script>
+    import $ from 'jquery'
+    import 'jquery.cookie/jquery.cookie'
+
     import Vue from 'vue'
     import BootstrapVue from 'bootstrap-vue'
     import VueRouter from 'vue-router'
@@ -84,6 +87,16 @@
     export default {
         router,
         name: 'app',
+        mounted() {
+            $.ajax({
+                url: '/api/csrf',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $.cookie('csrftoken', data.token);
+                }
+            });
+        }
     }
 </script>
 

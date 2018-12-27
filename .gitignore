@@ -127,5 +127,5 @@ yarn-error.log*
 
 # Project-related ignores
 /backend/staticfiles/
-/backend/static/
-db
+.env.prod
+.env.dev

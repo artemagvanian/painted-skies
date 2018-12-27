@@ -25,6 +25,7 @@
 
 <script>
     import $ from 'jquery'
+    import 'jquery.cookie/jquery.cookie'
 
     export default {
         name: "PdfUploader",
@@ -66,7 +67,7 @@
 
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
+                            'X-CSRFToken': $.cookie('csrftoken'),
                         }
                     }
                 ).then((image) => {

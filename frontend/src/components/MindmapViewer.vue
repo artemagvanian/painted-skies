@@ -39,6 +39,7 @@
 
 <script>
     import $ from 'jquery'
+    import 'jquery.cookie/jquery.cookie'
     import 'csspin/css/csspin-heart.css'
 
     import vis from 'vis/dist/vis.min.js';
@@ -114,7 +115,7 @@
 
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val(),
+                        'X-CSRFToken': $.cookie('csrftoken'),
                     }
                 });
             } catch (e) {
