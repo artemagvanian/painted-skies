@@ -4,36 +4,29 @@
             <div id="network"></div>
             <div id="menu" class="p-3">
                 <div id="properties" class="border border-success rounded p-2">
+                    <input class="form-control" type="text" v-model="title">
+                    <p class="text-muted my-3 text-center">{{ this.saveStatus }}</p>
                     <button class="btn btn-success btn-block" :disabled="inAddMode" @click="addNodeMode()">
-                        Add Node
+                        Додати вузол
                     </button>
                     <button class="btn btn-success btn-block mt-2" :disabled="inAddMode" @click="addEdgeMode()">
-                        Add Edge
+                        Додати ребро
                     </button>
                     <template v-if="selectedNode">
                         <div class="form-group mt-2">
                             <input type="text" class="form-control" v-model="selectedNode.label"
-                                   placeholder="Enter node title">
+                                   placeholder="Текст вузла...">
                             <button class="btn btn-danger btn-block mt-2" @click="deleteNode()">
                                 Delete Node
                             </button>
                         </div>
                     </template>
-                    <div v-else class="mt-2">
-                        <p>Select Node To Modify...</p>
+                    <div v-else class="mt-3 text-center">
+                        <p>Виберіть вузол для редагування...</p>
                     </div>
-
                 </div>
             </div>
         </div>
-        <div class="spin" v-if="loading">
-            <div class="cp-spinner cp-heart"></div>
-        </div>
-        <b-modal id="modal" v-model="modalShow" title="Сталася помилка!" :ok-only="true">
-            Вся команда розробників вже знає про це та намагається все виправити. Зверніть увагу, що наш сервер не
-            оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений, можуть
-            статися помилки. Спробуйте оновити сторінку!
-        </b-modal>
     </div>
 </template>
 
@@ -47,14 +40,16 @@
 
     export default {
         name: "MindmapViewer",
-        props: ['canvas', 'lang'],
+        props: ['nodes', 'edges', 'id'],
         methods: {
             addNode(nodeData, callback) {
                 callback(nodeData);
+                this.saveMindmap();
                 this.inAddMode = false;
             },
             addEdge(nodeData, callback) {
                 callback(nodeData);
+                this.saveMindmap();
                 this.inAddMode = false;
             },
             addNodeMode() {
@@ -68,12 +63,81 @@
             deleteNode() {
                 this.network.deleteSelected();
                 this.selectedNode = null;
+                this.saveMindmap();
             },
             onSelectNode(e) {
-                this.selectedNode = this.nodes.get(e.nodes[0]);
+                this.selectedNode = this.nodesDataSet.get(e.nodes[0]);
             },
             onDeselectNode() {
                 this.selectedNode = null;
+            },
+            async obtainMindmap() {
+                try {
+                    if (this.id === undefined) {
+                        let mindmap = await $.ajax({
+                            url: '/api/rest/mindmaps/',
+                            data: {
+                                title: this.title,
+                                mindmap: JSON.stringify({
+                                    nodes: this.nodes,
+                                    edges: this.edges,
+                                })
+                            },
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'JWT ' + this.$session.get('jwt'),
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'X-CSRFToken': $.cookie('csrftoken'),
+                            }
+                        });
+                        this.id = mindmap.id;
+                        this.nodesDataSet = new vis.DataSet(this.nodes);
+                        this.edgesDataSet = new vis.DataSet(this.edges);
+
+                    } else {
+                        let mindmap = await $.ajax({
+                            url: '/api/rest/mindmaps/' + this.id.toString() + '/',
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'JWT ' + this.$session.get('jwt'),
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'X-CSRFToken': $.cookie('csrftoken'),
+                            }
+                        });
+                        this.title = mindmap.title;
+                        let mindmapElements = JSON.parse(mindmap.mindmap);
+                        this.nodesDataSet = new vis.DataSet(mindmapElements.nodes);
+                        this.edgesDataSet = new vis.DataSet(mindmapElements.edges);
+                    }
+                } catch {
+                    this.nodesDataSet = new vis.DataSet(this.nodes);
+                    this.edgesDataSet = new vis.DataSet(this.edges);
+                    this.saveStatus = 'Дані не збережено'
+                }
+            },
+            async saveMindmap() {
+                try {
+                    this.saveStatus = 'Зберігаємо дані...';
+                    await $.ajax({
+                        url: '/api/rest/mindmaps/' + this.id.toString() + '/',
+                        data: {
+                            title: this.title,
+                            mindmap: JSON.stringify({
+                                nodes: this.nodesDataSet.get(),
+                                edges: this.edgesDataSet.get(),
+                            })
+                        },
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': 'JWT ' + this.$session.get('jwt'),
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': $.cookie('csrftoken'),
+                        }
+                    });
+                    this.saveStatus = 'Дані збережено'
+                } catch {
+                    this.saveStatus = 'Дані не збережено'
+                }
             }
         },
         watch: {
@@ -82,59 +146,37 @@
                     if (newValue != null && oldValue != null) {
                         delete newValue.x;
                         delete newValue.y;
-                        this.nodes.update(newValue);
+                        this.nodesDataSet.update(newValue);
+                        this.saveMindmap();
                     }
                 },
                 deep: true,
+            },
+            title() {
+                this.saveMindmap();
             }
+
         },
         data() {
             return {
+                edgesDataSet: [],
+                saveStatus: 'Дані збережено',
                 inAddMode: false,
-                nodes: [],
-                edges: [],
+                nodesDataSet: [],
                 selectedNode: null,
-                loading: false,
-                modalShow: false,
+                title: 'Нова ментальна карта'
             }
         }
         ,
         network: null,
         async mounted() {
-            this.loading = true;
-
-            let response;
-            try {
-                response = await $.ajax({
-                    method: 'POST',
-                    url: '/api/note',
-                    data: {
-                        'canvas': this.canvas,
-                        'lang': this.lang
-                    },
-
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': $.cookie('csrftoken'),
-                    }
-                });
-            } catch (e) {
-                response = {
-                    nodes: [],
-                    edges: []
-                };
-            }
-
-            this.loading = false;
-
             let container = document.getElementById('network');
 
-            this.nodes = new vis.DataSet(response.nodes);
-            this.edges = new vis.DataSet(response.edges);
+            await this.obtainMindmap();
 
             let data = {
-                nodes: this.nodes,
-                edges: this.edges
+                nodes: this.nodesDataSet,
+                edges: this.edgesDataSet
             };
 
             let options = {
@@ -167,18 +209,5 @@
         height: 100vh;
         grid-template-columns: 3fr 1fr;
         overflow: hidden;
-    }
-
-    .spin {
-        position: fixed;
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(128, 128, 128, .5);
     }
 </style>

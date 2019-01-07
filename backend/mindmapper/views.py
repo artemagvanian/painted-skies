@@ -23,15 +23,15 @@ from pdf2image import convert_from_bytes
 
 
 class ProcessView(View):
-    def process_canvas(self, canvas):
+    def process_image(self, image, scale):
         image = \
             Image.open(
                 io.BytesIO(
                     base64.b64decode(
-                        canvas['backgroundImage']['src'].split(",")[1])))
+                        image.split(",")[1])))
 
-        image = image.resize((int(image.width * canvas['backgroundImage']['scaleX']),
-                              int(image.height * canvas['backgroundImage']['scaleY'])))
+        image = image.resize((int(image.width * scale),
+                              int(image.height * scale)))
 
         image_name = str(uuid.uuid4())
 
@@ -41,110 +41,60 @@ class ProcessView(View):
         os.remove(image_name + '.png')
         os.remove(image_name + 'cleaned.png')
 
-        rectangles = list(map(lambda x: {
-            'left': x['left'],
-            'top': x['top'],
-            'width': x['width'],
-            'height': x['height'],
-            'fill': x['fill']
-
-        }, canvas['objects']))
-        return image, rectangles
+        return image
 
     def post(self, request):
-        canvas = json.loads(request.POST['canvas'])
+        rectangles = json.loads(request.POST['selections'])
         lang = request.POST['lang']
+        image = self.process_image(request.POST['image'], float(request.POST['scale']))
         print('[TESSERACT]: obtained data')
-        image, rectangles = self.process_canvas(canvas)
+
         print('[TESSERACT]: obtained image')
-        color_to_level = {
-            'rgba(255,0,0,.5)': 1,
-            'rgba(0,255,0,.5)': 2,
-            'rgba(0,0,255,.5)': 3
-        }
 
-        color_to_shape = {
-            'rgba(255,0,0,.5)': 'ellipse',
-            'rgba(0,255,0,.5)': 'box',
-            'rgba(0,0,255,.5)': 'box'
-        }
+        regions = []
+        for num, data in enumerate(rectangles):
+            x1 = min(data['x'], data['x'] + data['width'])
+            y1 = min(data['y'], data['y'] + data['height'])
+            x2 = max(data['x'], data['x'] + data['width'])
+            y2 = max(data['y'], data['y'] + data['height'])
 
-        color_to_text = {
-            'rgba(255,0,0,.5)': 'white',
-            'rgba(0,255,0,.5)': 'black',
-            'rgba(0,0,255,.5)': 'white'
-        }
-
-        regions = list(
-            map(lambda x: {
-                'image': image.crop((
-                    x['left'],
-                    x['top'],
-                    x['left'] + x['width'],
-                    x['top'] + x['height'])),
-                'level': color_to_level[x['fill']],
-                'color': x['fill']
-            }, rectangles))
+            regions.append({
+                'image': image.crop((x1, y1, x2, y2)),
+                'level': data['level'],
+                'color': data['color']['stroke'],
+                'id': num,
+                'merged': data['merged']
+            })
 
         print('[TESSERACT]: obtained crops')
 
         nodes = []
         edges = []
-        stack = []
 
         print(f'[TESSERACT]: going to recognize {len(regions)} crops')
 
-        for n, i in enumerate(regions):
-
-            if i['image'].width == 0 or i['image'].height == 0:
+        for i in regions:
+            if not i['merged']:
                 nodes.append({
-                    'id': n,
-                    'label': '',
-                    'color': i['color'][:13] + '1)',
-                    'shape': color_to_shape[i['color']],
-                    'font': {'color': color_to_text[i['color']]}
-                })
-            else:
-                nodes.append({
-                    'id': n,
+                    'id': i['id'],
                     'label': pytesseract.image_to_string(i['image'], lang=lang),
-                    'color': i['color'][:13] + '1)',
-                    'shape': color_to_shape[i['color']],
-                    'font': {'color': color_to_text[i['color']]}
+                    'color': i['color'],
+                    'shape': 'box',
+                    'font': {'color': 'white'}
                 })
 
-            if n == 0:
-                stack.append(n)
+                for j in reversed(regions[:i['id']]):
+                    if i['level'] - j['level'] == 1 and not j['merged']:
+                        edges.append({
+                            'from': i['id'],
+                            'to': j['id'],
+                            'arrows': 'from'
+                        })
+                        break
             else:
-                if i['level'] - regions[stack[-1]]['level'] == 1:
-                    # dot.edge(n, stack[len(stack) - 1])
-                    edges.append({
-                        'from': n,
-                        'to': stack[-1],
-                        'arrows': 'from'
-                    })
-                    stack.append(n)
-                elif i['level'] == regions[stack[-1]]['level']:
-                    stack.pop()
-                    # dot.edge(n, stack[len(stack) - 1])
-                    edges.append({
-                        'from': n,
-                        'to': stack[-1],
-                        'arrows': 'from'
-                    })
-                    stack.append(n)
-                elif i['level'] - regions[stack[-1]]['level'] == -1:
-                    stack.pop()
-                    stack.pop()
-                    # dot.edge(n, stack[len(stack) - 1])
-                    edges.append({
-                        'from': n,
-                        'to': stack[-1],
-                        'arrows': 'from'
-                    })
-                    stack.append(n)
+                nodes[-1]['label'] += ' ' + pytesseract.image_to_string(i['image'], lang=lang)
 
-            print(f'[TESSERACT]: recognized crop {n}')
+            print(f'[TESSERACT]: recognized crop {i["id"]}')
 
         print('[TESSERACT]: obtained mindmap')
 

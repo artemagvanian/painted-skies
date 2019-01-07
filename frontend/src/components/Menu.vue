@@ -11,7 +11,7 @@
                     <font-awesome-icon icon="file-image"/>
                     <p>Картинка</p>
                 </router-link>
-                <router-link :to="{name:'list'}" tag="div" class="col btn btn-primary p-5 m-2">
+                <router-link v-if="loggedIn" :to="{name:'list'}" tag="div" class="col btn btn-primary p-5 m-2">
                     <font-awesome-icon icon="book"/>
                     <p>Бібліотека</p>
                 </router-link>

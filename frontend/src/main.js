@@ -18,13 +18,14 @@ import {
     faArrowsAlt,
     faPen,
     faHandPointer,
-    faTimes,
     faSearchPlus,
     faSearchMinus,
     faArrowRight,
     faFilePdf,
     faFileImage,
-    faBook
+    faBook,
+    faBackspace,
+    faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
@@ -32,13 +33,14 @@ library.add(
     faArrowsAlt,
     faPen,
     faHandPointer,
-    faTimes,
     faSearchPlus,
     faSearchMinus,
     faArrowRight,
     faFilePdf,
     faFileImage,
-    faBook
+    faBook,
+    faBackspace,
+    faPlus,
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

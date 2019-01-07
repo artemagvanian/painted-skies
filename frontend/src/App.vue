@@ -28,13 +28,7 @@
 <style>
     html, body, #app {
         height: 100%;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
+        overflow: hidden;
         margin: 0;
     }
 
