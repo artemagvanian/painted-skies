@@ -5,7 +5,6 @@
             <b-row class="text-center w-100">
                 <b-form @submit="onSubmit" class="mx-auto">
                     <b-form-group id="usernameInputGroup"
-                                  label="Логін:"
                                   label-for="usernameInput"
                                   description="Введіть логін, який ви використовували при реєстрації">
                         <b-form-input id="usernameInput"
@@ -16,8 +15,8 @@
                         </b-form-input>
                     </b-form-group>
                     <b-form-group id="passwordInputGroup"
-                                  label="Пароль:"
-                                  label-for="passwordInput">
+                                  label-for="passwordInput"
+                                  description="Введіть ваш суперсекретний пароль">
                         <b-form-input id="passwordInput"
                                       type="password"
                                       v-model="password"
@@ -25,7 +24,7 @@
                                       placeholder="Введіть пароль">
                         </b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary">Увійти</b-button>
+                    <b-button type="submit" variant="primary" class="btn-block">Увійти</b-button>
                 </b-form>
             </b-row>
         </b-container>
