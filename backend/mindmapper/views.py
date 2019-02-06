@@ -113,7 +113,7 @@ class PdfMergeView(View):
         except KeyError:
             return HttpResponse(status=400)
 
-        if last_page - first_page > 10 or last_page - first_page < 0 or first_page <= 0 or last_page <= 0:
+        if last_page - first_page > 20 or last_page - first_page < 0 or first_page <= 0 or last_page <= 0:
             return HttpResponse(status=400)
 
         pages = convert_from_bytes(pdf.file.read(), first_page=first_page, last_page=last_page)
