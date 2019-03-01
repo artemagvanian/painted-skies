@@ -19,6 +19,10 @@
                     <font-awesome-icon icon="book"/>
                     <p>{{ loggedIn ? 'Вийти' : 'Увійти'}}</p>
                 </router-link>
+                <router-link :to="{name: 'signup'}" tag="div" class="col btn btn-primary p-5 m-2" v-if="!loggedIn">
+                    <font-awesome-icon icon="book"/>
+                    <p>Зареєструватися</p>
+                </router-link>
             </b-row>
         </b-container>
     </div>

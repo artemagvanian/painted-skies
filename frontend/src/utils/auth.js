@@ -35,6 +35,20 @@ export default {
             return false;
         }
     },
+    async signup(username, password1, password2, router) {
+        try {
+            await $.ajax({
+                url: '/api/auth/signup',
+                method: 'POST',
+                data: {
+                    password1, password2, username
+                }
+            });
+            router.push('/');
+        } catch (e) {
+            console.log(e);
+        }
+    },
     getUserInfo(session) {
         let encoded = session.get('jwt');
         encoded = encoded.slice(encoded.indexOf('.') + 1, encoded.lastIndexOf('.'));

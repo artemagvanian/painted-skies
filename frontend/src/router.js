@@ -8,6 +8,7 @@ import Menu from './components/Menu'
 import MindmapList from './components/MindmapList'
 import Login from './components/Login'
 import Logout from './components/Logout'
+import Signup from './components/Signup'
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,7 @@ const routes = [
     {path: '/list', component: MindmapList, name: 'list'},
     {path: '/login', component: Login, name: 'login'},
     {path: '/logout', component: Logout, name: 'logout'},
+    {path: '/signup', component: Signup, name: 'signup'},
 ];
 
 const router = new VueRouter({
