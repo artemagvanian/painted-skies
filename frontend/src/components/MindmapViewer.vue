@@ -1,33 +1,71 @@
 <template>
-    <div id="mindmap-viewer">
+    <v-container fluid pa-0>
         <div class="grid-container">
             <div id="network"></div>
             <div id="menu" class="p-3">
-                <div id="properties" class="border border-success rounded p-2">
-                    <input class="form-control" type="text" v-model="title">
-                    <p class="text-muted my-3 text-center">{{ this.saveStatus }}</p>
-                    <button class="btn btn-success btn-block" :disabled="inAddMode" @click="addNodeMode()">
-                        Додати вузол
-                    </button>
-                    <button class="btn btn-success btn-block mt-2" :disabled="inAddMode" @click="addEdgeMode()">
-                        Додати ребро
-                    </button>
+                <v-navigation-drawer permanent right absolute>
+                    <v-list-tile class="py-3">
+                        <v-list-tile-action>
+                            <v-icon>map</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-text-field type="text" v-model="title" label="Назва ментальної карти"></v-text-field>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-divider></v-divider>
+                    <v-list-tile class="py-3">
+                        <v-list-tile-action>
+                            <v-icon>sync</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <p class="text-muted my-3 text-center">{{ this.saveStatus }}</p>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-divider></v-divider>
+                    <v-list-tile class="py-3">
+                        <v-list-tile-content>
+                            <v-btn :disabled="inAddMode" @click="addNodeMode()" block>
+                                Додати вузол
+                            </v-btn>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-divider></v-divider>
+                    <v-list-tile class="py-3">
+                        <v-list-tile-content>
+                            <v-btn :disabled="inAddMode" @click="addEdgeMode()" block>
+                                Додати ребро
+                            </v-btn>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-divider></v-divider>
                     <template v-if="selectedNode">
-                        <div class="form-group mt-2">
-                            <input type="text" class="form-control" v-model="selectedNode.label"
-                                   placeholder="Текст вузла...">
-                            <button class="btn btn-danger btn-block mt-2" @click="deleteNode()">
-                                Delete Node
-                            </button>
-                        </div>
+                        <v-list-tile class="py-3">
+                            <v-list-tile-action>
+                                <v-icon>textsms</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-text-field label="Текст вузла" type="text" v-model="selectedNode.label"
+                                              placeholder="Текст вузла..."></v-text-field>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider></v-divider>
+                        <v-list-tile class="py-3">
+                            <v-list-tile-content>
+                                <v-btn color='red' @click="deleteNode()" block>
+                                    Видалити вузол
+                                </v-btn>
+                            </v-list-tile-content>
+                        </v-list-tile>
                     </template>
-                    <div v-else class="mt-3 text-center">
-                        <p>Виберіть вузол для редагування...</p>
-                    </div>
-                </div>
+                    <v-list-tile v-else class="py-3">
+                        <div :style="{ width: 'calc(100% - 16px)', textAlign: 'center' }">
+                            <p>Виберіть вузол для редагування</p>
+                        </div>
+                    </v-list-tile>
+                </v-navigation-drawer>
             </div>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -118,12 +156,17 @@
             async saveMindmap() {
                 try {
                     this.saveStatus = 'Зберігаємо дані...';
+                    let nodeDS = this.nodesDataSet.get();
+                    for (let i of nodeDS) {
+                        i.x = this.network.body.nodes[i.id].x;
+                        i.y = this.network.body.nodes[i.id].y;
+                    }
                     await $.ajax({
                         url: '/api/rest/mindmaps/' + this.id.toString() + '/',
                         data: {
                             title: this.title,
                             mindmap: JSON.stringify({
-                                nodes: this.nodesDataSet.get(),
+                                nodes: nodeDS,
                                 edges: this.edgesDataSet.get(),
                             })
                         },
@@ -135,7 +178,8 @@
                         }
                     });
                     this.saveStatus = 'Дані збережено'
-                } catch {
+                } catch (e) {
+                    console.log(e);
                     this.saveStatus = 'Дані не збережено'
                 }
             }
@@ -198,6 +242,7 @@
 
             this.network.on('selectNode', this.onSelectNode);
             this.network.on('deselectNode', this.onDeselectNode);
+            this.network.on('release', this.saveMindmap);
         }
     }
 </script>
@@ -206,8 +251,8 @@
     .grid-container {
         display: grid;
         width: 100vw;
-        height: 100vh;
-        grid-template-columns: 3fr 1fr;
+        height: calc(100vh - 69px);
+        grid-template-columns: 1fr 300px;
         overflow: hidden;
     }
 </style>

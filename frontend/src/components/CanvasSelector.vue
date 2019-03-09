@@ -1,52 +1,58 @@
 <template>
-    <div id="canvasSelector">
-        <div class="top-menu">
-            <nav>
-                <b-button-group>
-                    <b-button v-for="button in modeButtons" @click="mode = button.mode"
-                              :variant="mode === button.mode ? 'primary' : 'secondary'">
-                        <font-awesome-icon :icon="button.icon"/>
-                    </b-button>
-                </b-button-group>
-                <b-button-group>
-                    <b-button v-for="paintingObject in paintingObjects"
-                              :variant="paintingObject === activePaintingObject ? paintingObject.buttonStyle : 'secondary'"
-                              @click="activate(paintingObject)"
-                              :disabled="!levelCanBeActive(paintingObject.level)">
+    <v-container fluid full-height pa-0>
+        <v-toolbar prominent flat>
+            <v-layout row justify-center>
+                <v-flex>
+                    <v-btn v-for="button in modeButtons" @click="mode = button.mode"
+                           :color="mode === button.mode ? 'blue' : 'grey darken-1'" class="ma-0 white--text" depressed
+                           small>
+                        <v-icon>{{ button.icon }}</v-icon>
+                    </v-btn>
+                </v-flex>
+                <v-flex>
+                    <v-btn v-for="paintingObject in paintingObjects"
+                           :color="paintingObject === activePaintingObject ? paintingObject.buttonStyle : 'grey darken-1'"
+                           @click="activate(paintingObject)"
+                           :disabled="!levelCanBeActive(paintingObject.level)"
+                           class="ma-0 white--text" depressed small>
                         {{ paintingObject.level }}
-                    </b-button>
-                </b-button-group>
-                <b-button-group>
-                    <b-button @click="removeLastElement()">
-                        <font-awesome-icon icon="backspace"/>
-                    </b-button>
-                    <b-button @click="toggleMergeMode()" :variant="this.mergeMode === true ? 'primary' : 'secondary'">
-                        <font-awesome-icon icon="plus"/>
-                    </b-button>
-                </b-button-group>
-                <b-button-group>
-                    <b-button @click="zoom *= 1.5">
-                        <font-awesome-icon icon="search-plus"/>
-                    </b-button>
-                    <b-button @click="zoom /= 1.5">
-                        <font-awesome-icon icon="search-minus"/>
-                    </b-button>
-                </b-button-group>
-                <b-button @click="makeMindMap()">
-                    <font-awesome-icon icon="arrow-right"/>
-                </b-button>
-            </nav>
-        </div>
+                    </v-btn>
+                </v-flex>
+                <v-flex>
+                    <v-btn @click="removeLastElement()" class="ma-0 white--text" depressed color="grey darken-1" small>
+                        <v-icon>undo</v-icon>
+                    </v-btn>
+                    <v-btn @click="toggleMergeMode()" :color="this.mergeMode === true ? 'blue' : 'grey darken-1'"
+                           class="ma-0 white--text" depressed small>
+                        <v-icon>exposure_plus_1</v-icon>
+                    </v-btn>
+                </v-flex>
+                <v-flex>
+                    <v-btn @click="zoom *= 1.5" class="ma-0 white--text" depressed color="grey darken-1" small>
+                        <v-icon>zoom_in</v-icon>
+                    </v-btn>
+                    <v-btn @click="zoom /= 1.5" class="ma-0 white--text" depressed color="grey darken-1" small>
+                        <v-icon>zoom_out</v-icon>
+                    </v-btn>
+                </v-flex>
+                <v-flex>
+                    <v-btn @click="makeMindMap()" class="ma-0 white--text" depressed color="grey darken-1" small>
+                        <v-icon>arrow_forward</v-icon>
+                    </v-btn>
+                </v-flex>
+            </v-layout>
+        </v-toolbar>
         <canvas id="mainCanvas"></canvas>
         <div class="spin" v-if="loading">
             <div class="cp-spinner cp-heart"></div>
         </div>
-        <b-modal id="modal" v-model="errorModalShow" title="Сталася помилка!" :ok-only="true">
+        <v-dialog id="modal" v-model="errorModalShow" title="Сталася помилка!" :ok-only="true">
             Вся команда розробників вже знає про це та намагається все виправити. Зверніть увагу, що наш сервер не
-            оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений, можуть
+            оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений,
+            можуть
             статися помилки. Спробуйте оновити сторінку!
-        </b-modal>
-    </div>
+        </v-dialog>
+    </v-container>
 </template>
 
 <script>
@@ -113,7 +119,7 @@
                         }
                     });
                     this.loading = false;
-                    this.$router.push({name: 'mindmap', params: {nodes: response.nodes, edges: response.edges }})
+                    this.$router.push({name: 'mindmap', params: {nodes: response.nodes, edges: response.edges}})
                 } catch (e) {
                     this.loading = false;
                     this.errorModalShow = true;
@@ -160,8 +166,8 @@
                 mode: 2,
                 mergeMode: false,
                 modeButtons: [
-                    {mode: 1, icon: 'arrows-alt'},
-                    {mode: 2, icon: 'pen'},
+                    {mode: 1, icon: 'pan_tool'},
+                    {mode: 2, icon: 'brush'},
                 ],
                 modes: {
                     pan: 1,
@@ -172,31 +178,31 @@
                         level: 0,
                         color: {fill: 'rgba(220,53,69,.5)', stroke: 'rgb(220,53,69)'},
                         size: {stroke: 2},
-                        buttonStyle: 'danger'
+                        buttonStyle: 'red'
                     },
                     {
                         level: 1,
                         color: {fill: 'rgba(40,167,69,.5)', stroke: 'rgb(40,167,69)'},
                         size: {stroke: 2},
-                        buttonStyle: 'success'
+                        buttonStyle: 'green'
                     },
                     {
                         level: 2,
                         color: {fill: 'rgba(0,123,255,.5)', stroke: 'rgb(0,123,255)'},
                         size: {stroke: 2},
-                        buttonStyle: 'primary'
+                        buttonStyle: 'blue'
                     },
                     {
                         level: 3,
                         color: {fill: 'rgba(23,162,184,.5)', stroke: 'rgb(23,162,184)'},
                         size: {stroke: 2},
-                        buttonStyle: 'info'
+                        buttonStyle: 'cyan'
                     },
                     {
                         level: 4,
                         color: {fill: 'rgba(255,193,7,.5)', stroke: 'rgb(255,193,7)'},
                         size: {stroke: 2},
-                        buttonStyle: 'warning'
+                        buttonStyle: 'amber'
                     }
                 ],
                 scale: 1,
@@ -213,7 +219,7 @@
             // Set Canvas Size
             let canvasElement = document.getElementById('mainCanvas');
             canvasElement.width = $(window).width();
-            canvasElement.height = $(window).height() - 100;
+            canvasElement.height = $(window).height() - (128 + 5);
 
             // Create Stage
             this.stage = new createjs.Stage(canvasElement);
@@ -338,36 +344,6 @@
 </script>
 
 <style scoped>
-    canvas {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-
-    button {
-        padding: 5px 15px;
-        margin: 5px 0;
-    }
-
-    nav {
-        max-width: 100vw;
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin: 0 auto;
-        height: 100px;
-        align-items: center;
-    }
-
-    .top-menu {
-        position: fixed;
-        background-color: rgba(195, 225, 244, .5);
-        top: 0;
-        width: 100vw;
-        height: 100px;
-    }
-
-
     .spin {
         position: fixed;
         display: flex;

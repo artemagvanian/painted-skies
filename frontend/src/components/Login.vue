@@ -1,34 +1,27 @@
 <template>
-    <div id="login">
-        <b-container class="d-flex justify-content-center flex-column h-100">
-            <h1 class="text-center mb-5">Увійдіть до системи</h1>
-            <b-row class="text-center w-100">
-                <b-form @submit="onSubmit" class="mx-auto">
-                    <b-form-group id="usernameInputGroup"
-                                  label-for="usernameInput"
-                                  description="Введіть логін, який ви використовували при реєстрації">
-                        <b-form-input id="usernameInput"
-                                      type="text"
-                                      v-model="username"
-                                      required
-                                      placeholder="Введіть логін">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-form-group id="passwordInputGroup"
-                                  label-for="passwordInput"
-                                  description="Введіть ваш суперсекретний пароль">
-                        <b-form-input id="passwordInput"
-                                      type="password"
-                                      v-model="password"
-                                      required
-                                      placeholder="Введіть пароль">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-button type="submit" variant="primary" class="btn-block">Увійти</b-button>
-                </b-form>
-            </b-row>
-        </b-container>
-    </div>
+    <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+            <v-flex xs12 sm8 md4>
+                <v-card class="elevation-12">
+                    <v-toolbar dark color="primary">
+                        <v-toolbar-title>Увійдіть до системи</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form>
+                            <v-text-field prepend-icon="person" name="login" label="Логін"
+                                          type="text" v-model="username"></v-text-field>
+                            <v-text-field id="password" prepend-icon="lock" name="password" label="Пароль"
+                                          type="password" v-model="password"></v-text-field>
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" @click="onSubmit">Увійти</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -50,9 +43,3 @@
         }
     }
 </script>
-
-<style scoped>
-    #login {
-        height: 100%;
-    }
-</style>

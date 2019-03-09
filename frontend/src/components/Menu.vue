@@ -1,35 +1,25 @@
 <template>
-    <div id="menu">
-        <b-container class="d-flex justify-content-center flex-column h-100">
-            <h1 class="text-center mb-5">{{ caption }}</h1>
-            <b-row class="text-center w-100">
-                <router-link :to="{name:'pdf'}" tag="div" class="col btn btn-primary p-5 m-2">
-                    <font-awesome-icon icon="file-pdf"/>
-                    <p>PDF</p>
-                </router-link>
-                <router-link :to="{name:'image'}" tag="div" class="col btn btn-primary p-5 m-2">
-                    <font-awesome-icon icon="file-image"/>
-                    <p>Картинка</p>
-                </router-link>
-                <router-link v-if="loggedIn" :to="{name:'list'}" tag="div" class="col btn btn-primary p-5 m-2">
-                    <font-awesome-icon icon="book"/>
-                    <p>Бібліотека</p>
-                </router-link>
-                <router-link :to="{name: loggedIn ? 'logout' : 'login'}" tag="div" class="col btn btn-primary p-5 m-2">
-                    <font-awesome-icon icon="book"/>
-                    <p>{{ loggedIn ? 'Вийти' : 'Увійти'}}</p>
-                </router-link>
-                <router-link :to="{name: 'signup'}" tag="div" class="col btn btn-primary p-5 m-2" v-if="!loggedIn">
-                    <font-awesome-icon icon="book"/>
-                    <p>Зареєструватися</p>
-                </router-link>
-            </b-row>
-        </b-container>
-    </div>
+    <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+            <v-flex xs12 sm8 md4>
+                <v-card class="elevation-12">
+                    <v-toolbar dark color="primary">
+                        <v-toolbar-title>Вітаємо!</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <p>Для початку роботи, відкрийте бокову панель кліком по елементу інтерфейсу (три смужки)</p>
+                        <p>Інтерактивний гайд буде доступний згодом</p>
+                        <p>Для отримання додаткової інформації про розробника, клікніть по літері І біля трьох
+                            смужок</p>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
-    import Auth from '../utils/auth'
+
 
     export default {
         data() {
@@ -39,26 +29,8 @@
             }
         },
         mounted() {
-            Auth.verify(this.$session).then((response) => {
-                if (response) {
-                    this.caption = 'Привіт, ' + Auth.getUserInfo(this.$session).username;
-                    this.loggedIn = true;
-                } else {
-                    this.caption = 'Привіт, незнайомцю!';
-                }
-            })
+
         },
         name: "Menu"
     }
 </script>
-
-<style scoped>
-    #menu {
-        height: 100%;
-    }
-
-    .btn {
-        font-size: 30px;
-        display: block;
-    }
-</style>

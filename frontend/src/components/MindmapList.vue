@@ -1,24 +1,27 @@
 <template>
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-xs-12 col-md-6 col-lg-4 mt-5"
-                 v-for="mindmap in mindmaps">
-                <div class="card border-info">
-                    <div class="card-body">
-                        <h5 class="card-title text-center"> {{ mindmap.title }}</h5>
+    <v-container fluid full-height>
+        <v-layout row wrap>
+            <v-flex xs12 sm6 md3 pa-3 v-for="mindmap in mindmaps">
+                <v-card color="blue-grey darken-2" class="white--text pa-3">
+                    <v-card-title primary-title>
+                        <div>
+                            <h3 class="headline mb-2"> {{ mindmap.title }}</h3>
+                            <div>
+                                <p>Створено {{ moment.utc(mindmap.created_at).fromNow() }}</p>
+                            </div>
+                        </div>
+                    </v-card-title>
+                    <v-card-actions>
                         <router-link
                                 :to="{ name: 'mindmap', params: { id: mindmap.id }}"
                                 tag="div">
-                            <div class="btn btn-block btn-info">Редагувати</div>
+                            <v-btn>Редагувати</v-btn>
                         </router-link>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted"> {{ moment.utc(mindmap.created_at).fromNow() }}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>

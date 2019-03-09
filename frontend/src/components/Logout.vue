@@ -1,7 +1,3 @@
-<template>
-
-</template>
-
 <script>
     import Auth from '../utils/auth'
 
@@ -12,7 +8,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,26 +1,43 @@
 <template>
-    <div id="pdf-uploader">
-        <b-jumbotron class="m-5" header="Painted Skies" lead="Завантажте файл:">
-            <b-form-file type="file" @change="onFileChange" placeholder="Виберіть файл..."></b-form-file>
-            <b-form-group label="Виберіть мову:" class="mt-3">
-                <b-form-select :options="options"
-                               required
-                               v-model="language">
-                </b-form-select>
-            </b-form-group>
-            <label for="first-page">Введіть сторінку, з якої почнете конспектувати: </label>
-            <b-form-input type="number" id="first-page" min="1" v-model="firstPage"></b-form-input>
-            <label for="last-page">Введіть сторінку, на якій закінчите: </label>
-            <b-form-input type="number" id="last-page" min="1" v-model="lastPage"></b-form-input>
+    <v-container fluid fill-height>
+        <v-layout>
+            <v-flex>
+                <v-card>
+                    <v-toolbar>
+                        <h1>Завантажте файл</h1>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-btn color="info" @click="$refs.inputUpload.click()">Виберіть документ на комп'ютері</v-btn>
+                        <input v-show="false" ref="inputUpload" type="file" @change="onFileChange">
+                        <v-select
+                                :items="options"
+                                label="Виберіть мову конспектування"
+                                v-model="language"
+                                class="mt-4"
+                        ></v-select>
+                        <v-text-field
+                                label="Введіть сторінку, з якої почнете конспектувати"
+                                v-model="firstPage"
+                                type="number"
+                                class="mt-3"
+                        ></v-text-field>
+                        <v-text-field
+                                label="Введіть сторінку, на якій закінчите конспектувати"
+                                v-model="lastPage"
+                                type="number"
+                                class="mt-3"
+                        ></v-text-field>
 
-            <b-button size="lg"
-                      variant="success"
-                      class="mt-3"
-                      @click="uploadPdf()">
-                Поїхали!
-            </b-button>
-        </b-jumbotron>
-    </div>
+                        <v-btn size="lg"
+                               color="success"
+                               @click="uploadPdf()">
+                            Поїхали!
+                        </v-btn>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -82,7 +99,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

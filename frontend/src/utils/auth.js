@@ -1,6 +1,7 @@
 import $ from 'jquery'
 
 export default {
+    loggedIn: false,
     async login(session, username, password, router) {
         try {
             let response = await $.ajax({
@@ -12,6 +13,7 @@ export default {
             });
             session.start();
             session.set('jwt', response.token);
+            this.loggedIn = true;
             router.push('/');
         } catch (e) {
             console.log(e);
@@ -19,6 +21,7 @@ export default {
     },
     logout(session, router) {
         session.destroy();
+        this.loggedIn = false;
         router.push('/');
     },
     async verify(session) {
@@ -30,9 +33,9 @@ export default {
                     token: session.get('jwt'),
                 }
             });
-            return true;
+            this.loggedIn = true;
         } catch (e) {
-            return false;
+            this.loggedIn = false;
         }
     },
     async signup(username, password1, password2, router) {

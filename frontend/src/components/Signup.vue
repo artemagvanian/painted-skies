@@ -1,44 +1,29 @@
 <template>
-    <div id="signup">
-        <b-container class="d-flex justify-content-center flex-column h-100">
-            <h1 class="text-center mb-5">Зареєструйтесь</h1>
-            <b-row class="text-center w-100">
-                <b-form @submit="onSubmit" class="mx-auto">
-                    <b-form-group id="usernameInputGroup"
-                                  label-for="usernameInput"
-                                  description="Введіть ваш новий логін">
-                        <b-form-input id="usernameInput"
-                                      type="text"
-                                      v-model="username"
-                                      required
-                                      placeholder="Введіть логін">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-form-group id="password1InputGroup"
-                                  label-for="password1Input"
-                                  description="Введіть ваш новий суперсекретний пароль">
-                        <b-form-input id="password1Input"
-                                      type="password"
-                                      v-model="password1"
-                                      required
-                                      placeholder="Введіть пароль">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-form-group id="password2InputGroup"
-                                  label-for="password2Input"
-                                  description="Повторіть ваш новий суперсекретний пароль">
-                        <b-form-input id="password2Input"
-                                      type="password"
-                                      v-model="password2"
-                                      required
-                                      placeholder="Повторіть пароль">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-button type="submit" variant="primary" class="btn-block">Зарєструватися</b-button>
-                </b-form>
-            </b-row>
-        </b-container>
-    </div>
+    <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+            <v-flex xs12 sm8 md4>
+                <v-card class="elevation-12">
+                    <v-toolbar dark color="primary">
+                        <v-toolbar-title>Зареєструйтеся</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form>
+                            <v-text-field prepend-icon="person" name="login" label="Логін"
+                                          type="text" v-model="username"></v-text-field>
+                            <v-text-field id="password" prepend-icon="lock" name="password1" label="Пароль"
+                                          type="password" v-model="password1"></v-text-field>
+                            <v-text-field id="password" prepend-icon="lock" name="password2" label="Повторіть пароль"
+                                          type="password" v-model="password2"></v-text-field>
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary">Зареєструватися</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -61,9 +46,3 @@
         }
     }
 </script>
-
-<style scoped>
-    #signup {
-        height: 100%;
-    }
-</style>

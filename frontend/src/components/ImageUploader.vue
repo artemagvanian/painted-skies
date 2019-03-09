@@ -1,25 +1,34 @@
 <template>
-    <div id="image-uploader">
-        <b-jumbotron class="m-5" header="Painted Skies" lead="Завантажте файл:">
-            <b-form-file type="file" @change="onFileChange" placeholder="Виберіть файл..."
-                         accept="image/*"></b-form-file>
-            <b-form-group label="Виберіть мову:" class="mt-3">
-                <b-form-select :options="options"
-                               required
-                               v-model="language">
-                </b-form-select>
-            </b-form-group>
-            <router-link :to="{
-                    name: 'canvas',
-                    params: { lang: this.language, image: this.image },
-                }" tag="div">
-                <b-button size="lg"
-                          variant="success">
-                    Поїхали!
-                </b-button>
-            </router-link>
-        </b-jumbotron>
-    </div>
+    <v-container fluid fill-height>
+        <v-layout>
+            <v-flex>
+                <v-card>
+                    <v-toolbar>
+                        <h1>Завантажте файл</h1>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-btn color="info" @click="$refs.inputUpload.click()">Виберіть зображення на комп'ютері</v-btn>
+                        <input v-show="false" ref="inputUpload" type="file" @change="onFileChange" accept="image/*">
+                        <v-select
+                                :items="options"
+                                label="Виберіть мову конспектування"
+                                v-model="language"
+                                class="mt-4"
+                        ></v-select>
+                        <router-link :to="{
+                                name: 'canvas',
+                                params: { lang: this.language, image: this.image },
+                            }" tag="div">
+                            <v-btn size="lg"
+                                   color="success">
+                                Поїхали!
+                            </v-btn>
+                        </router-link>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -55,7 +64,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

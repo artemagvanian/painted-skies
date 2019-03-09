@@ -4,46 +4,18 @@ import router from './router'
 
 Vue.config.productionTip = false;
 
-import BootstrapVue from 'bootstrap-vue'
 import VueSession from 'vue-session'
 
 Vue.use(VueSession);
-Vue.use(BootstrapVue);
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {
-    faArrowsAlt,
-    faPen,
-    faHandPointer,
-    faSearchPlus,
-    faSearchMinus,
-    faArrowRight,
-    faFilePdf,
-    faFileImage,
-    faBook,
-    faBackspace,
-    faPlus,
-} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+Vue.use(Vuetify, {
+    iconfont: 'md'
+});
 
-library.add(
-    faArrowsAlt,
-    faPen,
-    faHandPointer,
-    faSearchPlus,
-    faSearchMinus,
-    faArrowRight,
-    faFilePdf,
-    faFileImage,
-    faBook,
-    faBackspace,
-    faPlus,
-);
-
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import * as Sentry from '@sentry/browser'
 import VueAnalytics from 'vue-analytics'
