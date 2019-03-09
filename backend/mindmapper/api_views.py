@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from rest_framework.permissions import IsAuthenticated
+
 from .models import Mindmap
 from .serializers import MindmapSerializer
 
@@ -7,6 +9,7 @@ from rest_framework import generics
 
 
 class MindmapList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = MindmapSerializer
 
     def get_queryset(self):
@@ -23,6 +26,7 @@ class MindmapList(generics.ListCreateAPIView):
 
 
 class MindmapDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = MindmapSerializer
 
     def get_queryset(self):
