@@ -10,15 +10,15 @@
                         <v-form>
                             <v-text-field prepend-icon="person" name="login" label="Логін"
                                           type="text" v-model="username"></v-text-field>
-                            <v-text-field id="password" prepend-icon="lock" name="password1" label="Пароль"
+                            <v-text-field id="password1" prepend-icon="lock" name="password1" label="Пароль"
                                           type="password" v-model="password1"></v-text-field>
-                            <v-text-field id="password" prepend-icon="lock" name="password2" label="Повторіть пароль"
+                            <v-text-field id="password2" prepend-icon="lock" name="password2" label="Повторіть пароль"
                                           type="password" v-model="password2"></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary">Зареєструватися</v-btn>
+                        <v-btn color="primary" @click="onSubmit">Зареєструватися</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
