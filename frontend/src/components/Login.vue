@@ -36,9 +36,13 @@
             }
         },
         methods: {
-            onSubmit(e) {
-                e.preventDefault();
-                Auth.login(this.$session, this.username, this.password, this.$router)
+            async onSubmit() {
+                let response = await Auth.login(this.username, this.password);
+                if (response) {
+                    this.$session.start();
+                    this.$session.set('jwt', response);
+                    this.$router.push('/')
+                }
             }
         }
     }

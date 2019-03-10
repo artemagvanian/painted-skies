@@ -7,7 +7,9 @@
                         <h1>Завантажте файл</h1>
                     </v-toolbar>
                     <v-card-text>
-                        <v-btn color="info" @click="$refs.inputUpload.click()">Виберіть документ на комп'ютері</v-btn>
+                        <v-btn color="info" @click="$refs.inputUpload.click()" block>Натисніть, щоб вибрати документ на
+                            комп'ютері
+                        </v-btn>
                         <input v-show="false" ref="inputUpload" type="file" @change="onFileChange">
                         <v-select
                                 :items="options"
@@ -30,7 +32,7 @@
 
                         <v-btn size="lg"
                                color="success"
-                               @click="uploadPdf()">
+                               @click="uploadPdf()" block>
                             Поїхали!
                         </v-btn>
                     </v-card-text>

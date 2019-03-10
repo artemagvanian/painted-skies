@@ -1,8 +1,8 @@
 import $ from 'jquery'
+import moment from 'moment'
 
 export default {
-    loggedIn: false,
-    async login(session, username, password, router) {
+    async login(username, password) {
         try {
             let response = await $.ajax({
                 url: '/api/auth/obtain_token',
@@ -11,34 +11,26 @@ export default {
                     password, username
                 }
             });
-            session.start();
-            session.set('jwt', response.token);
-            this.loggedIn = true;
-            router.push('/');
+            return response.token;
         } catch (e) {
-            console.log(e);
+            return false;
         }
     },
-    logout(session, router) {
-        session.destroy();
-        this.loggedIn = false;
-        router.push('/');
-    },
-    async verify(session) {
+    async verify(token) {
         try {
             await $.ajax({
                 url: '/api/auth/verify_token',
                 method: 'POST',
                 data: {
-                    token: session.get('jwt'),
+                    token,
                 }
             });
-            this.loggedIn = true;
+            return true;
         } catch (e) {
-            this.loggedIn = false;
+            return false;
         }
     },
-    async signup(username, password1, password2, router) {
+    async signup(username, password1, password2) {
         try {
             await $.ajax({
                 url: '/api/auth/signup',
@@ -47,14 +39,22 @@ export default {
                     password1, password2, username
                 }
             });
-            router.push('/');
+            return true;
         } catch (e) {
-            console.log(e);
+            return false;
         }
     },
-    getUserInfo(session) {
-        let encoded = session.get('jwt');
-        encoded = encoded.slice(encoded.indexOf('.') + 1, encoded.lastIndexOf('.'));
+    parseToken(token) {
+        let encoded = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'));
         return JSON.parse(atob(encoded));
+    },
+    checkToken(token) {
+        try {
+            let data = this.parseToken(token);
+            let expires = moment.unix(data.exp);
+            return expires.isAfter(moment());
+        } catch (e) {
+            return false;
+        }
     }
 }

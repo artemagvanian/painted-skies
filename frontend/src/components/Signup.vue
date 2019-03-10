@@ -39,9 +39,11 @@
             }
         },
         methods: {
-            onSubmit(e) {
-                e.preventDefault();
-                Auth.signup(this.username, this.password1, this.password2, this.$router)
+            async onSubmit() {
+                let result = await Auth.signup(this.username, this.password1, this.password2);
+                if (result) {
+                    this.$router.push('/');
+                }
             }
         }
     }

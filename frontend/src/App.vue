@@ -28,7 +28,7 @@
                         <v-list-tile-title>Створити конспект з нуля</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <template v-if="Auth.loggedIn">
+                <template v-if="Auth.checkToken(session.get('jwt'))">
                     <v-divider></v-divider>
                     <v-list-tile :to="{name:'list'}">
                         <v-list-tile-action>
@@ -51,12 +51,13 @@
                     </v-list-tile>
                 </template>
                 <v-divider></v-divider>
-                <v-list-tile :to="{name: Auth.loggedIn ? 'logout' : 'login'}">
+                <v-list-tile :to="{name: Auth.checkToken(session.get('jwt')) ? 'logout' : 'login'}">
                     <v-list-tile-action>
                         <v-icon>arrow_forward</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>{{ Auth.loggedIn ? 'Вийти' : 'Увійти'}}</v-list-tile-title>
+                        <v-list-tile-title>{{ Auth.checkToken(session.get('jwt')) ? 'Вийти' : 'Увійти'}}
+                        </v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -88,9 +89,10 @@
             return {
                 drawer: false,
                 Auth,
+                session: this.$session,
             }
         },
-        mounted() {
+        async mounted() {
             $.ajax({
                 url: '/api/csrf',
                 type: 'GET',
@@ -99,7 +101,6 @@
                     $.cookie('csrftoken', data.token);
                 }
             });
-            Auth.verify(this.$session)
         }
     }
 </script>

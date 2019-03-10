@@ -69,12 +69,12 @@
 </template>
 
 <script>
-    import $ from 'jquery'
     import 'jquery.cookie/jquery.cookie'
     import 'csspin/css/csspin-heart.css'
 
     import vis from 'vis/dist/vis.min.js';
     import 'vis/dist/vis.min.css'
+    import Mindmaps from '../utils/crud/MindmapCRUD'
 
     export default {
         name: "MindmapViewer",
@@ -109,50 +109,6 @@
             onDeselectNode() {
                 this.selectedNode = null;
             },
-            async obtainMindmap() {
-                try {
-                    if (this.id === undefined) {
-                        let mindmap = await $.ajax({
-                            url: '/api/rest/mindmaps/',
-                            data: {
-                                title: this.title,
-                                mindmap: JSON.stringify({
-                                    nodes: this.nodes,
-                                    edges: this.edges,
-                                })
-                            },
-                            method: 'POST',
-                            headers: {
-                                'Authorization': 'JWT ' + this.$session.get('jwt'),
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'X-CSRFToken': $.cookie('csrftoken'),
-                            }
-                        });
-                        this.id = mindmap.id;
-                        this.nodesDataSet = new vis.DataSet(this.nodes);
-                        this.edgesDataSet = new vis.DataSet(this.edges);
-
-                    } else {
-                        let mindmap = await $.ajax({
-                            url: '/api/rest/mindmaps/' + this.id.toString() + '/',
-                            method: 'GET',
-                            headers: {
-                                'Authorization': 'JWT ' + this.$session.get('jwt'),
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'X-CSRFToken': $.cookie('csrftoken'),
-                            }
-                        });
-                        this.title = mindmap.title;
-                        let mindmapElements = JSON.parse(mindmap.mindmap);
-                        this.nodesDataSet = new vis.DataSet(mindmapElements.nodes);
-                        this.edgesDataSet = new vis.DataSet(mindmapElements.edges);
-                    }
-                } catch {
-                    this.nodesDataSet = new vis.DataSet(this.nodes);
-                    this.edgesDataSet = new vis.DataSet(this.edges);
-                    this.saveStatus = 'Дані не збережено'
-                }
-            },
             async saveMindmap() {
                 try {
                     this.saveStatus = 'Зберігаємо дані...';
@@ -161,28 +117,19 @@
                         i.x = this.network.body.nodes[i.id].x;
                         i.y = this.network.body.nodes[i.id].y;
                     }
-                    await $.ajax({
-                        url: '/api/rest/mindmaps/' + this.id.toString() + '/',
-                        data: {
-                            title: this.title,
-                            mindmap: JSON.stringify({
-                                nodes: nodeDS,
-                                edges: this.edgesDataSet.get(),
-                            })
-                        },
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': 'JWT ' + this.$session.get('jwt'),
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRFToken': $.cookie('csrftoken'),
-                        }
-                    });
+                    await Mindmaps.update(
+                        this.$session.get('jwt'),
+                        this.mindmapId.toString(),
+                        this.title,
+                        nodeDS,
+                        this.edgesDataSet.get()
+                    );
                     this.saveStatus = 'Дані збережено'
                 } catch (e) {
                     console.log(e);
                     this.saveStatus = 'Дані не збережено'
                 }
-            }
+            },
         },
         watch: {
             selectedNode: {
@@ -208,7 +155,8 @@
                 inAddMode: false,
                 nodesDataSet: [],
                 selectedNode: null,
-                title: 'Нова ментальна карта'
+                title: 'Нова ментальна карта',
+                mindmapId: null,
             }
         }
         ,
@@ -216,7 +164,26 @@
         async mounted() {
             let container = document.getElementById('network');
 
-            await this.obtainMindmap();
+            try {
+                if (this.id === undefined) {
+                    let mindmap = await Mindmaps.create(this.$session.get('jwt'), this.title, this.nodes, this.edges);
+                    this.mindmapId = mindmap.id;
+                    this.nodesDataSet = new vis.DataSet(this.nodes);
+                    this.edgesDataSet = new vis.DataSet(this.edges);
+
+                } else {
+                    let mindmap = await Mindmaps.retrieve(this.$session.get('jwt'), this.id.toString());
+                    this.mindmapId = mindmap.id;
+                    this.title = mindmap.title;
+                    let mindmapElements = JSON.parse(mindmap.mindmap);
+                    this.nodesDataSet = new vis.DataSet(mindmapElements.nodes);
+                    this.edgesDataSet = new vis.DataSet(mindmapElements.edges);
+                }
+            } catch {
+                this.nodesDataSet = new vis.DataSet(this.nodes);
+                this.edgesDataSet = new vis.DataSet(this.edges);
+                this.saveStatus = 'Дані не збережено'
+            }
 
             let data = {
                 nodes: this.nodesDataSet,

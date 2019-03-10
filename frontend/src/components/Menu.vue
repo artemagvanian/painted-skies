@@ -19,18 +19,7 @@
 </template>
 
 <script>
-
-
     export default {
-        data() {
-            return {
-                caption: "",
-                loggedIn: false,
-            }
-        },
-        mounted() {
-
-        },
         name: "Menu"
     }
 </script>

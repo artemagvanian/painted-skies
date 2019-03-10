@@ -8,6 +8,7 @@
                             <h3 class="headline mb-2"> {{ mindmap.title }}</h3>
                             <div>
                                 <p>Створено {{ moment.utc(mindmap.created_at).fromNow() }}</p>
+                                <p>Змінено {{ moment.utc(mindmap.edited_at).fromNow() }}</p>
                             </div>
                         </div>
                     </v-card-title>
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-    import $ from 'jquery'
+    import Mindmaps from '../utils/crud/MindmapCRUD'
     import 'jquery.cookie/jquery.cookie'
     import moment from 'moment'
 
@@ -39,31 +40,13 @@
         },
         async mounted() {
             moment.locale('uk');
-            try {
-                this.mindmaps = await $.ajax({
-                    url: '/api/rest/mindmaps/',
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'JWT ' + this.$session.get('jwt'),
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': $.cookie('csrftoken'),
-                    }
-                });
-                this.mindmaps.sort((a, b) => {
-                    return moment.utc(a.created_at) > moment.utc(b.created_at) ? -1 : 1;
-                })
-            } catch (e) {
+            let mindmaps = await Mindmaps.list(this.$session.get('jwt'));
+            if (mindmaps) {
+                this.mindmaps = mindmaps;
+            } else {
                 this.$router.push('/');
             }
         }
     }
 </script>
-
-<style>
-    html, body, #app {
-        height: 100%;
-        overflow: visible;
-        margin: 0;
-    }
-</style>
 

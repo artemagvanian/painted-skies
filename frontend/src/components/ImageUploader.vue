@@ -7,7 +7,9 @@
                         <h1>Завантажте файл</h1>
                     </v-toolbar>
                     <v-card-text>
-                        <v-btn color="info" @click="$refs.inputUpload.click()">Виберіть зображення на комп'ютері</v-btn>
+                        <v-btn color="info" @click="$refs.inputUpload.click()" block>Натисніть, щоб вибрати зображення
+                            на комп'ютері
+                        </v-btn>
                         <input v-show="false" ref="inputUpload" type="file" @change="onFileChange" accept="image/*">
                         <v-select
                                 :items="options"
@@ -20,7 +22,7 @@
                                 params: { lang: this.language, image: this.image },
                             }" tag="div">
                             <v-btn size="lg"
-                                   color="success">
+                                   color="success" block>
                                 Поїхали!
                             </v-btn>
                         </router-link>

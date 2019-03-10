@@ -9,30 +9,28 @@ class Mindmap(models.Model):
     mindmap = models.TextField()
     owner = models.ForeignKey(User, related_name='mindmaps', on_delete=models.CASCADE)
     created_at = models.DateTimeField()
-    # shared = models.BooleanField(default=False)
+    edited_at = models.DateTimeField()
+    shared = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
 
 
-# class Classroom(models.Model):
-#     title = models.CharField(max_length=100)
-#     head_teacher = models.ForeignKey('Profile', on_delete=models.CASCADE)
-#
-#
-# class Profile(models.Model):
-#     ROLES = (
-#         ('TR', 'Teacher'),
-#         ('ST', 'Student')
-#     )
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     role = models.CharField(max_length=2, choices=ROLES, default='ST')
-#     classrooms = models.ManyToManyField(Classroom, related_name='students')
-#
-#
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created):
-#     if created:
-#         Profile.objects.create(user=instance)
-#
-#
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance):
-#     instance.profile.save()
+class Classroom(models.Model):
+    title = models.CharField(max_length=100)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    classrooms = models.ManyToManyField(Classroom, related_name='students')
+
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
