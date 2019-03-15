@@ -22,7 +22,7 @@ export default {
                     password, username
                 }
             });
-            this.saveToken(response.token);
+            this.saveToken(response.access);
             return true;
         } catch (e) {
             return false;

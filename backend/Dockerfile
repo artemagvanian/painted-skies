@@ -13,11 +13,16 @@ ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100
+    PIP_DEFAULT_TIMEOUT=100 \
+    LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8
 
 # python dependencies
-COPY ./requirements.txt /
-RUN pip3 install -r ./requirements.txt
+RUN pip3 install pipenv
+
+COPY ./Pipfile ./Pipfile.lock /
+
+RUN pipenv install --system --deploy
 
 # upload scripts
 COPY ./scripts/entrypoint.sh ./scripts/start.sh ./scripts/gunicorn.sh /

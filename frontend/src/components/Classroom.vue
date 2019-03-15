@@ -59,7 +59,7 @@
                     },
                     method: 'GET',
                     headers: {
-                        'Authorization': 'JWT ' + Auth.getToken(),
+                        'Authorization': 'Bearer ' + Auth.getToken(),
                         'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRFToken': $.cookie('csrftoken'),
                     }

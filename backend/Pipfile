@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+gunicorn = "*"
+"pdf2image" = "*"
+pillow = "*"
+raven = "*"
+werkzeug = "*"
+"pymorphy2" = "*"
+"pymorphy2-dicts-ru" = "*"
+networkx = "*"
+gevent = "*"
+django-environ = "*"
+django-extensions = "*"
+djangorestframework-simplejwt = "*"
+"psycopg2" = "*"
+numpy = "*"
+pytesseract = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

@@ -1,5 +1,5 @@
 from django.urls import path
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from .api.classroom import ClassroomList, ClassroomDetail
 from .api.comparator import CompareAPI
@@ -24,9 +24,9 @@ urlpatterns = [
 
     path('csrf', get_csrf_token),
 
-    path('auth/obtain_token', obtain_jwt_token),
-    path('auth/refresh_token', refresh_jwt_token),
-    path('auth/verify_token', verify_jwt_token),
+    path('auth/obtain_token', TokenObtainPairView.as_view()),
+    path('auth/refresh_token', TokenRefreshView.as_view()),
+    path('auth/verify_token', TokenVerifyView.as_view()),
 
     path('auth/signup', signup)
 ]

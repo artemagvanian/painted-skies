@@ -7,7 +7,7 @@ export default {
             url: '/api/rest/classrooms/' + id + '/',
             method: 'GET',
             headers: {
-                'Authorization': 'JWT ' + Auth.getToken(),
+                'Authorization': 'Bearer ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
@@ -18,7 +18,7 @@ export default {
             url: '/api/rest/classrooms/',
             method: 'GET',
             headers: {
-                'Authorization': 'JWT ' + Auth.getToken(),
+                'Authorization': 'Bearer ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }

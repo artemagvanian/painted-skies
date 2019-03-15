@@ -8,7 +8,7 @@ export default {
                 url: '/api/rest/mindmaps/',
                 method: 'GET',
                 headers: {
-                    'Authorization': 'JWT ' + Auth.getToken(),
+                    'Authorization': 'Bearer ' + Auth.getToken(),
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRFToken': $.cookie('csrftoken'),
                 }
@@ -28,7 +28,7 @@ export default {
             },
             method: 'POST',
             headers: {
-                'Authorization': 'JWT ' + Auth.getToken(),
+                'Authorization': 'Bearer ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
@@ -39,7 +39,7 @@ export default {
             url: '/api/rest/mindmaps/' + id + '/',
             method: 'GET',
             headers: {
-                'Authorization': 'JWT ' + Auth.getToken(),
+                'Authorization': 'Bearer ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
@@ -56,7 +56,7 @@ export default {
             },
             method: 'PUT',
             headers: {
-                'Authorization': 'JWT ' + Auth.getToken(),
+                'Authorization': 'Bearer ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
@@ -67,7 +67,7 @@ export default {
             url: '/api/rest/mindmaps/' + id + '/',
             method: 'DELETE',
             headers: {
-                'Authorization': 'JWT ' + Auth.getToken(),
+                'Authorization': 'Bearer ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
