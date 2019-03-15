@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fill-height fluid>
         <v-layout>
             <v-flex>
                 <v-card>
@@ -7,32 +7,32 @@
                         <h1>Завантажте файл</h1>
                     </v-toolbar>
                     <v-card-text>
-                        <v-btn color="info" @click="$refs.inputUpload.click()" block>Натисніть, щоб вибрати документ на
+                        <v-btn @click="$refs.inputUpload.click()" block color="info">Натисніть, щоб вибрати документ на
                             комп'ютері
                         </v-btn>
-                        <input v-show="false" ref="inputUpload" type="file" @change="onFileChange">
+                        <input @change="onFileChange" ref="inputUpload" type="file" v-show="false">
                         <v-select
                                 :items="options"
+                                class="mt-4"
                                 label="Виберіть мову конспектування"
                                 v-model="language"
-                                class="mt-4"
                         ></v-select>
                         <v-text-field
-                                label="Введіть сторінку, з якої почнете конспектувати"
-                                v-model="firstPage"
-                                type="number"
                                 class="mt-3"
+                                label="Введіть сторінку, з якої почнете конспектувати"
+                                type="number"
+                                v-model="firstPage"
                         ></v-text-field>
                         <v-text-field
-                                label="Введіть сторінку, на якій закінчите конспектувати"
-                                v-model="lastPage"
-                                type="number"
                                 class="mt-3"
+                                label="Введіть сторінку, на якій закінчите конспектувати"
+                                type="number"
+                                v-model="lastPage"
                         ></v-text-field>
 
-                        <v-btn size="lg"
-                               color="success"
-                               @click="uploadPdf()" block>
+                        <v-btn @click="uploadPdf()"
+                               block
+                               color="success" size="lg">
                             Поїхали!
                         </v-btn>
                     </v-card-text>

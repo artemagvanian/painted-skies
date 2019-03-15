@@ -1,9 +1,9 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fill-height fluid>
         <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
+            <v-flex md4 sm8 xs12>
                 <v-card class="elevation-12">
-                    <v-toolbar dark color="primary">
+                    <v-toolbar color="primary" dark>
                         <v-toolbar-title>Вітаємо!</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>

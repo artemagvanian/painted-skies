@@ -9,6 +9,7 @@ import MindmapList from './components/MindmapList'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
+import Classroom from './components/Classroom'
 
 Vue.use(VueRouter);
 
@@ -22,9 +23,11 @@ const routes = [
     {path: '/login', component: Login, name: 'login'},
     {path: '/logout', component: Logout, name: 'logout'},
     {path: '/signup', component: Signup, name: 'signup'},
+    {path: '/classroom', component: Classroom, name: 'classroom'},
 ];
 
 const router = new VueRouter({
+    mode: 'history',
     routes
 });
 

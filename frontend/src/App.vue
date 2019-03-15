@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer right app v-model="drawer" temporary>
+        <v-navigation-drawer app right temporary v-model="drawer">
             <v-list>
                 <v-list-tile :to="{name:'pdf'}">
                     <v-list-tile-action>
@@ -28,7 +28,7 @@
                         <v-list-tile-title>Створити конспект з нуля</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <template v-if="Auth.checkToken(session.get('jwt'))">
+                <template v-if="Auth.checkToken()">
                     <v-divider></v-divider>
                     <v-list-tile :to="{name:'list'}">
                         <v-list-tile-action>
@@ -51,24 +51,24 @@
                     </v-list-tile>
                 </template>
                 <v-divider></v-divider>
-                <v-list-tile :to="{name: Auth.checkToken(session.get('jwt')) ? 'logout' : 'login'}">
+                <v-list-tile :to="{name: Auth.checkToken() ? 'logout' : 'login'}">
                     <v-list-tile-action>
                         <v-icon>arrow_forward</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>{{ Auth.checkToken(session.get('jwt')) ? 'Вийти' : 'Увійти'}}
+                        <v-list-tile-title>{{ Auth.checkToken() ? 'Вийти' : 'Увійти'}}
                         </v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar app prominent flat>
+        <v-toolbar app flat prominent>
             <v-toolbar-title>Painted Skies</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon>
                 <v-icon>info</v-icon>
             </v-btn>
-            <v-btn icon @click="drawer = !drawer">
+            <v-btn @click="drawer = !drawer" icon>
                 <v-icon>menu</v-icon>
             </v-btn>
         </v-toolbar>
@@ -89,7 +89,6 @@
             return {
                 drawer: false,
                 Auth,
-                session: this.$session,
             }
         },
         async mounted() {

@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fill-height fluid>
         <v-layout>
             <v-flex>
                 <v-card>
@@ -7,22 +7,22 @@
                         <h1>Завантажте файл</h1>
                     </v-toolbar>
                     <v-card-text>
-                        <v-btn color="info" @click="$refs.inputUpload.click()" block>Натисніть, щоб вибрати зображення
+                        <v-btn @click="$refs.inputUpload.click()" block color="info">Натисніть, щоб вибрати зображення
                             на комп'ютері
                         </v-btn>
-                        <input v-show="false" ref="inputUpload" type="file" @change="onFileChange" accept="image/*">
+                        <input @change="onFileChange" accept="image/*" ref="inputUpload" type="file" v-show="false">
                         <v-select
                                 :items="options"
+                                class="mt-4"
                                 label="Виберіть мову конспектування"
                                 v-model="language"
-                                class="mt-4"
                         ></v-select>
                         <router-link :to="{
                                 name: 'canvas',
                                 params: { lang: this.language, image: this.image },
                             }" tag="div">
-                            <v-btn size="lg"
-                                   color="success" block>
+                            <v-btn block
+                                   color="success" size="lg">
                                 Поїхали!
                             </v-btn>
                         </router-link>

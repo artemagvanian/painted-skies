@@ -1,24 +1,12 @@
 from datetime import datetime
 
+from django.contrib.auth.models import User
+from django.db.models import Q
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Mindmap, Classroom
-from .serializers import MindmapSerializer, ClassroomSerializer
-
-from rest_framework import generics
-
-from django.contrib.auth.models import User
-
-
-class ClassroomList(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = ClassroomSerializer
-
-    def get_queryset(self):
-        return Classroom.objects.filter(teacher=self.request.user.id)
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+from ..models import Mindmap
+from ..serializers import MindmapSerializer
 
 
 class MindmapList(generics.ListCreateAPIView):
@@ -45,7 +33,8 @@ class MindmapDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MindmapSerializer
 
     def get_queryset(self):
-        return Mindmap.objects.filter(owner=self.request.user.id)
+        return Mindmap.objects.filter(
+            Q(owner=self.request.user.id) | Q(owner__profile__classrooms__teacher_id=self.request.user.id))
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

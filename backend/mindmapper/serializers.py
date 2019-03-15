@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Mindmap, Classroom
+from .models import Mindmap, Classroom, Profile
 
 
 class MindmapSerializer(serializers.ModelSerializer):
@@ -10,10 +11,26 @@ class MindmapSerializer(serializers.ModelSerializer):
         read_only_fields = ('owner', 'created_at', 'edited_at')
 
 
+class UserSerializer(serializers.ModelSerializer):
+    mindmaps = MindmapSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'mindmaps')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('user',)
+
+
 class ClassroomSerializer(serializers.ModelSerializer):
-    students = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    students = ProfileSerializer(many=True, read_only=True)
 
     class Meta:
         model = Classroom
-        fields = ('title', 'teacher', 'students')
-        read_only_fields = ('teacher', 'students')
+        fields = ('id', 'title', 'teacher', 'students')
+        read_only_fields = ('id', 'teacher', 'students')

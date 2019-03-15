@@ -1,24 +1,24 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fill-height fluid>
         <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
+            <v-flex md4 sm8 xs12>
                 <v-card class="elevation-12">
-                    <v-toolbar dark color="primary">
+                    <v-toolbar color="primary" dark>
                         <v-toolbar-title>Зареєструйтеся</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                         <v-form>
-                            <v-text-field prepend-icon="person" name="login" label="Логін"
+                            <v-text-field label="Логін" name="login" prepend-icon="person"
                                           type="text" v-model="username"></v-text-field>
-                            <v-text-field id="password1" prepend-icon="lock" name="password1" label="Пароль"
+                            <v-text-field id="password1" label="Пароль" name="password1" prepend-icon="lock"
                                           type="password" v-model="password1"></v-text-field>
-                            <v-text-field id="password2" prepend-icon="lock" name="password2" label="Повторіть пароль"
+                            <v-text-field id="password2" label="Повторіть пароль" name="password2" prepend-icon="lock"
                                           type="password" v-model="password2"></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="onSubmit">Зареєструватися</v-btn>
+                        <v-btn @click="onSubmit" color="primary">Зареєструватися</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>

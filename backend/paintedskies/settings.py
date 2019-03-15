@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import environ
 import datetime
+
+import environ
 
 BASE_DIR = environ.Path(__file__) - 2
 env = environ.Env()
@@ -93,12 +94,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',
-# ]
-#
-# AUTH_USER_MODEL = 'users.User'
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -124,7 +119,8 @@ MEDIA_URL = '/media/'
 INSTALLED_APPS += ['raven.contrib.django.raven_compat']
 
 RAVEN_MIDDLEWARE = [
-    'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware']
+    'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware'
+]
 
 MIDDLEWARE = RAVEN_MIDDLEWARE + MIDDLEWARE
 
@@ -137,15 +133,13 @@ RAVEN_CONFIG = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticated'
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
     ]
 }
 

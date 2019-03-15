@@ -1,42 +1,42 @@
 <template>
     <v-container fluid full-height pa-0>
-        <v-toolbar prominent flat>
-            <v-layout row justify-center>
+        <v-toolbar flat prominent>
+            <v-layout justify-center row>
                 <v-flex>
-                    <v-btn v-for="button in modeButtons" @click="mode = button.mode"
-                           :color="mode === button.mode ? 'blue' : 'grey darken-1'" class="ma-0 white--text" depressed
-                           small>
+                    <v-btn :color="mode === button.mode ? 'blue' : 'grey darken-1'" @click="mode = button.mode"
+                           class="ma-0 white--text" depressed small
+                           v-for="button in modeButtons">
                         <v-icon>{{ button.icon }}</v-icon>
                     </v-btn>
                 </v-flex>
                 <v-flex>
-                    <v-btn v-for="paintingObject in paintingObjects"
-                           :color="paintingObject === activePaintingObject ? paintingObject.buttonStyle : 'grey darken-1'"
-                           @click="activate(paintingObject)"
+                    <v-btn :color="paintingObject === activePaintingObject ? paintingObject.buttonStyle : 'grey darken-1'"
                            :disabled="!levelCanBeActive(paintingObject.level)"
-                           class="ma-0 white--text" depressed small>
+                           @click="activate(paintingObject)"
+                           class="ma-0 white--text"
+                           depressed small v-for="paintingObject in paintingObjects">
                         {{ paintingObject.level }}
                     </v-btn>
                 </v-flex>
                 <v-flex>
-                    <v-btn @click="removeLastElement()" class="ma-0 white--text" depressed color="grey darken-1" small>
+                    <v-btn @click="removeLastElement()" class="ma-0 white--text" color="grey darken-1" depressed small>
                         <v-icon>undo</v-icon>
                     </v-btn>
-                    <v-btn @click="toggleMergeMode()" :color="this.mergeMode === true ? 'blue' : 'grey darken-1'"
+                    <v-btn :color="this.mergeMode === true ? 'blue' : 'grey darken-1'" @click="toggleMergeMode()"
                            class="ma-0 white--text" depressed small>
                         <v-icon>exposure_plus_1</v-icon>
                     </v-btn>
                 </v-flex>
                 <v-flex>
-                    <v-btn @click="zoom *= 1.5" class="ma-0 white--text" depressed color="grey darken-1" small>
+                    <v-btn @click="zoom *= 1.5" class="ma-0 white--text" color="grey darken-1" depressed small>
                         <v-icon>zoom_in</v-icon>
                     </v-btn>
-                    <v-btn @click="zoom /= 1.5" class="ma-0 white--text" depressed color="grey darken-1" small>
+                    <v-btn @click="zoom /= 1.5" class="ma-0 white--text" color="grey darken-1" depressed small>
                         <v-icon>zoom_out</v-icon>
                     </v-btn>
                 </v-flex>
                 <v-flex>
-                    <v-btn @click="makeMindMap()" class="ma-0 white--text" depressed color="grey darken-1" small>
+                    <v-btn @click="makeMindMap()" class="ma-0 white--text" color="grey darken-1" depressed small>
                         <v-icon>arrow_forward</v-icon>
                     </v-btn>
                 </v-flex>
@@ -46,7 +46,7 @@
         <div class="spin" v-if="loading">
             <div class="cp-spinner cp-heart"></div>
         </div>
-        <v-dialog id="modal" v-model="errorModalShow" title="Сталася помилка!" :ok-only="true">
+        <v-dialog :ok-only="true" id="modal" title="Сталася помилка!" v-model="errorModalShow">
             Вся команда розробників вже знає про це та намагається все виправити. Зверніть увагу, що наш сервер не
             оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений,
             можуть

@@ -1,22 +1,22 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fill-height fluid>
         <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
+            <v-flex md4 sm8 xs12>
                 <v-card class="elevation-12">
-                    <v-toolbar dark color="primary">
+                    <v-toolbar color="primary" dark>
                         <v-toolbar-title>Увійдіть до системи</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                         <v-form>
-                            <v-text-field prepend-icon="person" name="login" label="Логін"
+                            <v-text-field label="Логін" name="login" prepend-icon="person"
                                           type="text" v-model="username"></v-text-field>
-                            <v-text-field id="password" prepend-icon="lock" name="password" label="Пароль"
+                            <v-text-field id="password" label="Пароль" name="password" prepend-icon="lock"
                                           type="password" v-model="password"></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="onSubmit">Увійти</v-btn>
+                        <v-btn @click="onSubmit" color="primary">Увійти</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -37,10 +37,8 @@
         },
         methods: {
             async onSubmit() {
-                let response = await Auth.login(this.username, this.password);
+                let response = await Auth.obtainToken(this.username, this.password);
                 if (response) {
-                    this.$session.start();
-                    this.$session.set('jwt', response);
                     this.$router.push('/')
                 }
             }

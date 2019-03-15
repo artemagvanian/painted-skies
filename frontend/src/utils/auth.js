@@ -2,7 +2,18 @@ import $ from 'jquery'
 import moment from 'moment'
 
 export default {
-    async login(username, password) {
+    saveToken(token) {
+        if (token) {
+            $.cookie('token', token, {expires: 1});
+            return true;
+        } else {
+            return false;
+        }
+    },
+    getToken() {
+        return $.cookie('token');
+    },
+    async obtainToken(username, password) {
         try {
             let response = await $.ajax({
                 url: '/api/auth/obtain_token',
@@ -11,24 +22,14 @@ export default {
                     password, username
                 }
             });
-            return response.token;
-        } catch (e) {
-            return false;
-        }
-    },
-    async verify(token) {
-        try {
-            await $.ajax({
-                url: '/api/auth/verify_token',
-                method: 'POST',
-                data: {
-                    token,
-                }
-            });
+            this.saveToken(response.token);
             return true;
         } catch (e) {
             return false;
         }
+    },
+    destroyToken() {
+        $.removeCookie('token');
     },
     async signup(username, password1, password2) {
         try {
@@ -48,12 +49,12 @@ export default {
         let encoded = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'));
         return JSON.parse(atob(encoded));
     },
-    checkToken(token) {
-        try {
-            let data = this.parseToken(token);
+    checkToken() {
+        if (this.getToken()) {
+            let data = this.parseToken(this.getToken());
             let expires = moment.unix(data.exp);
             return expires.isAfter(moment());
-        } catch (e) {
+        } else {
             return false;
         }
     }

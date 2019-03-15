@@ -1,8 +1,8 @@
 <template>
     <v-container fluid full-height>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md3 pa-3 v-for="mindmap in mindmaps">
-                <v-card color="blue-grey darken-2" class="white--text pa-3">
+            <v-flex md3 pa-3 sm6 v-for="mindmap in mindmaps" xs12>
+                <v-card class="white--text pa-3" color="blue-grey darken-2">
                     <v-card-title primary-title>
                         <div>
                             <h3 class="headline mb-2"> {{ mindmap.title }}</h3>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import Mindmaps from '../utils/crud/MindmapCRUD'
+    import Mindmaps from '../utils/api/Mindmap'
     import 'jquery.cookie/jquery.cookie'
     import moment from 'moment'
 
@@ -40,7 +40,7 @@
         },
         async mounted() {
             moment.locale('uk');
-            let mindmaps = await Mindmaps.list(this.$session.get('jwt'));
+            let mindmaps = await Mindmaps.list();
             if (mindmaps) {
                 this.mindmaps = mindmaps;
             } else {

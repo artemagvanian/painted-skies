@@ -1,9 +1,11 @@
 <script>
+    import Auth from '../utils/auth'
+
     export default {
         name: "Logout",
         mounted() {
-            this.$session.destroy();
-            this.$router.push('/');
+            Auth.destroyToken();
+            this.$router.push('/')
         }
     }
 </script>

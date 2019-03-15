@@ -2,14 +2,14 @@
     <v-container fluid pa-0>
         <div class="grid-container">
             <div id="network"></div>
-            <div id="menu" class="p-3">
-                <v-navigation-drawer permanent right absolute>
+            <div class="p-3" id="menu">
+                <v-navigation-drawer absolute permanent right>
                     <v-list-tile class="py-3">
                         <v-list-tile-action>
                             <v-icon>map</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
-                            <v-text-field type="text" v-model="title" label="Назва ментальної карти"></v-text-field>
+                            <v-text-field label="Назва ментальної карти" type="text" v-model="title"></v-text-field>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-divider></v-divider>
@@ -44,20 +44,20 @@
                                 <v-icon>textsms</v-icon>
                             </v-list-tile-action>
                             <v-list-tile-content>
-                                <v-text-field label="Текст вузла" type="text" v-model="selectedNode.label"
-                                              placeholder="Текст вузла..."></v-text-field>
+                                <v-text-field label="Текст вузла" placeholder="Текст вузла..." type="text"
+                                              v-model="selectedNode.label"></v-text-field>
                             </v-list-tile-content>
                         </v-list-tile>
                         <v-divider></v-divider>
                         <v-list-tile class="py-3">
                             <v-list-tile-content>
-                                <v-btn color='red' @click="deleteNode()" block>
+                                <v-btn @click="deleteNode()" block color='red'>
                                     Видалити вузол
                                 </v-btn>
                             </v-list-tile-content>
                         </v-list-tile>
                     </template>
-                    <v-list-tile v-else class="py-3">
+                    <v-list-tile class="py-3" v-else>
                         <div :style="{ width: 'calc(100% - 16px)', textAlign: 'center' }">
                             <p>Виберіть вузол для редагування</p>
                         </div>
@@ -74,7 +74,7 @@
 
     import vis from 'vis/dist/vis.min.js';
     import 'vis/dist/vis.min.css'
-    import Mindmaps from '../utils/crud/MindmapCRUD'
+    import Mindmaps from '../utils/api/Mindmap'
 
     export default {
         name: "MindmapViewer",
@@ -118,7 +118,6 @@
                         i.y = this.network.body.nodes[i.id].y;
                     }
                     await Mindmaps.update(
-                        this.$session.get('jwt'),
                         this.mindmapId.toString(),
                         this.title,
                         nodeDS,
@@ -166,13 +165,13 @@
 
             try {
                 if (this.id === undefined) {
-                    let mindmap = await Mindmaps.create(this.$session.get('jwt'), this.title, this.nodes, this.edges);
+                    let mindmap = await Mindmaps.create(this.title, this.nodes, this.edges);
                     this.mindmapId = mindmap.id;
                     this.nodesDataSet = new vis.DataSet(this.nodes);
                     this.edgesDataSet = new vis.DataSet(this.edges);
 
                 } else {
-                    let mindmap = await Mindmaps.retrieve(this.$session.get('jwt'), this.id.toString());
+                    let mindmap = await Mindmaps.retrieve(this.id.toString());
                     this.mindmapId = mindmap.id;
                     this.title = mindmap.title;
                     let mindmapElements = JSON.parse(mindmap.mindmap);

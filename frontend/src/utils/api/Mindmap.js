@@ -1,13 +1,14 @@
 import $ from 'jquery'
+import Auth from '../auth'
 
 export default {
-    async list(token) {
+    async list() {
         try {
             return await $.ajax({
                 url: '/api/rest/mindmaps/',
                 method: 'GET',
                 headers: {
-                    'Authorization': 'JWT ' + token,
+                    'Authorization': 'JWT ' + Auth.getToken(),
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRFToken': $.cookie('csrftoken'),
                 }
@@ -16,7 +17,7 @@ export default {
             return false;
         }
     },
-    async create(token, title, nodes, edges) {
+    async create(title, nodes, edges) {
         return await $.ajax({
             url: '/api/rest/mindmaps/',
             data: {
@@ -27,24 +28,24 @@ export default {
             },
             method: 'POST',
             headers: {
-                'Authorization': 'JWT ' + token,
+                'Authorization': 'JWT ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
         });
     },
-    async retrieve(token, id) {
+    async retrieve(id) {
         return await $.ajax({
             url: '/api/rest/mindmaps/' + id + '/',
             method: 'GET',
             headers: {
-                'Authorization': 'JWT ' + token,
+                'Authorization': 'JWT ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
         })
     },
-    async update(token, id, title, nodes, edges) {
+    async update(id, title, nodes, edges) {
         return await $.ajax({
             url: '/api/rest/mindmaps/' + id + '/',
             data: {
@@ -55,18 +56,18 @@ export default {
             },
             method: 'PUT',
             headers: {
-                'Authorization': 'JWT ' + token,
+                'Authorization': 'JWT ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
         });
     },
-    async delete(token, id) {
+    async delete(id) {
         return await $.ajax({
             url: '/api/rest/mindmaps/' + id + '/',
             method: 'DELETE',
             headers: {
-                'Authorization': 'JWT ' + token,
+                'Authorization': 'JWT ' + Auth.getToken(),
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': $.cookie('csrftoken'),
             }
