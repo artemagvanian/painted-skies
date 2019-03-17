@@ -64,7 +64,7 @@
                         'X-CSRFToken': $.cookie('csrftoken'),
                     }
                 });
-                this.similarity = 'Індекс схожості: ' + response.index;
+                this.similarity = 'Індекс схожості: ' + response.index + '%';
             },
             parseMindmaps(mindmaps) {
                 return mindmaps.map(dat => {
