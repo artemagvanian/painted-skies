@@ -85,8 +85,9 @@
                 this.saveMindmap();
                 this.inAddMode = false;
             },
-            addEdge(nodeData, callback) {
-                callback(nodeData);
+            addEdge(edgeData, callback) {
+                edgeData.arrows = 'to';
+                callback(edgeData);
                 this.saveMindmap();
                 this.inAddMode = false;
             },

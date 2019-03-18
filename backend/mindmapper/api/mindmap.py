@@ -34,7 +34,7 @@ class MindmapDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Mindmap.objects.filter(
-            Q(owner=self.request.user.id) | Q(owner__profile__classrooms__teacher_id=self.request.user.id))
+            Q(owner=self.request.user.id) | Q(owner__profile__classrooms__teacher_id=self.request.user.id)).distinct()
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

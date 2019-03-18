@@ -13,7 +13,7 @@ class CompareAPI(APIView):
 
     def get(self, request):
         query = Mindmap.objects.filter(
-            Q(owner=request.user.id) | Q(owner__profile__classrooms__teacher_id=request.user.id))
+            Q(owner=request.user.id) | Q(owner__profile__classrooms__teacher_id=request.user.id)).distinct()
         a = query.get(id=request.GET['a'])
         b = query.get(id=request.GET['b'])
         cmp1 = DisjointComparator(a.mindmap, b.mindmap, PyMorphyNormalizer())
