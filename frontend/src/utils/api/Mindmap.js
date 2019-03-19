@@ -1,76 +1,68 @@
-import $ from 'jquery'
 import Auth from '../auth'
+import axios from 'axios';
+import cookies from "js-cookie";
 
 export default {
     async list() {
-        try {
-            return await $.ajax({
-                url: '/api/rest/mindmaps/',
-                method: 'GET',
+        return await axios.get('/api/rest/mindmaps/',
+            {
                 headers: {
                     'Authorization': 'Bearer ' + Auth.getToken(),
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': $.cookie('csrftoken'),
+                    'X-CSRFToken': cookies.get('csrftoken'),
                 }
             });
-        } catch (e) {
-            return false;
-        }
     },
     async create(title, nodes, edges) {
-        return await $.ajax({
-            url: '/api/rest/mindmaps/',
-            data: {
+        return await axios.post('/api/rest/mindmaps/',
+            {
                 title,
                 mindmap: JSON.stringify({
                     nodes, edges,
                 })
             },
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + Auth.getToken(),
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': $.cookie('csrftoken'),
-            }
-        });
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + Auth.getToken(),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
+                }
+            });
     },
     async retrieve(id) {
-        return await $.ajax({
-            url: '/api/rest/mindmaps/' + id + '/',
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + Auth.getToken(),
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': $.cookie('csrftoken'),
-            }
-        })
+        return await axios.get('/api/rest/mindmaps/' + id + '/',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + Auth.getToken(),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
+                }
+            })
     },
     async update(id, title, nodes, edges) {
-        return await $.ajax({
-            url: '/api/rest/mindmaps/' + id + '/',
-            data: {
+        return await axios.put('/api/rest/mindmaps/' + id + '/',
+            {
                 title,
                 mindmap: JSON.stringify({
                     nodes, edges,
                 })
             },
-            method: 'PUT',
-            headers: {
-                'Authorization': 'Bearer ' + Auth.getToken(),
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': $.cookie('csrftoken'),
-            }
-        });
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + Auth.getToken(),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
+                }
+            });
     },
     async delete(id) {
-        return await $.ajax({
-            url: '/api/rest/mindmaps/' + id + '/',
-            method: 'DELETE',
-            headers: {
-                'Authorization': 'Bearer ' + Auth.getToken(),
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': $.cookie('csrftoken'),
-            }
-        });
+        return await axios.delete('/api/rest/mindmaps/' + id + '/',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + Auth.getToken(),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
+                }
+            });
     },
 }

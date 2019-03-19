@@ -1,27 +1,26 @@
-import $ from "jquery";
 import Auth from '../auth'
+import axios from 'axios'
+import cookies from 'js-cookie'
 
 export default {
     async retrieve(id) {
-        return await $.ajax({
-            url: '/api/rest/classrooms/' + id + '/',
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + Auth.getToken(),
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': $.cookie('csrftoken'),
-            }
-        })
+        return await axios.get('/api/rest/classrooms/' + id + '/',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + Auth.getToken(),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
+                }
+            })
     },
     async list() {
-        return await $.ajax({
-            url: '/api/rest/classrooms/',
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + Auth.getToken(),
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': $.cookie('csrftoken'),
-            }
-        })
+        return await axios.get('/api/rest/classrooms/',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + Auth.getToken(),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
+                }
+            })
     },
 }

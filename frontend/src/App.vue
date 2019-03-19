@@ -79,9 +79,9 @@
 </template>
 
 <script>
-    import $ from 'jquery'
-    import 'jquery.cookie/jquery.cookie'
     import Auth from './utils/auth'
+    import axios from 'axios'
+    import cookies from 'js-cookie'
 
     export default {
         name: 'app',
@@ -92,14 +92,8 @@
             }
         },
         async mounted() {
-            $.ajax({
-                url: '/api/csrf',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    $.cookie('csrftoken', data.token);
-                }
-            });
+            let csrf = await axios.get('/api/csrf');
+            cookies.set('csrftoken', csrf.data.token);
         }
     }
 </script>

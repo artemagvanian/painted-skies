@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
 
-class PdfMergeView(APIView):
+class PdfMergeAPI(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):

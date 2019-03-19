@@ -1,49 +1,39 @@
-import $ from 'jquery'
 import moment from 'moment'
+import cookies from 'js-cookie'
+import axios from 'axios'
 
 export default {
     saveToken(token) {
         if (token) {
-            $.cookie('token', token, {expires: 1});
+            cookies.set('token', token, {expires: 1});
             return true;
         } else {
             return false;
         }
     },
     getToken() {
-        return $.cookie('token');
+        return cookies.get('token');
     },
     async obtainToken(username, password) {
-        try {
-            let response = await $.ajax({
-                url: '/api/auth/obtain_token',
-                method: 'POST',
-                data: {
-                    password, username
+        return await axios.post('/api/auth/obtain_token',
+            {
+                password, username
+            },
+            {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': cookies.get('csrftoken'),
                 }
             });
-            this.saveToken(response.access);
-            return true;
-        } catch (e) {
-            return false;
-        }
     },
     destroyToken() {
-        $.removeCookie('token');
+        cookies.remove('token');
     },
     async signup(username, password1, password2) {
-        try {
-            await $.ajax({
-                url: '/api/auth/signup',
-                method: 'POST',
-                data: {
-                    password1, password2, username
-                }
+        return await axios.post('/api/auth/signup',
+            {
+                password1, password2, username
             });
-            return true;
-        } catch (e) {
-            return false;
-        }
     },
     parseToken(token) {
         let encoded = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'));

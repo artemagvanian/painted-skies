@@ -40,10 +40,10 @@
         },
         async mounted() {
             moment.locale('uk');
-            let mindmaps = await Mindmaps.list();
-            if (mindmaps) {
-                this.mindmaps = mindmaps;
-            } else {
+            try {
+                let mindmaps = await Mindmaps.list();
+                this.mindmaps = mindmaps.data;
+            } catch (e) {
                 this.$router.push('/');
             }
         }

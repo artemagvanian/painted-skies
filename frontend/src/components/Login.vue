@@ -7,11 +7,12 @@
                         <v-toolbar-title>Увійдіть до системи</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
-                        <v-form>
-                            <v-text-field label="Логін" name="login" prepend-icon="person"
+                        <v-form @submit="onSubmit">
+                            <v-text-field :error-messages="errors.username" id="username" label="Логін" name="username"
+                                          prepend-icon="person"
                                           type="text" v-model="username"></v-text-field>
-                            <v-text-field id="password" label="Пароль" name="password" prepend-icon="lock"
-                                          type="password" v-model="password"></v-text-field>
+                            <v-text-field :error-messages="errors.password" id="password" label="Пароль" name="password"
+                                          prepend-icon="lock" type="password" v-model="password"></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
@@ -33,13 +34,17 @@
             return {
                 username: "",
                 password: "",
+                errors: [],
             }
         },
         methods: {
             async onSubmit() {
-                let response = await Auth.obtainToken(this.username, this.password);
-                if (response) {
+                try {
+                    const response = await Auth.obtainToken(this.username, this.password);
+                    Auth.saveToken(response.data.access);
                     this.$router.push('/')
+                } catch (e) {
+                    this.errors = e.response.data;
                 }
             }
         }

@@ -67,7 +67,7 @@
                 this.similarity = 'Індекс схожості: ' + response.index + '%';
             },
             parseMindmaps(mindmaps) {
-                return mindmaps.map(dat => {
+                return mindmaps.data.map(dat => {
                     return {
                         text: dat.title,
                         value: dat.id,
@@ -75,7 +75,7 @@
                 })
             },
             parseClassrooms(classrooms) {
-                return classrooms.map(dat => {
+                return classrooms.data.map(dat => {
                     return {
                         text: dat.title,
                         value: dat.id,
@@ -84,7 +84,7 @@
             },
             async onClassroomChange() {
                 let classroom = await Classrooms.retrieve(this.selectedClassroom);
-                this.pupils = classroom.students.map(dat => {
+                this.pupils = classroom.data.students.map(dat => {
                     return {
                         text: dat.user.username,
                         value: dat.user.id,
@@ -94,7 +94,7 @@
             },
             async onPupilChange() {
                 let pupil = await Users.retrieve(this.selectedPupil);
-                this.mindmaps = pupil.mindmaps.map(dat => {
+                this.mindmaps = pupil.data.mindmaps.map(dat => {
                     return {
                         text: dat.title,
                         value: dat.id,

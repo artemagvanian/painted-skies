@@ -126,7 +126,6 @@
                     );
                     this.saveStatus = 'Дані збережено'
                 } catch (e) {
-                    console.log(e);
                     this.saveStatus = 'Дані не збережено'
                 }
             },
@@ -167,15 +166,15 @@
             try {
                 if (this.id === undefined) {
                     let mindmap = await Mindmaps.create(this.title, this.nodes, this.edges);
-                    this.mindmapId = mindmap.id;
+                    this.mindmapId = mindmap.data.id;
                     this.nodesDataSet = new vis.DataSet(this.nodes);
                     this.edgesDataSet = new vis.DataSet(this.edges);
 
                 } else {
                     let mindmap = await Mindmaps.retrieve(this.id.toString());
-                    this.mindmapId = mindmap.id;
-                    this.title = mindmap.title;
-                    let mindmapElements = JSON.parse(mindmap.mindmap);
+                    this.mindmapId = mindmap.data.id;
+                    this.title = mindmap.data.title;
+                    let mindmapElements = JSON.parse(mindmap.data.mindmap);
                     this.nodesDataSet = new vis.DataSet(mindmapElements.nodes);
                     this.edgesDataSet = new vis.DataSet(mindmapElements.edges);
                 }

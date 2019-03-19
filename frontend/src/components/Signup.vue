@@ -8,11 +8,14 @@
                     </v-toolbar>
                     <v-card-text>
                         <v-form>
-                            <v-text-field label="Логін" name="login" prepend-icon="person"
+                            <v-text-field :error-messages="errors.username" label="Логін" name="login"
+                                          prepend-icon="person"
                                           type="text" v-model="username"></v-text-field>
-                            <v-text-field id="password1" label="Пароль" name="password1" prepend-icon="lock"
+                            <v-text-field :error-messages="errors.password1" id="password1" label="Пароль"
+                                          name="password1" prepend-icon="lock"
                                           type="password" v-model="password1"></v-text-field>
-                            <v-text-field id="password2" label="Повторіть пароль" name="password2" prepend-icon="lock"
+                            <v-text-field :error-messages="errors.password2" id="password2" label="Повторіть пароль"
+                                          name="password2" prepend-icon="lock"
                                           type="password" v-model="password2"></v-text-field>
                         </v-form>
                     </v-card-text>
@@ -36,13 +39,16 @@
                 username: "",
                 password1: "",
                 password2: "",
+                errors: [],
             }
         },
         methods: {
             async onSubmit() {
-                let result = await Auth.signup(this.username, this.password1, this.password2);
-                if (result) {
+                try {
+                    await Auth.signup(this.username, this.password1, this.password2);
                     this.$router.push('/');
+                } catch (e) {
+                    this.errors = e.response.data;
                 }
             }
         }

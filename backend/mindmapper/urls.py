@@ -3,15 +3,16 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .api.classroom import ClassroomList, ClassroomDetail
 from .api.comparator import CompareAPI
-from .api.convertor import PdfMergeView
+from .api.convertor import PdfMergeAPI
+from .api.core import Signup
 from .api.mindmap import MindmapList, MindmapDetail
-from .api.notetaker import ProcessView
+from .api.notetaker import ProcessAPI
 from .api.user import UserDetail
-from .views import get_csrf_token, signup
+from .views import get_csrf_token
 
 urlpatterns = [
-    path('note', ProcessView.as_view()),
-    path('pdf', PdfMergeView.as_view()),
+    path('note', ProcessAPI.as_view()),
+    path('pdf', PdfMergeAPI.as_view()),
     path('compare', CompareAPI.as_view()),
 
     path('rest/mindmaps/', MindmapList.as_view()),
@@ -28,5 +29,5 @@ urlpatterns = [
     path('auth/refresh_token', TokenRefreshView.as_view()),
     path('auth/verify_token', TokenVerifyView.as_view()),
 
-    path('auth/signup', signup)
+    path('auth/signup', Signup.as_view())
 ]

@@ -29,9 +29,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-let vm = new Vue({
+new Vue({
     router,
     render: h => h(App)
 }).$mount('#app');
-
-export default vm;

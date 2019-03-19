@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
 
-class ProcessView(APIView):
+class ProcessAPI(APIView):
     permission_classes = (AllowAny,)
 
     @staticmethod
