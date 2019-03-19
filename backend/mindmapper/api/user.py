@@ -10,7 +10,7 @@ class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        return User.objects.filter(profile__classrooms__teacher_id=self.request.user.id)
+        return User.objects.filter(classrooms__teacher_id=self.request.user.id)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

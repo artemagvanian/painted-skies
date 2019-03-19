@@ -38,13 +38,14 @@ class DisjointComparator(AbstractComparator):
         edges_id_list = list(g.edges)
         edges_labels_list = []
         for i in edges_id_list:
-            label_from = g.nodes[i[0]]['label']
-            label_to = g.nodes[i[1]]['label']
+            label_from, label_to = sorted([g.nodes[i[0]]['label'], g.nodes[i[1]]['label']])
             edges_labels_list.append((label_from, label_to))
         return edges_labels_list
 
     def compare(self):
         edges_a, edges_b = set(self.convert_edges_view(self.a)), set(self.convert_edges_view(self.b))
+        print(edges_a)
+        print(edges_b)
         if len(edges_b) != 0:
             return int(len(edges_a & edges_b) / len(edges_b) * 100)
         else:

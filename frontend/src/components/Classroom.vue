@@ -86,8 +86,8 @@
                 let classroom = await Classrooms.retrieve(this.selectedClassroom);
                 this.pupils = classroom.data.students.map(dat => {
                     return {
-                        text: dat.user.username,
-                        value: dat.user.id,
+                        text: dat.username,
+                        value: dat.id,
                     }
                 });
 

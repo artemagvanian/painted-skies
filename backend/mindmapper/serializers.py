@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Mindmap, Classroom, Profile
+from .models import Mindmap, Classroom
 
 
 class MindmapSerializer(serializers.ModelSerializer):
@@ -19,16 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'mindmaps')
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-
-    class Meta:
-        model = Profile
-        fields = ('user',)
-
-
 class ClassroomSerializer(serializers.ModelSerializer):
-    students = ProfileSerializer(many=True, read_only=True)
+    students = UserSerializer(many=True, read_only=True)
 
     class Meta:
         model = Classroom
