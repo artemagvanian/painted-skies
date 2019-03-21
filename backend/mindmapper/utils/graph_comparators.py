@@ -3,12 +3,12 @@ from abc import ABC, abstractmethod
 
 import networkx as nx
 
+from .comparable_nodes import NormalizedLevenshteinComparableNode
 
-class AbstractComparator(ABC):
+
+class AbstractGraphComparator(ABC):
     # compare a with b, assuming b is 100%
-    def __init__(self, a, b, normalizer):
-        self.normalizer = normalizer
-
+    def __init__(self, a, b):
         def load_graph(json_graph):
             data = json.loads(json_graph)
             graph = nx.Graph()
@@ -16,7 +16,6 @@ class AbstractComparator(ABC):
             for i in data['nodes']:
                 node_id = i['id']
                 del i['id']
-                i['label'] = self.normalizer.normalize(i['label'])
                 graph.add_node(node_id, **i)
 
             for i in data['edges']:
@@ -32,20 +31,19 @@ class AbstractComparator(ABC):
         pass
 
 
-class DisjointComparator(AbstractComparator):
+class EdgeGraphComparator(AbstractGraphComparator):
     @staticmethod
-    def convert_edges_view(g):
-        edges_id_list = list(g.edges)
+    def convert_edges(graph):
+        edges_id_list = list(graph.edges)
         edges_labels_list = []
-        for i in edges_id_list:
-            label_from, label_to = sorted([g.nodes[i[0]]['label'], g.nodes[i[1]]['label']])
-            edges_labels_list.append((label_from, label_to))
+        for edge in edges_id_list:
+            label_from, label_to = sorted([graph.nodes[edge[0]]['label'], graph.nodes[edge[1]]['label']])
+            edges_labels_list.append(
+                (NormalizedLevenshteinComparableNode(label_from), NormalizedLevenshteinComparableNode(label_to)))
         return edges_labels_list
 
     def compare(self):
-        edges_a, edges_b = set(self.convert_edges_view(self.a)), set(self.convert_edges_view(self.b))
-        print(edges_a)
-        print(edges_b)
+        edges_a, edges_b = set(self.convert_edges(self.a)), set(self.convert_edges(self.b))
         if len(edges_b) != 0:
             return int(len(edges_a & edges_b) / len(edges_b) * 100)
         else:
@@ -53,10 +51,9 @@ class DisjointComparator(AbstractComparator):
 
 
 def mock_test():
-    from .normalizers import PyMorphyNormalizer as Nrm
     a = '{"nodes":[{"id":0,"label":"Генетический код"},{"id":1,"label":"совокупность правил"},{"id":2,"label":"которым"},{"id":3,"label":"информация переводится"}],"edges":[{"from":1,"to":0},{"from":2,"to":1},{"from":3,"to":2}]}'
     b = '{"nodes":[{"id":0,"label":"Генетические код"},{"id":1,"label":"совокупности правил"},{"id":2,"label":"которые"},{"id":3,"label":"информация переводится"}],"edges":[{"from":1,"to":0},{"from":2,"to":1},{"from":3,"to":2}]}'
 
-    cmps = [DisjointComparator(a, b, Nrm())]
+    cmps = [EdgeGraphComparator(a, b)]
 
     print([i.compare() for i in cmps])

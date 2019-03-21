@@ -27,4 +27,6 @@ RUN pipenv install --system --deploy
 # upload scripts
 COPY ./scripts/entrypoint.sh ./scripts/start.sh ./scripts/gunicorn.sh /
 
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
 WORKDIR /app

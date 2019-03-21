@@ -21,6 +21,8 @@ djangorestframework-simplejwt = "*"
 "psycopg2" = "*"
 numpy = "*"
 pytesseract = "*"
+fuzzywuzzy =  "*"
+python-levenshtein = "*"
 
 [dev-packages]
 
