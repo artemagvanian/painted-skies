@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2e7c33aa0ddaebf7f3e67ddd052513fcc48e46bd444387a0f54a0e74a80dac79"
+            "sha256": "decbd3c8db8179105bef1c235e31f510549ea68c9ab73d5c04e2727187d70f86"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -269,20 +269,9 @@
             "version": "==1.7.1"
         },
         "pymorphy2": {
-            "hashes": [
-                "sha256:3092c21f5e6f78a3a2fa54011236f975cbff8df29827ed6661cf4bde9aacdb8f",
-                "sha256:549a1141abe01093242b9e11a1f60110ee4818f7fe57c9bb363e504339f382f5"
-            ],
-            "index": "pypi",
-            "version": "==0.8"
-        },
-        "pymorphy2-dicts": {
-            "hashes": [
-                "sha256:70d3e33fa28108a2dfcded787c7a5946c6ab88bb669b3afb20f8c447aadec924",
-                "sha256:be7c6402b5f0919c1c942f07f89a7f53c70f6266a035fa0a561b23807ac79e4a",
-                "sha256:d563f2c7673fc28583550780e21440764eb0168b57d498ec07e346da70ce0b3c"
-            ],
-            "version": "==2.4.393442.3710985"
+            "editable": true,
+            "git": "https://github.com/kmike/pymorphy2.git",
+            "ref": "ca1c13f6998ae2d835bdd5033c17197dcba84cf4"
         },
         "pymorphy2-dicts-ru": {
             "hashes": [
@@ -291,6 +280,15 @@
             ],
             "index": "pypi",
             "version": "==2.4.404381.4453942"
+        },
+        "pymorphy2-dicts-uk": {
+            "hashes": [
+                "sha256:0bab7923ca6090b3c7cbd4dbc4433bcdadaf32ec8633c4ba04a8b838a3c47b53",
+                "sha256:9ed9f5332d46a9d4c74ca418bc2cc7427ee7822dff2ca2c666ace186d47b2245",
+                "sha256:b8f713eb32c704e97347361c20cfc1782731600ce187fe2d66fd427c71481d0e"
+            ],
+            "index": "pypi",
+            "version": "==2.4.1.1.1460299261"
         },
         "pytesseract": {
             "hashes": [
@@ -330,11 +328,11 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:590abe38f8be026d78457fe3b5200895b3543e58ac3fc1dd792c6333ea11af64",
-                "sha256:ee11b0f0640c56fb491b43b38356c4b588b3202b415a1e03eacf1c5561c961cf"
+                "sha256:96da23fa8ccecbc3ae832a83df5c722c11547d021637faacb0bec4dd2f4666c8",
+                "sha256:ca5c2dcd367d6c0df87185b9082929d255358f5391923269335782b213d52655"
             ],
             "index": "pypi",
-            "version": "==0.15.0"
+            "version": "==0.15.1"
         }
     },
     "develop": {}

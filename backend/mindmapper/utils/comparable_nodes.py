@@ -13,9 +13,6 @@ class AbstractComparableNode(ABC):
 
 
 class NormalizedLevenshteinComparableNode(AbstractComparableNode):
-    def __hash__(self):
-        return hash(self.__repr__())
-
     def __repr__(self):
         return f"NormalizedLevenshteinComparableNode({self.data})"
 

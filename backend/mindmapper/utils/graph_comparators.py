@@ -43,9 +43,13 @@ class EdgeGraphComparator(AbstractGraphComparator):
         return edges_labels_list
 
     def compare(self):
-        edges_a, edges_b = set(self.convert_edges(self.a)), set(self.convert_edges(self.b))
+        edges_a, edges_b = self.convert_edges(self.a), self.convert_edges(self.b)
         if len(edges_b) != 0:
-            return int(len(edges_a & edges_b) / len(edges_b) * 100)
+            score = 0
+            for i in edges_b:
+                if i in edges_a:
+                    score += 1
+            return int(score / len(edges_b) * 100)
         else:
             return 0
 

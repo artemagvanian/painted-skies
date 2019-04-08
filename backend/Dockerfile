@@ -6,6 +6,7 @@ RUN apt-get install -y python3 python3-pip
 RUN apt-get install -y tesseract-ocr tesseract-ocr-rus tesseract-ocr-ukr
 RUN apt-get install -y imagemagick
 RUN apt-get install -y poppler-utils
+RUN apt-get install -y git
 
 # python envs
 ENV PYTHONFAULTHANDLER=1 \

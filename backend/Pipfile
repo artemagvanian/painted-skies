@@ -11,7 +11,6 @@ gunicorn = "*"
 pillow = "*"
 raven = "*"
 werkzeug = "*"
-"pymorphy2" = "*"
 "pymorphy2-dicts-ru" = "*"
 networkx = "*"
 gevent = "*"
@@ -23,6 +22,8 @@ numpy = "*"
 pytesseract = "*"
 fuzzywuzzy =  "*"
 python-levenshtein = "*"
+"pymorphy2" = {editable = true, git = "https://github.com/kmike/pymorphy2.git"}
+"pymorphy2-dicts-uk" = "*"
 
 [dev-packages]
 
