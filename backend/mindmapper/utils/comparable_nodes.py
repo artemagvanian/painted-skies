@@ -17,5 +17,5 @@ class NormalizedLevenshteinComparableNode(AbstractComparableNode):
         return f"NormalizedLevenshteinComparableNode({self.data})"
 
     def __eq__(self, other):
-        cmp = NormalizedLevenshteinNodeComparator(self.data, other.data, .5)
+        cmp = NormalizedLevenshteinNodeComparator(self.data, other.data, 50)
         return cmp.compare()
