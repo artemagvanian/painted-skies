@@ -4,20 +4,21 @@
             <v-flex md4 sm8 xs12>
                 <v-card class="elevation-12">
                     <v-toolbar color="primary" dark>
-                        <v-toolbar-title>Увійдіть до системи</v-toolbar-title>
+                        <v-toolbar-title>{{ $t("auth.loginTitle") }}</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                         <v-form @submit="onSubmit">
-                            <v-text-field :error-messages="errors.username" id="username" label="Логін" name="username"
-                                          prepend-icon="person"
-                                          type="text" v-model="username"></v-text-field>
-                            <v-text-field :error-messages="errors.password" id="password" label="Пароль" name="password"
-                                          prepend-icon="lock" type="password" v-model="password"></v-text-field>
+                            <v-text-field :error-messages="errors.username" :label="$t('auth.username')" id="username"
+                                          name="username" prepend-icon="person" type="text"
+                                          v-model="username"></v-text-field>
+                            <v-text-field :error-messages="errors.password" :label="$t('auth.password')" id="password"
+                                          name="password" prepend-icon="lock" type="password"
+                                          v-model="password"></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn @click="onSubmit" color="primary">Увійти</v-btn>
+                        <v-btn @click="onSubmit" color="primary">{{ $t("auth.login") }}</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>

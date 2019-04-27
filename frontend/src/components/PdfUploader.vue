@@ -4,36 +4,34 @@
             <v-flex>
                 <v-card>
                     <v-toolbar>
-                        <h1>Завантажте файл</h1>
+                        <h1>{{ $t('uploader.uploadFile') }}</h1>
                     </v-toolbar>
                     <v-card-text>
-                        <v-btn @click="$refs.inputUpload.click()" block color="info">Натисніть, щоб вибрати документ на
-                            комп'ютері
+                        <v-btn @click="$refs.inputUpload.click()" block color="info">
+                            {{ $t('uploader.clickToSelectDocument') }}
                         </v-btn>
                         <input @change="onFileChange" ref="inputUpload" type="file" v-show="false">
                         <v-select
                                 :items="options"
+                                :label="$t('uploader.selectLanguage')"
                                 class="mt-4"
-                                label="Виберіть мову конспектування"
                                 v-model="language"
                         ></v-select>
                         <v-text-field
+                                :label="$t('uploader.selectFirstPage')"
                                 class="mt-3"
-                                label="Введіть сторінку, з якої почнете конспектувати"
                                 type="number"
                                 v-model="firstPage"
                         ></v-text-field>
                         <v-text-field
+                                :label="$t('uploader.selectLastPage')"
                                 class="mt-3"
-                                label="Введіть сторінку, на якій закінчите конспектувати"
                                 type="number"
                                 v-model="lastPage"
                         ></v-text-field>
 
-                        <v-btn @click="uploadPdf()"
-                               block
-                               color="success" size="lg">
-                            Поїхали!
+                        <v-btn @click="uploadPdf()" block color="success" size="lg">
+                            {{ $t('uploader.start') }}
                         </v-btn>
                     </v-card-text>
                 </v-card>
@@ -51,9 +49,9 @@
         data() {
             return {
                 options: [
-                    {text: 'Українська', value: 'ukr'},
-                    {text: 'Англійська', value: 'eng'},
-                    {text: 'Російська', value: 'rus'},
+                    {text: this.$t('languages.ukrainian'), value: 'ukr'},
+                    {text: this.$t('languages.english'), value: 'eng'},
+                    {text: this.$t('languages.russian'), value: 'rus'},
                 ],
                 language: 'eng',
                 file: null,
@@ -95,7 +93,7 @@
                         params: {lang: this.language, image},
                     });
                 }).catch(() => {
-                    window.alert("Сталася помилка! Спробуйте оновити сторінку!");
+                    window.alert(this.$t('serverErrorMessage.shortText'));
                 })
             }
         }

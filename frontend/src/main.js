@@ -8,6 +8,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VueCookie from 'vue-cookie';
 import * as Sentry from '@sentry/browser'
 import VueAnalytics from 'vue-analytics'
+import VueI18n from 'vue-i18n'
+import messages from './messages'
 
 Vue.config.productionTip = false;
 
@@ -16,6 +18,13 @@ Vue.use(VueSession);
 Vue.use(Vuetify, {iconfont: 'md'});
 
 Vue.use(VueCookie);
+
+Vue.use(VueI18n);
+
+const i18n = new VueI18n({
+    locale: 'uk',
+    messages
+});
 
 if (process.env.NODE_ENV === 'production') {
     Sentry.init({
@@ -31,5 +40,6 @@ if (process.env.NODE_ENV === 'production') {
 
 new Vue({
     router,
+    i18n,
     render: h => h(App)
 }).$mount('#app');

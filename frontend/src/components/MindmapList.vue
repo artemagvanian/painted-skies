@@ -7,16 +7,14 @@
                         <div>
                             <h3 class="headline mb-2"> {{ mindmap.title }}</h3>
                             <div>
-                                <p>Створено {{ moment.utc(mindmap.created_at).fromNow() }}</p>
-                                <p>Змінено {{ moment.utc(mindmap.edited_at).fromNow() }}</p>
+                                <p>{{ $t('list.created_at') + ' ' + moment.utc(mindmap.created_at).fromNow() }}</p>
+                                <p>{{ $t('list.edited_at') + ' ' + moment.utc(mindmap.edited_at).fromNow() }}</p>
                             </div>
                         </div>
                     </v-card-title>
                     <v-card-actions>
-                        <router-link
-                                :to="{ name: 'mindmap', params: { id: mindmap.id }}"
-                                tag="div">
-                            <v-btn>Редагувати</v-btn>
+                        <router-link :to="{ name: 'mindmap', params: { id: mindmap.id }}" tag="div">
+                            <v-btn>{{ $t('list.edit') }}</v-btn>
                         </router-link>
                     </v-card-actions>
                 </v-card>
@@ -39,7 +37,7 @@
             }
         },
         async mounted() {
-            moment.locale('uk');
+            moment.locale(this.$i18n.locale);
             try {
                 let mindmaps = await Mindmaps.list();
                 this.mindmaps = mindmaps.data;

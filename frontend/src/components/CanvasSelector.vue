@@ -46,11 +46,8 @@
         <div class="spin" v-if="loading">
             <div class="cp-spinner cp-heart"></div>
         </div>
-        <v-dialog :ok-only="true" id="modal" title="Сталася помилка!" v-model="errorModalShow">
-            Вся команда розробників вже знає про це та намагається все виправити. Зверніть увагу, що наш сервер не
-            оброблює зображення, більші за 10 МБ. Якщо виділень на конспекті дуже багато та сервер завантажений,
-            можуть
-            статися помилки. Спробуйте оновити сторінку!
+        <v-dialog :ok-only="true" :title="$t('serverErrorMessage.title')" id="modal" v-model="errorModalShow">
+            {{ $t("serverErrorMessage.text") }}
         </v-dialog>
     </v-container>
 </template>

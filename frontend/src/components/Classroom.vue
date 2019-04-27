@@ -4,22 +4,22 @@
             <v-flex md4 sm8 xs12>
                 <v-card class="elevation-12">
                     <v-toolbar color="primary" dark>
-                        <v-toolbar-title>Виберіть конспекти для порівняння</v-toolbar-title>
+                        <v-toolbar-title>{{ $t("classroom.selectNotesForComparison") }}</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
-                        <v-select :items="classrooms" @change="onClassroomChange"
-                                  placeholder="Виберіть клас учня" v-model="selectedClassroom"></v-select>
-                        <v-select :items="pupils" @change="onPupilChange" placeholder="Виберіть учня"
+                        <v-select :items="classrooms" :placeholder="$t('classroom.selectGroup')"
+                                  @change="onClassroomChange" v-model="selectedClassroom"></v-select>
+                        <v-select :items="pupils" :placeholder="$t('classroom.selectStudent')" @change="onPupilChange"
                                   v-model="selectedPupil"></v-select>
-                        <v-select :items="mindmaps" placeholder="Виберіть конспект учня"
+                        <v-select :items="mindmaps" :placeholder="$t('classroom.selectStudentNotes')"
                                   v-model="selectedMindmap"></v-select>
-                        <v-select :items="myMindmaps" placeholder="Виберіть свій конспект"
+                        <v-select :items="myMindmaps" :placeholder="$t('classroom.selectTeacherNotes')"
                                   v-model="selectedMyMindmap"></v-select>
                     </v-card-text>
                     <v-card-actions>
                         <p>{{ similarity }}</p>
                         <v-spacer></v-spacer>
-                        <v-btn @click="onSubmit" color="primary">Порівняти</v-btn>
+                        <v-btn @click="onSubmit" color="primary">{{ $t("classroom.compare") }}</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -64,7 +64,7 @@
                         'X-CSRFToken': $.cookie('csrftoken'),
                     }
                 });
-                this.similarity = 'Індекс схожості: ' + response.index + '%';
+                this.similarity = this.$t("classroom.similarityIndex") + ': ' + response.index + '%';
             },
             parseMindmaps(mindmaps) {
                 return mindmaps.data.map(dat => {

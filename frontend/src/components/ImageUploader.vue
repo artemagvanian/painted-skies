@@ -4,26 +4,25 @@
             <v-flex>
                 <v-card>
                     <v-toolbar>
-                        <h1>Завантажте файл</h1>
+                        <h1>{{ $t('uploader.uploadFile') }}</h1>
                     </v-toolbar>
                     <v-card-text>
-                        <v-btn @click="$refs.inputUpload.click()" block color="info">Натисніть, щоб вибрати зображення
-                            на комп'ютері
+                        <v-btn @click="$refs.inputUpload.click()" block color="info">
+                            {{ $t('uploader.clickToSelectImage') }}
                         </v-btn>
                         <input @change="onFileChange" accept="image/*" ref="inputUpload" type="file" v-show="false">
                         <v-select
                                 :items="options"
+                                :label="$t('uploader.selectLanguage')"
                                 class="mt-4"
-                                label="Виберіть мову конспектування"
                                 v-model="language"
                         ></v-select>
                         <router-link :to="{
                                 name: 'canvas',
                                 params: { lang: this.language, image: this.image },
                             }" tag="div">
-                            <v-btn block
-                                   color="success" size="lg">
-                                Поїхали!
+                            <v-btn block color="success" size="lg">
+                                {{ $t('uploader.start') }}
                             </v-btn>
                         </router-link>
                     </v-card-text>
@@ -39,9 +38,9 @@
         data() {
             return {
                 options: [
-                    {text: 'Українська', value: 'ukr'},
-                    {text: 'Англійська', value: 'eng'},
-                    {text: 'Російська', value: 'rus'},
+                    {text: this.$t('languages.ukrainian'), value: 'ukr'},
+                    {text: this.$t('languages.english'), value: 'eng'},
+                    {text: this.$t('languages.russian'), value: 'rus'},
                 ],
                 language: 'eng',
                 image: null,

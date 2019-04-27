@@ -9,7 +9,7 @@
                             <v-icon>map</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
-                            <v-text-field label="Назва ментальної карти" type="text" v-model="title"></v-text-field>
+                            <v-text-field :label="$t('editor.title')" type="text" v-model="title"></v-text-field>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-divider></v-divider>
@@ -25,7 +25,7 @@
                     <v-list-tile class="py-3">
                         <v-list-tile-content>
                             <v-btn :disabled="inAddMode" @click="addNodeMode()" block>
-                                Додати вузол
+                                {{ $t('editor.addNode') }}
                             </v-btn>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -33,7 +33,7 @@
                     <v-list-tile class="py-3">
                         <v-list-tile-content>
                             <v-btn :disabled="inAddMode" @click="addEdgeMode()" block>
-                                Додати ребро
+                                {{ $t('editor.addEdge') }}
                             </v-btn>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -44,22 +44,23 @@
                                 <v-icon>textsms</v-icon>
                             </v-list-tile-action>
                             <v-list-tile-content>
-                                <v-text-field label="Текст вузла" placeholder="Текст вузла..." type="text"
-                                              v-model="selectedNode.label"></v-text-field>
+                                <v-text-field :label="$t('editor.nodeLabel')"
+                                              :placeholder="$t('editor.nodeLabel') + '...'"
+                                              type="text" v-model="selectedNode.label"></v-text-field>
                             </v-list-tile-content>
                         </v-list-tile>
                         <v-divider></v-divider>
                         <v-list-tile class="py-3">
                             <v-list-tile-content>
                                 <v-btn @click="deleteNode()" block color='red'>
-                                    Видалити вузол
+                                    {{ $t('editor.deleteNode') }}
                                 </v-btn>
                             </v-list-tile-content>
                         </v-list-tile>
                     </template>
                     <v-list-tile class="py-3" v-else>
                         <div :style="{ width: 'calc(100% - 16px)', textAlign: 'center' }">
-                            <p>Виберіть вузол для редагування</p>
+                            <p>{{ $t('editor.selectNode') }}</p>
                         </div>
                     </v-list-tile>
                 </v-navigation-drawer>
@@ -112,7 +113,7 @@
             },
             async saveMindmap() {
                 try {
-                    this.saveStatus = 'Зберігаємо дані...';
+                    this.saveStatus = this.$t('editor.saving');
                     let nodeDS = this.nodesDataSet.get();
                     for (let i of nodeDS) {
                         i.x = this.network.body.nodes[i.id].x;
@@ -124,9 +125,9 @@
                         nodeDS,
                         this.edgesDataSet.get()
                     );
-                    this.saveStatus = 'Дані збережено'
+                    this.saveStatus = this.$t('editor.saved');
                 } catch (e) {
-                    this.saveStatus = 'Дані не збережено'
+                    this.saveStatus = this.$t('editor.notSaved');
                 }
             },
         },
@@ -150,11 +151,11 @@
         data() {
             return {
                 edgesDataSet: [],
-                saveStatus: 'Дані збережено',
+                saveStatus: this.$t('editor.saved'),
                 inAddMode: false,
                 nodesDataSet: [],
                 selectedNode: null,
-                title: 'Нова ментальна карта',
+                title: this.$t('editor.basicTitle'),
                 mindmapId: null,
             }
         }
@@ -181,7 +182,7 @@
             } catch {
                 this.nodesDataSet = new vis.DataSet(this.nodes);
                 this.edgesDataSet = new vis.DataSet(this.edges);
-                this.saveStatus = 'Дані не збережено'
+                this.saveStatus = this.$t('editor.notSaved')
             }
 
             let data = {

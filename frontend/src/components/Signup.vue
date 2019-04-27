@@ -4,24 +4,23 @@
             <v-flex md4 sm8 xs12>
                 <v-card class="elevation-12">
                     <v-toolbar color="primary" dark>
-                        <v-toolbar-title>Зареєструйтеся</v-toolbar-title>
+                        <v-toolbar-title>{{ $t('auth.signUpTitle') }}</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                         <v-form>
-                            <v-text-field :error-messages="errors.username" label="Логін" name="login"
-                                          prepend-icon="person"
-                                          type="text" v-model="username"></v-text-field>
-                            <v-text-field :error-messages="errors.password1" id="password1" label="Пароль"
-                                          name="password1" prepend-icon="lock"
-                                          type="password" v-model="password1"></v-text-field>
-                            <v-text-field :error-messages="errors.password2" id="password2" label="Повторіть пароль"
-                                          name="password2" prepend-icon="lock"
-                                          type="password" v-model="password2"></v-text-field>
+                            <v-text-field :error-messages="errors.username" :label="$t('auth.username')" name="login"
+                                          prepend-icon="person" type="text" v-model="username"></v-text-field>
+                            <v-text-field :error-messages="errors.password1" :label="$t('auth.password')" id="password1"
+                                          name="password1" prepend-icon="lock" type="password"
+                                          v-model="password1"></v-text-field>
+                            <v-text-field :error-messages="errors.password2" :label="$t('auth.repeatPassword')"
+                                          id="password2" name="password2" prepend-icon="lock" type="password"
+                                          v-model="password2"></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn @click="onSubmit" color="primary">Зареєструватися</v-btn>
+                        <v-btn @click="onSubmit" color="primary">{{ $t('auth.signUp') }}</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
