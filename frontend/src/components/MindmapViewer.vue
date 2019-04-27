@@ -3,7 +3,7 @@
         <div class="grid-container">
             <div id="network"></div>
             <div class="p-3" id="menu">
-                <v-navigation-drawer right>
+                <v-navigation-drawer permanent right>
                     <v-list-tile class="py-3">
                         <v-list-tile-action>
                             <v-icon>map</v-icon>
